@@ -1,0 +1,48 @@
+
+# List Project Keys V1 Response Api Keys Items
+
+*This model accepts additional fields of type unknown.*
+
+## Structure
+
+`ListProjectKeysV1ResponseApiKeysItems`
+
+## Fields
+
+| Name | Type | Tags | Description |
+|  --- | --- | --- | --- |
+| `member` | [`ListProjectKeysV1ResponseApiKeysItemsMember \| undefined`](../../doc/models/list-project-keys-v1-response-api-keys-items-member.md) | Optional | - |
+| `apiKey` | [`ListProjectKeysV1ResponseApiKeysItemsApiKey \| undefined`](../../doc/models/list-project-keys-v1-response-api-keys-items-api-key.md) | Optional | - |
+| `additionalProperties` | `Record<string, unknown>` | Optional | - |
+
+## Example
+
+```ts
+import { ListProjectKeysV1ResponseApiKeysItems } from 'rest-apilib';
+
+const listProjectKeysV1ResponseApiKeysItems: ListProjectKeysV1ResponseApiKeysItems = {
+  member: {
+    memberId: 'member_id4',
+    email: 'email0',
+    additionalProperties: {
+      'exampleAdditionalProperty': { 'key1': 'val1', 'key2': 'val2' }
+    },
+  },
+  apiKey: {
+    apiKeyId: 'api_key_id6',
+    comment: 'comment6',
+    scopes: [
+      'scopes4',
+      'scopes3'
+    ],
+    created: '2016-03-13T12:52:32.123Z',
+    additionalProperties: {
+      'exampleAdditionalProperty': { 'key1': 'val1', 'key2': 'val2' }
+    },
+  },
+  additionalProperties: {
+    'exampleAdditionalProperty': { 'key1': 'val1', 'key2': 'val2' }
+  },
+};
+```
+
