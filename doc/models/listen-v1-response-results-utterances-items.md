@@ -24,7 +24,7 @@
 ## Example
 
 ```ts
-import { ListenV1ResponseResultsUtterancesItems } from 'rest-apilib';
+import { ListenV1ResponseResultsUtterancesItems } from 'deepgram';
 
 const listenV1ResponseResultsUtterancesItems: ListenV1ResponseResultsUtterancesItems = {
   start: 55.44,

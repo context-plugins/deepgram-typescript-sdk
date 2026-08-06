@@ -23,7 +23,7 @@
 ```ts
 import {
   ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsDistributionCredentials,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const listProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsDistributionCredentials: ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsDistributionCredentials = {
   distributionCredentialsId: '000022fe-0000-0000-0000-000000000000',

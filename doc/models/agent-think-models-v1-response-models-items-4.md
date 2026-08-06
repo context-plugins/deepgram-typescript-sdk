@@ -21,7 +21,7 @@ AWS Bedrock models (custom models accepted)
 ## Example
 
 ```ts
-import { AgentThinkModelsV1ResponseModelsItems4 } from 'rest-apilib';
+import { AgentThinkModelsV1ResponseModelsItems4 } from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItems4: AgentThinkModelsV1ResponseModelsItems4 = {
   id: 'id0',

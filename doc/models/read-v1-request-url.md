@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { ReadV1RequestUrl } from 'rest-apilib';
+import { ReadV1RequestUrl } from 'deepgram';
 
 const readV1RequestUrl: ReadV1RequestUrl = {
   url: 'url2',

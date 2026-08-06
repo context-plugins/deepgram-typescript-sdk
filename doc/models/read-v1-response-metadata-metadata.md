@@ -23,7 +23,7 @@
 ## Example
 
 ```ts
-import { ReadV1ResponseMetadataMetadata } from 'rest-apilib';
+import { ReadV1ResponseMetadataMetadata } from 'deepgram';
 
 const readV1ResponseMetadataMetadata: ReadV1ResponseMetadataMetadata = {
   requestId: '000016b8-0000-0000-0000-000000000000',

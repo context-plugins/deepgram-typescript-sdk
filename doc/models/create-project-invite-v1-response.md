@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { CreateProjectInviteV1Response } from 'rest-apilib';
+import { CreateProjectInviteV1Response } from 'deepgram';
 
 const createProjectInviteV1Response: CreateProjectInviteV1Response = {
   message: 'message4',

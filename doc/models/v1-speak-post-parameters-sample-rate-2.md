@@ -17,7 +17,7 @@ Encoding - alaw. Supported sample rates - 8000, 16000 Hz.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersSampleRate2 } from 'rest-apilib';
+import { V1SpeakPostParametersSampleRate2 } from 'deepgram';
 
 const v1SpeakPostParametersSampleRate2 = V1SpeakPostParametersSampleRate2.Enum8000;
 ```

@@ -24,7 +24,7 @@ API key created
 ## Example
 
 ```ts
-import { CreateKeyV1Response } from 'rest-apilib';
+import { CreateKeyV1Response } from 'deepgram';
 
 const createKeyV1Response: CreateKeyV1Response = {
   apiKeyId: 'api_key_id0',

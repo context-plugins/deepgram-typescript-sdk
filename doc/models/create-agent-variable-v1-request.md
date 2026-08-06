@@ -21,7 +21,7 @@ Request body for creating an agent variable
 ## Example
 
 ```ts
-import { CreateAgentVariableV1Request } from 'rest-apilib';
+import { CreateAgentVariableV1Request } from 'deepgram';
 
 const createAgentVariableV1Request: CreateAgentVariableV1Request = {
   key: 'key0',

@@ -19,7 +19,7 @@
 ## Example
 
 ```ts
-import { ListenV1ResponseResultsChannelsItems } from 'rest-apilib';
+import { ListenV1ResponseResultsChannelsItems } from 'deepgram';
 
 const listenV1ResponseResultsChannelsItems: ListenV1ResponseResultsChannelsItems = {
   search: [

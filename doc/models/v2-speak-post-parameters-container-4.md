@@ -16,7 +16,7 @@ Encoding - opus. Supported container - ogg (default).
 ## Example
 
 ```ts
-import { V2SpeakPostParametersContainer4 } from 'rest-apilib';
+import { V2SpeakPostParametersContainer4 } from 'deepgram';
 
 const v2SpeakPostParametersContainer4 = V2SpeakPostParametersContainer4.Ogg;
 ```

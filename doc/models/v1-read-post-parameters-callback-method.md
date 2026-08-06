@@ -15,7 +15,7 @@
 ## Example
 
 ```ts
-import { V1ReadPostParametersCallbackMethod } from 'rest-apilib';
+import { V1ReadPostParametersCallbackMethod } from 'deepgram';
 
 const v1ReadPostParametersCallbackMethod = V1ReadPostParametersCallbackMethod.Post;
 ```

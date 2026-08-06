@@ -18,7 +18,7 @@
 ## Example
 
 ```ts
-import { ListProjectKeysV1ResponseApiKeysItems } from 'rest-apilib';
+import { ListProjectKeysV1ResponseApiKeysItems } from 'deepgram';
 
 const listProjectKeysV1ResponseApiKeysItems: ListProjectKeysV1ResponseApiKeysItems = {
   member: {

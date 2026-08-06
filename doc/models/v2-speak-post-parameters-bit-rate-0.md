@@ -21,7 +21,7 @@ Encoding - mp3(default). Supported bitrates - 8000, 16000, 24000, 32000, 40000, 
 ## Example
 
 ```ts
-import { V2SpeakPostParametersBitRate0 } from 'rest-apilib';
+import { V2SpeakPostParametersBitRate0 } from 'deepgram';
 
 const v2SpeakPostParametersBitRate0 = V2SpeakPostParametersBitRate0.Enum8000;
 ```

@@ -20,7 +20,7 @@ The standard text response
 ## Example
 
 ```ts
-import { ReadV1Response } from 'rest-apilib';
+import { ReadV1Response } from 'deepgram';
 
 const readV1Response: ReadV1Response = {
   metadata: {

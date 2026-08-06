@@ -19,7 +19,7 @@
 ## Example
 
 ```ts
-import { UsageV1Response } from 'rest-apilib';
+import { UsageV1Response } from 'deepgram';
 
 const usageV1Response: UsageV1Response = {
   start: '2016-03-13T12:52:32.123Z',

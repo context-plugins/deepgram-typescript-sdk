@@ -23,7 +23,7 @@
 ```ts
 import {
   V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const v1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems = V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems.EnumSelfhostedproductengine;
 ```

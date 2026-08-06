@@ -20,7 +20,7 @@
 ## Example
 
 ```ts
-import { BillingBreakdownV1Response } from 'rest-apilib';
+import { BillingBreakdownV1Response } from 'deepgram';
 
 const billingBreakdownV1Response: BillingBreakdownV1Response = {
   start: '2016-03-13T12:52:32.123Z',

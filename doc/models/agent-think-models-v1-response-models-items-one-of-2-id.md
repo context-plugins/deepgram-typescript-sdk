@@ -18,7 +18,7 @@ The unique identifier of the Google model
 ## Example
 
 ```ts
-import { AgentThinkModelsV1ResponseModelsItemsOneOf2Id } from 'rest-apilib';
+import { AgentThinkModelsV1ResponseModelsItemsOneOf2Id } from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItemsOneOf2Id = AgentThinkModelsV1ResponseModelsItemsOneOf2Id.EnumGemini25Flash;
 ```

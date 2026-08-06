@@ -13,12 +13,9 @@ const manageV1ProjectsUsageBreakdownApi = new ManageV1ProjectsUsageBreakdownApi(
 
 Retrieves the usage breakdown for a specific project, with various filter options by API feature or by groupings. Setting a feature (e.g. diarize) to true includes requests that used that feature, while false excludes requests that used it. Multiple true filters are combined with OR logic, while false filters use AND logic.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async get(
   projectId: string,
-  authorization: string,
   start?: string,
   end?: string,
   grouping?: V1ProjectsProjectIdUsageBreakdownGetParametersGrouping,
@@ -68,12 +65,15 @@ async get(
 ): Promise<ApiResponse<UsageBreakdownV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `start` | `string \| undefined` | Query, Optional | Start date of the requested date range. Format accepted is YYYY-MM-DD |
 | `end` | `string \| undefined` | Query, Optional | End date of the requested date range. Format accepted is YYYY-MM-DD |
 | `grouping` | [`V1ProjectsProjectIdUsageBreakdownGetParametersGrouping \| undefined`](../../doc/models/v1-projects-project-id-usage-breakdown-get-parameters-grouping.md) | Query, Optional | Common usage grouping parameters |
@@ -132,13 +132,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsUsageBreakdownApi.get(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsUsageBreakdownApi.get(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);

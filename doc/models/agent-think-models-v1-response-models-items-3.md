@@ -24,7 +24,7 @@ Groq models
 import {
   AgentThinkModelsV1ResponseModelsItems3,
   AgentThinkModelsV1ResponseModelsItemsOneOf3Id,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItems3: AgentThinkModelsV1ResponseModelsItems3 = {
   id: AgentThinkModelsV1ResponseModelsItemsOneOf3Id.EnumOpenaigptoss20B,

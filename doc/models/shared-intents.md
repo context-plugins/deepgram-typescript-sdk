@@ -19,7 +19,7 @@ Output whenever `intents=true` is used
 ## Example
 
 ```ts
-import { SharedIntents } from 'rest-apilib';
+import { SharedIntents } from 'deepgram';
 
 const sharedIntents: SharedIntents = {
   results: {

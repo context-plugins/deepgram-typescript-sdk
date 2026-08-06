@@ -20,7 +20,7 @@
 ## Example
 
 ```ts
-import { GetProjectBalanceV1Response } from 'rest-apilib';
+import { GetProjectBalanceV1Response } from 'deepgram';
 
 const getProjectBalanceV1Response: GetProjectBalanceV1Response = {
   balanceId: 'balance_id6',

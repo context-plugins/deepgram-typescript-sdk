@@ -20,7 +20,7 @@
 ## Example
 
 ```ts
-import { SharedTopicsResultsTopicsSegmentsItems } from 'rest-apilib';
+import { SharedTopicsResultsTopicsSegmentsItems } from 'deepgram';
 
 const sharedTopicsResultsTopicsSegmentsItems: SharedTopicsResultsTopicsSegmentsItems = {
   text: 'text0',

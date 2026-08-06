@@ -20,7 +20,7 @@ The standard transcription response
 ## Example
 
 ```ts
-import { ListenV1Response } from 'rest-apilib';
+import { ListenV1Response } from 'deepgram';
 
 const listenV1Response: ListenV1Response = {
   metadata: {

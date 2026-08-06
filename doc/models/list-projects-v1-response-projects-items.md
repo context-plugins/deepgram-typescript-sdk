@@ -18,7 +18,7 @@
 ## Example
 
 ```ts
-import { ListProjectsV1ResponseProjectsItems } from 'rest-apilib';
+import { ListProjectsV1ResponseProjectsItems } from 'deepgram';
 
 const listProjectsV1ResponseProjectsItems: ListProjectsV1ResponseProjectsItems = {
   projectId: 'project_id4',

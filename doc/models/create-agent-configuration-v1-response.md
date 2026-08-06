@@ -19,7 +19,7 @@
 ## Example
 
 ```ts
-import { CreateAgentConfigurationV1Response } from 'rest-apilib';
+import { CreateAgentConfigurationV1Response } from 'deepgram';
 
 const createAgentConfigurationV1Response: CreateAgentConfigurationV1Response = {
   agentId: 'agent_id6',

@@ -13,21 +13,21 @@ const authV1TokensApi = new AuthV1TokensApi(client);
 
 Generates a temporary JSON Web Token (JWT) with a 30-second (by default) TTL and usage::write permission for core voice APIs, requiring an API key with Member or higher authorization. Tokens created with this endpoint will not work with the Manage APIs.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async grant(
-  authorization: string,
   body?: GrantV1Request,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<GrantV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `body` | [`GrantV1Request \| undefined`](../../doc/models/grant-v1-request.md) | Body, Optional | Time to live settings |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -40,10 +40,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const authorization = 'Authorization8';
-
 try {
-  const response = await authV1TokensApi.grant(authorization);
+  const response = await authV1TokensApi.grant();
 
   // Extracting fully parsed response body.
   console.log(response.result);

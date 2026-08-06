@@ -21,7 +21,7 @@ Encoding - linear16. Supported sample rates - 8000, 16000, 24000, 32000, 44100, 
 ## Example
 
 ```ts
-import { V2SpeakPostParametersSampleRate0 } from 'rest-apilib';
+import { V2SpeakPostParametersSampleRate0 } from 'deepgram';
 
 const v2SpeakPostParametersSampleRate0 = V2SpeakPostParametersSampleRate0.Enum44100;
 ```

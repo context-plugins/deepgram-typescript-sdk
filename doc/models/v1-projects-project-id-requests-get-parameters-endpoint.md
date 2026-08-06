@@ -17,9 +17,7 @@
 ## Example
 
 ```ts
-import {
-  V1ProjectsProjectIdRequestsGetParametersEndpoint,
-} from 'rest-apilib';
+import { V1ProjectsProjectIdRequestsGetParametersEndpoint } from 'deepgram';
 
 const v1ProjectsProjectIdRequestsGetParametersEndpoint = V1ProjectsProjectIdRequestsGetParametersEndpoint.Speak;
 ```

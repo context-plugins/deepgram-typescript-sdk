@@ -20,7 +20,7 @@
 ## Example
 
 ```ts
-import { SharedIntentsResultsIntentsSegmentsItems } from 'rest-apilib';
+import { SharedIntentsResultsIntentsSegmentsItems } from 'deepgram';
 
 const sharedIntentsResultsIntentsSegmentsItems: SharedIntentsResultsIntentsSegmentsItems = {
   text: 'text0',

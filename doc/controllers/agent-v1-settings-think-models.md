@@ -13,13 +13,15 @@ const agentV1SettingsThinkModelsApi = new AgentV1SettingsThinkModelsApi(client);
 
 Retrieves the available think models that can be used for AI agent processing
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<AgentThinkModelsV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 

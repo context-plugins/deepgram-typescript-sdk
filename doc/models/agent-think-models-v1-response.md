@@ -20,7 +20,7 @@
 import {
   AgentThinkModelsV1Response,
   AgentThinkModelsV1ResponseModelsItemsOneOf0Id,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const agentThinkModelsV1Response: AgentThinkModelsV1Response = {
   models: [

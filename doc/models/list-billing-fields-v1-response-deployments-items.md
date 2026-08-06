@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { ListBillingFieldsV1ResponseDeploymentsItems } from 'rest-apilib';
+import { ListBillingFieldsV1ResponseDeploymentsItems } from 'deepgram';
 
 const listBillingFieldsV1ResponseDeploymentsItems = ListBillingFieldsV1ResponseDeploymentsItems.Hosted;
 ```

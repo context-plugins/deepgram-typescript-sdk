@@ -17,7 +17,7 @@ Run the following commands in the command prompt or shell of your choice to chec
 
 * npm: `npm --version`
 
-![Version Check](https://apidocs.io/illustration/typescript?workspaceFolder=RestApi&step=versionCheck)
+![Version Check](https://apidocs.io/illustration/typescript?workspaceFolder=Deepgram&step=versionCheck)
 
 ### Install Dependencies
 
@@ -29,7 +29,7 @@ npm install
 
 - This will install all dependencies in the **node_modules** folder.
 
-![Resolve Dependencies](https://apidocs.io/illustration/typescript?workspaceFolder=RestApi&workspaceName=rest-apilib&step=resolveDependency)
+![Resolve Dependencies](https://apidocs.io/illustration/typescript?workspaceFolder=Deepgram&workspaceName=deepgram&step=resolveDependency)
 
 ## Installation
 
@@ -53,9 +53,9 @@ npm init --y
 
 ### 2. Add Dependencies to the Client Library
 
-- The created project manages its dependencies using its `package.json` file. In order to add a dependency on the *REST APILib* client library, double click on the `package.json` file in the bar on the left and add the dependency to the package in it.
+- The created project manages its dependencies using its `package.json` file. In order to add a dependency on the *Deepgram* client library, double click on the `package.json` file in the bar on the left and add the dependency to the package in it.
 
-![Add RestApilib Dependency](https://apidocs.io/illustration/typescript?workspaceFolder=RestApi&workspaceName=rest-apilib&step=importDependency)
+![Add Deepgram Dependency](https://apidocs.io/illustration/typescript?workspaceFolder=Deepgram&workspaceName=deepgram&step=importDependency)
 
 - To install the package in the project, run the following command in the terminal:
 
@@ -63,7 +63,7 @@ npm init --y
 npm install
 ```
 
-![Install RestApilib Dependency](https://apidocs.io/illustration/typescript?step=installDependency)
+![Install Deepgram Dependency](https://apidocs.io/illustration/typescript?step=installDependency)
 
 ## Initialize the API Client
 
@@ -86,7 +86,7 @@ The API client can be initialized as follows:
 ### Code-Based Client Initialization
 
 ```ts
-import { Client, Environment, LogLevel } from 'rest-apilib';
+import { Client, Environment, LogLevel } from 'deepgram';
 
 const client = new Client({
   apiKeyAuthCredentials: {
@@ -114,7 +114,7 @@ const client = new Client({
 ```ts
 import * as path from 'path';
 import * as fs from 'fs';
-import { Client } from 'rest-apilib';
+import { Client } from 'deepgram';
 
 // Provide absolute path for the configuration file
 const absolutePath = path.resolve('./config.json');
@@ -134,7 +134,7 @@ See the [Configuration-Based Client Initialization](doc/configuration-based-clie
 import * as dotenv from 'dotenv';
 import * as path from 'path';
 import * as fs from 'fs';
-import { Client } from 'rest-apilib';
+import { Client } from 'deepgram';
 
 // Optional - Provide absolute path for the .env file
 const absolutePath = path.resolve('./.env');

@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { GetProjectKeyV1ResponseItem } from 'rest-apilib';
+import { GetProjectKeyV1ResponseItem } from 'deepgram';
 
 const getProjectKeyV1ResponseItem: GetProjectKeyV1ResponseItem = {
   member: {

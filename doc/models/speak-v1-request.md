@@ -19,7 +19,7 @@ Request body for text-to-speech conversion
 ## Example
 
 ```ts
-import { SpeakV1Request } from 'rest-apilib';
+import { SpeakV1Request } from 'deepgram';
 
 const speakV1Request: SpeakV1Request = {
   text: 'text2',

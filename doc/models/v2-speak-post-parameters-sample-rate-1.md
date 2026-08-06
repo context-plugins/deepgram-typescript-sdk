@@ -17,7 +17,7 @@ Encoding - mulaw. Supported sample rates - 8000, 16000 Hz.
 ## Example
 
 ```ts
-import { V2SpeakPostParametersSampleRate1 } from 'rest-apilib';
+import { V2SpeakPostParametersSampleRate1 } from 'deepgram';
 
 const v2SpeakPostParametersSampleRate1 = V2SpeakPostParametersSampleRate1.Enum8000;
 ```

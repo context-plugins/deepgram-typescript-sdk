@@ -21,7 +21,7 @@
 ## Example
 
 ```ts
-import { V1ListenPostParametersEncoding } from 'rest-apilib';
+import { V1ListenPostParametersEncoding } from 'deepgram';
 
 const v1ListenPostParametersEncoding = V1ListenPostParametersEncoding.Linear16;
 ```

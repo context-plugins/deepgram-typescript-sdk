@@ -23,7 +23,7 @@ A reusable agent configuration
 ## Example
 
 ```ts
-import { AgentConfigurationV1 } from 'rest-apilib';
+import { AgentConfigurationV1 } from 'deepgram';
 
 const agentConfigurationV1: AgentConfigurationV1 = {
   agentId: 'agent_id0',

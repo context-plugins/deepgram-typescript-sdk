@@ -20,7 +20,7 @@
 ```ts
 import {
   SharedIntentsResultsIntentsSegmentsItemsIntentsItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const sharedIntentsResultsIntentsSegmentsItemsIntentsItems: SharedIntentsResultsIntentsSegmentsItemsIntentsItems = {
   intent: 'intent6',

@@ -13,11 +13,8 @@ const speakV1AudioApi = new SpeakV1AudioApi(client);
 
 Convert text into natural-sounding speech using Deepgram's TTS REST API
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async generate(
-  authorization: string,
   callback?: string,
   callbackMethod?: V1ListenPostParametersCallbackMethod,
   mipOptOut?: boolean,
@@ -33,11 +30,14 @@ async generate(
 ): Promise<ApiResponse<unknown | undefined>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `callback` | `string \| undefined` | Query, Optional | URL to which we'll make the callback request |
 | `callbackMethod` | [`V1ListenPostParametersCallbackMethod \| undefined`](../../doc/models/v1-listen-post-parameters-callback-method.md) | Query, Optional | HTTP method by which the callback request will be made<br><br>**Default**: `V1ListenPostParametersCallbackMethod.Post` |
 | `mipOptOut` | `boolean \| undefined` | Query, Optional | Opts out requests from the Deepgram Model Improvement Program. Refer to our Docs for pricing impacts before setting this to true. https://dpgr.am/deepgram-mip<br><br>**Default**: `false` |
@@ -60,8 +60,6 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const authorization = 'Authorization8';
-
 const callbackMethod = V1ListenPostParametersCallbackMethod.Post;
 
 const mipOptOut = false;
@@ -72,7 +70,6 @@ const speed = 1;
 
 try {
   const response = await speakV1AudioApi.generate(
-    authorization,
     undefined,
     callbackMethod,
     mipOptOut,

@@ -24,7 +24,7 @@ Anthropic models
 import {
   AgentThinkModelsV1ResponseModelsItems1,
   AgentThinkModelsV1ResponseModelsItemsOneOf1Id,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItems1: AgentThinkModelsV1ResponseModelsItems1 = {
   id: AgentThinkModelsV1ResponseModelsItemsOneOf1Id.Claude35Haikulatest,

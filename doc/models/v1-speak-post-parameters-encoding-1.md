@@ -16,7 +16,7 @@ Encoding - flac. Lossless audio format for high-quality compression.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersEncoding1 } from 'rest-apilib';
+import { V1SpeakPostParametersEncoding1 } from 'deepgram';
 
 const v1SpeakPostParametersEncoding1 = V1SpeakPostParametersEncoding1.Flac;
 ```

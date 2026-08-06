@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { ReadV1ResponseMetadata } from 'rest-apilib';
+import { ReadV1ResponseMetadata } from 'deepgram';
 
 const readV1ResponseMetadata: ReadV1ResponseMetadata = {
   metadata: {

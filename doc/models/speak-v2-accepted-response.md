@@ -19,7 +19,7 @@ Accepted response returned when a callback URL is supplied; the audio is deliver
 ## Example
 
 ```ts
-import { SpeakV2AcceptedResponse } from 'rest-apilib';
+import { SpeakV2AcceptedResponse } from 'deepgram';
 
 const speakV2AcceptedResponse: SpeakV2AcceptedResponse = {
   requestId: '00001fa4-0000-0000-0000-000000000000',

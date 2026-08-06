@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { ListAgentConfigurationsV1Response } from 'rest-apilib';
+import { ListAgentConfigurationsV1Response } from 'deepgram';
 
 const listAgentConfigurationsV1Response: ListAgentConfigurationsV1Response = {
   agents: [

@@ -17,7 +17,7 @@ The unique identifier of the Anthropic model
 ## Example
 
 ```ts
-import { AgentThinkModelsV1ResponseModelsItemsOneOf1Id } from 'rest-apilib';
+import { AgentThinkModelsV1ResponseModelsItemsOneOf1Id } from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItemsOneOf1Id = AgentThinkModelsV1ResponseModelsItemsOneOf1Id.Claude35Haikulatest;
 ```

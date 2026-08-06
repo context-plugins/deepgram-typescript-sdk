@@ -18,7 +18,7 @@
 ## Example
 
 ```ts
-import { BillingBreakdownV1ResponseResultsItems } from 'rest-apilib';
+import { BillingBreakdownV1ResponseResultsItems } from 'deepgram';
 
 const billingBreakdownV1ResponseResultsItems: BillingBreakdownV1ResponseResultsItems = {
   dollars: 151.78,

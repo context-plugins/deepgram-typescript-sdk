@@ -19,22 +19,22 @@ const manageV1ProjectsMembersInvitesApi = new ManageV1ProjectsMembersInvitesApi(
 
 Generates a list of invites for a specific project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListProjectInvitesV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -48,13 +48,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsMembersInvitesApi.list(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsMembersInvitesApi.list(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -88,23 +83,23 @@ try {
 
 Generates an invite for a specific project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async create(
   projectId: string,
-  authorization: string,
   body?: CreateProjectInviteV1Request,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<CreateProjectInviteV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `body` | [`CreateProjectInviteV1Request \| undefined`](../../doc/models/create-project-invite-v1-request.md) | Body, Optional | email to invite to the project |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -119,13 +114,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsMembersInvitesApi.create(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsMembersInvitesApi.create(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -159,16 +149,17 @@ try {
 
 Deletes an invite for a specific project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async mDelete(
   projectId: string,
   email: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<DeleteProjectInviteV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -176,7 +167,6 @@ async mDelete(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `email` | `string` | Template, Required | The email address of the member |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -192,13 +182,10 @@ const projectId = 'project_id6';
 
 const email = 'email6';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await manageV1ProjectsMembersInvitesApi.mDelete(
     projectId,
-    email,
-    authorization
+    email
   );
 
   // Extracting fully parsed response body.

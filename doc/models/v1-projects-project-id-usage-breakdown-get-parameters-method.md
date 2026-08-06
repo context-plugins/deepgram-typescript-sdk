@@ -20,7 +20,7 @@ Method type for the request
 ```ts
 import {
   V1ProjectsProjectIdUsageBreakdownGetParametersMethod,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const v1ProjectsProjectIdUsageBreakdownGetParametersMethod = V1ProjectsProjectIdUsageBreakdownGetParametersMethod.Async;
 ```

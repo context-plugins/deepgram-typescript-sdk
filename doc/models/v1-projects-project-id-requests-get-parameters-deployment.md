@@ -18,9 +18,7 @@ Deployment type for the requests
 ## Example
 
 ```ts
-import {
-  V1ProjectsProjectIdRequestsGetParametersDeployment,
-} from 'rest-apilib';
+import { V1ProjectsProjectIdRequestsGetParametersDeployment } from 'deepgram';
 
 const v1ProjectsProjectIdRequestsGetParametersDeployment = V1ProjectsProjectIdRequestsGetParametersDeployment.Selfhosted;
 ```

@@ -23,7 +23,7 @@
 import {
   ListBillingFieldsV1Response,
   ListBillingFieldsV1ResponseDeploymentsItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const listBillingFieldsV1Response: ListBillingFieldsV1Response = {
   accessors: [

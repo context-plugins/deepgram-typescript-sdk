@@ -22,7 +22,7 @@
 ## Example
 
 ```ts
-import { BillingBreakdownV1ResponseResultsItemsGrouping } from 'rest-apilib';
+import { BillingBreakdownV1ResponseResultsItemsGrouping } from 'deepgram';
 
 const billingBreakdownV1ResponseResultsItemsGrouping: BillingBreakdownV1ResponseResultsItemsGrouping = {
   start: '2016-03-13T12:52:32.123Z',

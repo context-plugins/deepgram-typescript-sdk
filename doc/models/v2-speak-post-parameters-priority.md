@@ -14,7 +14,7 @@
 ## Example
 
 ```ts
-import { V2SpeakPostParametersPriority } from 'rest-apilib';
+import { V2SpeakPostParametersPriority } from 'deepgram';
 
 const v2SpeakPostParametersPriority = V2SpeakPostParametersPriority.Low;
 ```

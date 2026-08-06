@@ -19,7 +19,7 @@
 ## Example
 
 ```ts
-import { ReadV1ResponseMetadataMetadataSentimentInfo } from 'rest-apilib';
+import { ReadV1ResponseMetadataMetadataSentimentInfo } from 'deepgram';
 
 const readV1ResponseMetadataMetadataSentimentInfo: ReadV1ResponseMetadataMetadataSentimentInfo = {
   modelUuid: '00001246-0000-0000-0000-000000000000',

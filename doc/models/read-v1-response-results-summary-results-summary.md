@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { ReadV1ResponseResultsSummaryResultsSummary } from 'rest-apilib';
+import { ReadV1ResponseResultsSummaryResultsSummary } from 'deepgram';
 
 const readV1ResponseResultsSummaryResultsSummary: ReadV1ResponseResultsSummaryResultsSummary = {
   text: 'text8',

@@ -21,23 +21,23 @@ const voiceAgentVariablesApi = new VoiceAgentVariablesApi(client);
 
 Creates a new template variable. Variables follow the `DG_<VARIABLE_NAME>` naming format and can substitute any JSON value in an agent configuration.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async create(
   projectId: string,
-  authorization: string,
   body?: CreateAgentVariableV1Request,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<AgentVariableV1>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `body` | [`CreateAgentVariableV1Request \| undefined`](../../doc/models/create-agent-variable-v1-request.md) | Body, Optional | Agent variable details |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -52,8 +52,6 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 const body: CreateAgentVariableV1Request = {
   key: 'key6',
   value: { 'key1': 'val1', 'key2': 'val2' },
@@ -63,7 +61,6 @@ const body: CreateAgentVariableV1Request = {
 try {
   const response = await voiceAgentVariablesApi.create(
     projectId,
-    authorization,
     body
   );
 
@@ -99,22 +96,22 @@ try {
 
 Returns all template variables for the specified project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListAgentVariablesV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -128,13 +125,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await voiceAgentVariablesApi.list(
-    projectId,
-    authorization
-  );
+  const response = await voiceAgentVariablesApi.list(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -168,16 +160,17 @@ try {
 
 Returns the specified template variable
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async get(
   projectId: string,
   variableId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<AgentVariableV1>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -185,7 +178,6 @@ async get(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `variableId` | `string` | Template, Required | The unique identifier of the agent variable |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -201,13 +193,10 @@ const projectId = 'project_id6';
 
 const variableId = 'variable_id8';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await voiceAgentVariablesApi.get(
     projectId,
-    variableId,
-    authorization
+    variableId
   );
 
   // Extracting fully parsed response body.
@@ -242,17 +231,18 @@ try {
 
 Updates the value of an existing template variable
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async update(
   projectId: string,
   variableId: string,
-  authorization: string,
   body?: UpdateAgentVariableV1Request,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<AgentVariableV1>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -260,7 +250,6 @@ async update(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `variableId` | `string` | Template, Required | The unique identifier of the agent variable |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `body` | [`UpdateAgentVariableV1Request \| undefined`](../../doc/models/update-agent-variable-v1-request.md) | Body, Optional | Updated value for the agent variable |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -277,13 +266,10 @@ const projectId = 'project_id6';
 
 const variableId = 'variable_id8';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await voiceAgentVariablesApi.update(
     projectId,
-    variableId,
-    authorization
+    variableId
   );
 
   // Extracting fully parsed response body.
@@ -318,16 +304,17 @@ try {
 
 Deletes the specified template variable
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async mDelete(
   projectId: string,
   variableId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<unknown | undefined>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -335,7 +322,6 @@ async mDelete(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `variableId` | `string` | Template, Required | The unique identifier of the agent variable |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -351,13 +337,10 @@ const projectId = 'project_id6';
 
 const variableId = 'variable_id8';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await voiceAgentVariablesApi.mDelete(
     projectId,
-    variableId,
-    authorization
+    variableId
   );
 
   // Extracting fully parsed response body.

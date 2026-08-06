@@ -23,7 +23,7 @@
 ## Example
 
 ```ts
-import { ListModelsV1ResponseTtsModelsMetadata } from 'rest-apilib';
+import { ListModelsV1ResponseTtsModelsMetadata } from 'deepgram';
 
 const listModelsV1ResponseTtsModelsMetadata: ListModelsV1ResponseTtsModelsMetadata = {
   accent: 'accent4',

@@ -16,7 +16,7 @@ Encoding - opus. Sample rate is fixed at 48000 Hz.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersSampleRate4 } from 'rest-apilib';
+import { V1SpeakPostParametersSampleRate4 } from 'deepgram';
 
 const v1SpeakPostParametersSampleRate4 = V1SpeakPostParametersSampleRate4.Enum48000;
 ```

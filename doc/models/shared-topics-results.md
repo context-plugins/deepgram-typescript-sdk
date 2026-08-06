@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { SharedTopicsResults } from 'rest-apilib';
+import { SharedTopicsResults } from 'deepgram';
 
 const sharedTopicsResults: SharedTopicsResults = {
   topics: {

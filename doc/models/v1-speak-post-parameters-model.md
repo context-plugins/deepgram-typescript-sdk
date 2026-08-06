@@ -116,7 +116,7 @@
 ## Example
 
 ```ts
-import { V1SpeakPostParametersModel } from 'rest-apilib';
+import { V1SpeakPostParametersModel } from 'deepgram';
 
 const v1SpeakPostParametersModel = V1SpeakPostParametersModel.Aura2Hectorfr;
 ```

@@ -16,7 +16,7 @@
 ## Example
 
 ```ts
-import { V1ListenPostParametersDiarizeModel } from 'rest-apilib';
+import { V1ListenPostParametersDiarizeModel } from 'deepgram';
 
 const v1ListenPostParametersDiarizeModel = V1ListenPostParametersDiarizeModel.Latest;
 ```

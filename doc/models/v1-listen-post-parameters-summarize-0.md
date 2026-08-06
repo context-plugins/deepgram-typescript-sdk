@@ -14,7 +14,7 @@
 ## Example
 
 ```ts
-import { V1ListenPostParametersSummarize0 } from 'rest-apilib';
+import { V1ListenPostParametersSummarize0 } from 'deepgram';
 
 const v1ListenPostParametersSummarize0 = V1ListenPostParametersSummarize0.V2;
 ```

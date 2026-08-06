@@ -16,7 +16,7 @@ Encoding - alaw. Supported container - wav (default), or no container.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersContainer3 } from 'rest-apilib';
+import { V1SpeakPostParametersContainer3 } from 'deepgram';
 
 const v1SpeakPostParametersContainer3 = V1SpeakPostParametersContainer3.Wav;
 ```

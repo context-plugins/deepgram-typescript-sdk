@@ -18,7 +18,7 @@
 ## Example
 
 ```ts
-import { UsageBreakdownV1ResponseResolution } from 'rest-apilib';
+import { UsageBreakdownV1ResponseResolution } from 'deepgram';
 
 const usageBreakdownV1ResponseResolution: UsageBreakdownV1ResponseResolution = {
   units: 'units4',

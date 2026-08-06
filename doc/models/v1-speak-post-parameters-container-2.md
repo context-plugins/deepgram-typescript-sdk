@@ -16,7 +16,7 @@ Encoding - mulaw. Supported container - wav (default), or no container.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersContainer2 } from 'rest-apilib';
+import { V1SpeakPostParametersContainer2 } from 'deepgram';
 
 const v1SpeakPostParametersContainer2 = V1SpeakPostParametersContainer2.Wav;
 ```

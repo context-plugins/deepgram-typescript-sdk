@@ -16,7 +16,7 @@ Encoding - linear16. Uncompressed, high-quality audio format often used for tele
 ## Example
 
 ```ts
-import { V1SpeakPostParametersEncoding0 } from 'rest-apilib';
+import { V1SpeakPostParametersEncoding0 } from 'deepgram';
 
 const v1SpeakPostParametersEncoding0 = V1SpeakPostParametersEncoding0.Linear16;
 ```

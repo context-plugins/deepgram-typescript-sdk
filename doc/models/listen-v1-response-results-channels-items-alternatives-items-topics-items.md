@@ -22,7 +22,7 @@
 ```ts
 import {
   ListenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const listenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems: ListenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems = {
   text: 'text2',

@@ -16,7 +16,7 @@ Use the latest version of a model
 ## Example
 
 ```ts
-import { V1ListenPostParametersVersion0 } from 'rest-apilib';
+import { V1ListenPostParametersVersion0 } from 'deepgram';
 
 const v1ListenPostParametersVersion0 = V1ListenPostParametersVersion0.Latest;
 ```

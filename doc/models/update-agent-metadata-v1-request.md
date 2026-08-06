@@ -19,7 +19,7 @@ Request body for updating agent configuration metadata
 ## Example
 
 ```ts
-import { UpdateAgentMetadataV1Request } from 'rest-apilib';
+import { UpdateAgentMetadataV1Request } from 'deepgram';
 
 const updateAgentMetadataV1Request: UpdateAgentMetadataV1Request = {
   metadata: {

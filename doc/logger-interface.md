@@ -41,7 +41,7 @@ export class WinstonLogger implements LoggerInterface {
 
 ### Client Initialization with Custom Logger
 
-The following example uses the above `WinstonLogger` implementation of `LoggerInterface` for RestApi Client initialization.
+The following example uses the above `WinstonLogger` implementation of `LoggerInterface` for Deepgram Client initialization.
 
 ```ts
 import { Client, LogLevel } from '../../../src';

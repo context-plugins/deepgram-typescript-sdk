@@ -19,7 +19,7 @@ Output whenever `topics=true` is used
 ## Example
 
 ```ts
-import { SharedTopics } from 'rest-apilib';
+import { SharedTopics } from 'deepgram';
 
 const sharedTopics: SharedTopics = {
   results: {

@@ -22,7 +22,7 @@
 ```ts
 import {
   ListenV1ResponseResultsChannelsItemsSearchItemsHitsItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const listenV1ResponseResultsChannelsItemsSearchItemsHitsItems: ListenV1ResponseResultsChannelsItemsSearchItemsHitsItems = {
   confidence: 94.16,

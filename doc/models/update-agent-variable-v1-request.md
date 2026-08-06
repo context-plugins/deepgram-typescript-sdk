@@ -19,7 +19,7 @@ Request body for updating an agent variable
 ## Example
 
 ```ts
-import { UpdateAgentVariableV1Request } from 'rest-apilib';
+import { UpdateAgentVariableV1Request } from 'deepgram';
 
 const updateAgentVariableV1Request: UpdateAgentVariableV1Request = {
   value: { 'key1': 'val1', 'key2': 'val2' },

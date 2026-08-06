@@ -19,7 +19,7 @@ Request body for Flux TTS batch (REST) text-to-speech conversion. The full block
 ## Example
 
 ```ts
-import { SpeakV2Request } from 'rest-apilib';
+import { SpeakV2Request } from 'deepgram';
 
 const speakV2Request: SpeakV2Request = {
   text: 'text2',

@@ -16,7 +16,7 @@
 ## Example
 
 ```ts
-import { V1ListenPostParametersRedactSchemaOneOf1Items } from 'rest-apilib';
+import { V1ListenPostParametersRedactSchemaOneOf1Items } from 'deepgram';
 
 const v1ListenPostParametersRedactSchemaOneOf1Items = V1ListenPostParametersRedactSchemaOneOf1Items.Pci;
 ```

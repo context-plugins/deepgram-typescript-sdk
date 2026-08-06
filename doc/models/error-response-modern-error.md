@@ -20,7 +20,7 @@
 ## Example
 
 ```ts
-import { ErrorResponseModernError } from 'rest-apilib';
+import { ErrorResponseModernError } from 'deepgram';
 
 const errorResponseModernError: ErrorResponseModernError = {
   category: 'category6',

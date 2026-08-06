@@ -21,7 +21,7 @@ Request body for creating an agent configuration
 ## Example
 
 ```ts
-import { CreateAgentConfigurationV1Request } from 'rest-apilib';
+import { CreateAgentConfigurationV1Request } from 'deepgram';
 
 const createAgentConfigurationV1Request: CreateAgentConfigurationV1Request = {
   config: 'config2',

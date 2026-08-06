@@ -16,7 +16,7 @@ The unique identifier of the Groq model
 ## Example
 
 ```ts
-import { AgentThinkModelsV1ResponseModelsItemsOneOf3Id } from 'rest-apilib';
+import { AgentThinkModelsV1ResponseModelsItemsOneOf3Id } from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItemsOneOf3Id = AgentThinkModelsV1ResponseModelsItemsOneOf3Id.EnumOpenaigptoss20B;
 ```

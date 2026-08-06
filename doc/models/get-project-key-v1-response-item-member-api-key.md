@@ -22,7 +22,7 @@
 ## Example
 
 ```ts
-import { GetProjectKeyV1ResponseItemMemberApiKey } from 'rest-apilib';
+import { GetProjectKeyV1ResponseItemMemberApiKey } from 'deepgram';
 
 const getProjectKeyV1ResponseItemMemberApiKey: GetProjectKeyV1ResponseItemMemberApiKey = {
   apiKeyId: 'api_key_id4',

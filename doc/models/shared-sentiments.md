@@ -20,7 +20,7 @@ Output whenever `sentiment=true` is used
 ## Example
 
 ```ts
-import { SharedSentiments } from 'rest-apilib';
+import { SharedSentiments } from 'deepgram';
 
 const sharedSentiments: SharedSentiments = {
   segments: [

@@ -22,7 +22,7 @@
 ```ts
 import {
   V1ProjectsProjectIdUsageBreakdownGetParametersGrouping,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const v1ProjectsProjectIdUsageBreakdownGetParametersGrouping = V1ProjectsProjectIdUsageBreakdownGetParametersGrouping.FeatureSet;
 ```

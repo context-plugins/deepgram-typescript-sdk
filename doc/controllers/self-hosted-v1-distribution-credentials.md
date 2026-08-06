@@ -20,22 +20,22 @@ const selfHostedV1DistributionCredentialsApi = new SelfHostedV1DistributionCrede
 
 Lists sets of distribution credentials for the specified project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListProjectDistributionCredentialsV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -49,13 +49,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await selfHostedV1DistributionCredentialsApi.list(
-    projectId,
-    authorization
-  );
+  const response = await selfHostedV1DistributionCredentialsApi.list(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -89,12 +84,9 @@ try {
 
 Creates a set of distribution credentials for the specified project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async create(
   projectId: string,
-  authorization: string,
   scopes?: V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems[],
   provider?: V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider,
   body?: CreateProjectDistributionCredentialsV1Request,
@@ -102,12 +94,15 @@ async create(
 ): Promise<ApiResponse<CreateProjectDistributionCredentialsV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `scopes` | [`V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems[] \| undefined`](../../doc/models/v1-projects-project-id-self-hosted-distribution-credentials-post-parameters-scopes-schema-items.md) | Query, Optional | List of permission scopes for the credentials |
 | `provider` | [`V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider \| undefined`](../../doc/models/v1-projects-project-id-self-hosted-distribution-credentials-post-parameters-provider.md) | Query, Optional | The provider of the distribution service<br><br>**Default**: `V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider.Quay` |
 | `body` | [`CreateProjectDistributionCredentialsV1Request \| undefined`](../../doc/models/create-project-distribution-credentials-v1-request.md) | Body, Optional | The set of distribution credentials to create |
@@ -124,14 +119,11 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 const provider = V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider.Quay;
 
 try {
   const response = await selfHostedV1DistributionCredentialsApi.create(
     projectId,
-    authorization,
     undefined,
     provider
   );
@@ -168,16 +160,17 @@ try {
 
 Returns a set of distribution credentials for the specified project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async get(
   projectId: string,
   distributionCredentialsId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<GetProjectDistributionCredentialsV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -185,7 +178,6 @@ async get(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `distributionCredentialsId` | `string` | Template, Required | The UUID of the distribution credentials |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -201,13 +193,10 @@ const projectId = 'project_id6';
 
 const distributionCredentialsId = 'distribution_credentials_id0';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await selfHostedV1DistributionCredentialsApi.get(
     projectId,
-    distributionCredentialsId,
-    authorization
+    distributionCredentialsId
   );
 
   // Extracting fully parsed response body.
@@ -242,16 +231,17 @@ try {
 
 Deletes a set of distribution credentials for the specified project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async mDelete(
   projectId: string,
   distributionCredentialsId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<GetProjectDistributionCredentialsV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -259,7 +249,6 @@ async mDelete(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `distributionCredentialsId` | `string` | Template, Required | The UUID of the distribution credentials |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -275,13 +264,10 @@ const projectId = 'project_id6';
 
 const distributionCredentialsId = 'distribution_credentials_id0';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await selfHostedV1DistributionCredentialsApi.mDelete(
     projectId,
-    distributionCredentialsId,
-    authorization
+    distributionCredentialsId
   );
 
   // Extracting fully parsed response body.

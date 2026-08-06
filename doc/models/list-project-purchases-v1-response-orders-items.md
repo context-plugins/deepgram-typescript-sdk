@@ -22,7 +22,7 @@
 ## Example
 
 ```ts
-import { ListProjectPurchasesV1ResponseOrdersItems } from 'rest-apilib';
+import { ListProjectPurchasesV1ResponseOrdersItems } from 'deepgram';
 
 const listProjectPurchasesV1ResponseOrdersItems: ListProjectPurchasesV1ResponseOrdersItems = {
   orderId: '00000276-0000-0000-0000-000000000000',

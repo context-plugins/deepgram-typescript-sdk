@@ -18,23 +18,23 @@ const manageV1ProjectsModelsApi = new ManageV1ProjectsModelsApi(client);
 
 Returns metadata on all the latest models that a specific project has access to, including non-public models
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   includeOutdated?: boolean,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListModelsV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `includeOutdated` | `boolean \| undefined` | Query, Optional | returns non-latest versions of models |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -49,13 +49,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsModelsApi.list(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsModelsApi.list(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -89,16 +84,17 @@ try {
 
 Returns metadata for a specific model
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async get(
   projectId: string,
   modelId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<GetModelV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -106,7 +102,6 @@ async get(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `modelId` | `string` | Template, Required | The specific UUID of the model |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -122,13 +117,10 @@ const projectId = 'project_id6';
 
 const modelId = 'model_id0';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await manageV1ProjectsModelsApi.get(
     projectId,
-    modelId,
-    authorization
+    modelId
   );
 
   // Extracting fully parsed response body.

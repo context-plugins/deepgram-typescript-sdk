@@ -16,7 +16,7 @@ Encoding - mulaw. Compressed audio format commonly used in telephony.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersEncoding2 } from 'rest-apilib';
+import { V1SpeakPostParametersEncoding2 } from 'deepgram';
 
 const v1SpeakPostParametersEncoding2 = V1SpeakPostParametersEncoding2.Mulaw;
 ```

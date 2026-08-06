@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { UpdateProjectMemberScopesV1Response } from 'rest-apilib';
+import { UpdateProjectMemberScopesV1Response } from 'deepgram';
 
 const updateProjectMemberScopesV1Response: UpdateProjectMemberScopesV1Response = {
   message: 'message0',

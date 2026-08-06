@@ -18,7 +18,7 @@
 ## Example
 
 ```ts
-import { BillingBreakdownV1ResponseResolution } from 'rest-apilib';
+import { BillingBreakdownV1ResponseResolution } from 'deepgram';
 
 const billingBreakdownV1ResponseResolution: BillingBreakdownV1ResponseResolution = {
   units: 'units2',

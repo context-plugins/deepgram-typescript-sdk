@@ -24,7 +24,7 @@ OpenAI models
 import {
   AgentThinkModelsV1ResponseModelsItems0,
   AgentThinkModelsV1ResponseModelsItemsOneOf0Id,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItems0: AgentThinkModelsV1ResponseModelsItems0 = {
   id: AgentThinkModelsV1ResponseModelsItemsOneOf0Id.EnumGpt41Mini,

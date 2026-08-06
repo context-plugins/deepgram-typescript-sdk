@@ -15,7 +15,7 @@
 ## Example
 
 ```ts
-import { V1ReadPostParametersCustomIntentMode } from 'rest-apilib';
+import { V1ReadPostParametersCustomIntentMode } from 'deepgram';
 
 const v1ReadPostParametersCustomIntentMode = V1ReadPostParametersCustomIntentMode.Extended;
 ```

@@ -21,7 +21,7 @@
 ## Example
 
 ```ts
-import { SharedSentimentsSegmentsItems } from 'rest-apilib';
+import { SharedSentimentsSegmentsItems } from 'deepgram';
 
 const sharedSentimentsSegmentsItems: SharedSentimentsSegmentsItems = {
   text: 'text2',

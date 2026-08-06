@@ -16,7 +16,7 @@
 ```ts
 import {
   V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const v1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider = V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider.Quay;
 ```

@@ -19,7 +19,7 @@ Output whenever `summary=true` is used
 ## Example
 
 ```ts
-import { ReadV1ResponseResultsSummary } from 'rest-apilib';
+import { ReadV1ResponseResultsSummary } from 'deepgram';
 
 const readV1ResponseResultsSummary: ReadV1ResponseResultsSummary = {
   results: {

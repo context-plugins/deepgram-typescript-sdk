@@ -24,7 +24,7 @@
 ```ts
 import {
   ListenV1ResponseResultsChannelsItemsAlternativesItemsEntitiesItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const listenV1ResponseResultsChannelsItemsAlternativesItemsEntitiesItems: ListenV1ResponseResultsChannelsItemsAlternativesItemsEntitiesItems = {
   label: 'label6',

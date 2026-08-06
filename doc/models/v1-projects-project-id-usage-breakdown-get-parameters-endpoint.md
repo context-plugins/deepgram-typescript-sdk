@@ -19,7 +19,7 @@
 ```ts
 import {
   V1ProjectsProjectIdUsageBreakdownGetParametersEndpoint,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const v1ProjectsProjectIdUsageBreakdownGetParametersEndpoint = V1ProjectsProjectIdUsageBreakdownGetParametersEndpoint.Speak;
 ```

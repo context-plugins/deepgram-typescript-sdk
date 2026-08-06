@@ -15,7 +15,7 @@
 ## Example
 
 ```ts
-import { V1ProjectsProjectIdKeysGetParametersStatus } from 'rest-apilib';
+import { V1ProjectsProjectIdKeysGetParametersStatus } from 'deepgram';
 
 const v1ProjectsProjectIdKeysGetParametersStatus = V1ProjectsProjectIdKeysGetParametersStatus.Active;
 ```

@@ -23,9 +23,7 @@
 ## Example
 
 ```ts
-import {
-  ListenV1ResponseResultsUtterancesItemsWordsItems,
-} from 'rest-apilib';
+import { ListenV1ResponseResultsUtterancesItemsWordsItems } from 'deepgram';
 
 const listenV1ResponseResultsUtterancesItemsWordsItems: ListenV1ResponseResultsUtterancesItemsWordsItems = {
   word: 'word6',

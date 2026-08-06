@@ -18,7 +18,7 @@
 ## Example
 
 ```ts
-import { SharedSentimentsAverage } from 'rest-apilib';
+import { SharedSentimentsAverage } from 'deepgram';
 
 const sharedSentimentsAverage: SharedSentimentsAverage = {
   sentiment: 'sentiment2',

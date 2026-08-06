@@ -22,7 +22,7 @@
 ## Example
 
 ```ts
-import { ListenV1ResponseResults } from 'rest-apilib';
+import { ListenV1ResponseResults } from 'deepgram';
 
 const listenV1ResponseResults: ListenV1ResponseResults = {
   channels: [

@@ -18,22 +18,22 @@ const manageV1ProjectsMembersApi = new ManageV1ProjectsMembersApi(client);
 
 Retrieves a list of members for a given project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListProjectMembersV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -47,13 +47,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsMembersApi.list(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsMembersApi.list(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -87,16 +82,17 @@ try {
 
 Removes a member from the project using their unique member ID
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async mDelete(
   projectId: string,
   memberId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<DeleteProjectMemberV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -104,7 +100,6 @@ async mDelete(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `memberId` | `string` | Template, Required | The unique identifier of the Member |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -120,13 +115,10 @@ const projectId = 'project_id6';
 
 const memberId = 'member_id0';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await manageV1ProjectsMembersApi.mDelete(
     projectId,
-    memberId,
-    authorization
+    memberId
   );
 
   // Extracting fully parsed response body.

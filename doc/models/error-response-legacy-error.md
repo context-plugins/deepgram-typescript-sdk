@@ -19,7 +19,7 @@
 ## Example
 
 ```ts
-import { ErrorResponseLegacyError } from 'rest-apilib';
+import { ErrorResponseLegacyError } from 'deepgram';
 
 const errorResponseLegacyError: ErrorResponseLegacyError = {
   errCode: 'err_code8',

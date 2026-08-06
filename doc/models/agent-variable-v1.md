@@ -23,7 +23,7 @@ A template variable for agent configurations
 ## Example
 
 ```ts
-import { AgentVariableV1 } from 'rest-apilib';
+import { AgentVariableV1 } from 'deepgram';
 
 const agentVariableV1: AgentVariableV1 = {
   variableId: 'variable_id6',

@@ -19,7 +19,7 @@
 ## Example
 
 ```ts
-import { ListenV1ResponseMetadataTopicsInfo } from 'rest-apilib';
+import { ListenV1ResponseMetadataTopicsInfo } from 'deepgram';
 
 const listenV1ResponseMetadataTopicsInfo: ListenV1ResponseMetadataTopicsInfo = {
   modelUuid: 'model_uuid6',

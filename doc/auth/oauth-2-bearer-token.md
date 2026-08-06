@@ -22,7 +22,7 @@ Documentation for accessing and setting credentials for JwtAuth.
 You must provide credentials in the client as shown in the following code snippet.
 
 ```ts
-import { Client } from 'rest-apilib';
+import { Client } from 'deepgram';
 
 const client = new Client({
   jwtAuthCredentials: {

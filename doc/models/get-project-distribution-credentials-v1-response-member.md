@@ -18,9 +18,7 @@
 ## Example
 
 ```ts
-import {
-  GetProjectDistributionCredentialsV1ResponseMember,
-} from 'rest-apilib';
+import { GetProjectDistributionCredentialsV1ResponseMember } from 'deepgram';
 
 const getProjectDistributionCredentialsV1ResponseMember: GetProjectDistributionCredentialsV1ResponseMember = {
   memberId: '00000eba-0000-0000-0000-000000000000',

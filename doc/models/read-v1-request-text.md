@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { ReadV1RequestText } from 'rest-apilib';
+import { ReadV1RequestText } from 'deepgram';
 
 const readV1RequestText: ReadV1RequestText = {
   text: 'text0',

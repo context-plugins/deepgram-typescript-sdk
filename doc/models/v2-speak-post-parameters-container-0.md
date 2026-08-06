@@ -16,7 +16,7 @@ No container.
 ## Example
 
 ```ts
-import { V2SpeakPostParametersContainer0 } from 'rest-apilib';
+import { V2SpeakPostParametersContainer0 } from 'deepgram';
 
 const v2SpeakPostParametersContainer0 = V2SpeakPostParametersContainer0.None;
 ```

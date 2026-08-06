@@ -20,7 +20,7 @@
 ## Example
 
 ```ts
-import { UsageFieldsV1ResponseModelsItems } from 'rest-apilib';
+import { UsageFieldsV1ResponseModelsItems } from 'deepgram';
 
 const usageFieldsV1ResponseModelsItems: UsageFieldsV1ResponseModelsItems = {
   name: 'name4',

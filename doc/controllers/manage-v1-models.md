@@ -18,21 +18,21 @@ const manageV1ModelsApi = new ManageV1ModelsApi(client);
 
 Returns metadata on all the latest public models. To retrieve custom models, use Get Project Models.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
-  authorization: string,
   includeOutdated?: boolean,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListModelsV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `includeOutdated` | `boolean \| undefined` | Query, Optional | returns non-latest versions of models |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -45,10 +45,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ModelsApi.list(authorization);
+  const response = await manageV1ModelsApi.list();
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -82,22 +80,22 @@ try {
 
 Returns metadata for a specific public model
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async get(
   modelId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<GetModelV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `modelId` | `string` | Template, Required | The specific UUID of the model |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -111,13 +109,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const modelId = 'model_id0';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ModelsApi.get(
-    modelId,
-    authorization
-  );
+  const response = await manageV1ModelsApi.get(modelId);
 
   // Extracting fully parsed response body.
   console.log(response.result);

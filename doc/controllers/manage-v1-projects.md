@@ -21,20 +21,20 @@ const manageV1ProjectsApi = new ManageV1ProjectsApi(client);
 
 Retrieves basic information about the projects associated with the API key
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListProjectsV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -46,10 +46,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsApi.list(authorization);
+  const response = await manageV1ProjectsApi.list();
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -83,24 +81,24 @@ try {
 
 Retrieves information about the specified project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async get(
   projectId: string,
-  authorization: string,
   limit?: number,
   page?: number,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<GetProjectV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `limit` | `number \| undefined` | Query, Optional | Number of results to return per page. Default 10. Range [1,1000]<br><br>**Default**: `10` |
 | `page` | `number \| undefined` | Query, Optional | Navigate and return the results to retrieve specific portions of information of the response |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
@@ -116,14 +114,11 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 const limit = 10;
 
 try {
   const response = await manageV1ProjectsApi.get(
     projectId,
-    authorization,
     limit
   );
 
@@ -159,23 +154,23 @@ try {
 
 Updates the name or other properties of an existing project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async update(
   projectId: string,
-  authorization: string,
   body?: UpdateProjectV1Request,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<UpdateProjectV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `body` | [`UpdateProjectV1Request \| undefined`](../../doc/models/update-project-v1-request.md) | Body, Optional | The name of the project |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -190,13 +185,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsApi.update(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsApi.update(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -230,22 +220,22 @@ try {
 
 Deletes the specified project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async mDelete(
   projectId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<DeleteProjectV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -259,13 +249,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsApi.mDelete(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsApi.mDelete(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);
@@ -299,22 +284,22 @@ try {
 
 Removes the authenticated account from the specific project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async leave(
   projectId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<LeaveProjectV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -328,13 +313,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsApi.leave(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsApi.leave(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);

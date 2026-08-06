@@ -13,23 +13,23 @@ const manageV1ProjectsBillingPurchasesApi = new ManageV1ProjectsBillingPurchases
 
 Returns the original purchased amount on an order transaction
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   limit?: number,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<ListProjectPurchasesV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `limit` | `number \| undefined` | Query, Optional | Number of results to return per page. Default 10. Range [1,1000]<br><br>**Default**: `10` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
@@ -44,14 +44,11 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 const limit = 10;
 
 try {
   const response = await manageV1ProjectsBillingPurchasesApi.list(
     projectId,
-    authorization,
     limit
   );
 

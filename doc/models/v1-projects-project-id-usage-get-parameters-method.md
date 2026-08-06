@@ -18,7 +18,7 @@ Method type for the request
 ## Example
 
 ```ts
-import { V1ProjectsProjectIdUsageGetParametersMethod } from 'rest-apilib';
+import { V1ProjectsProjectIdUsageGetParametersMethod } from 'deepgram';
 
 const v1ProjectsProjectIdUsageGetParametersMethod = V1ProjectsProjectIdUsageGetParametersMethod.Streaming;
 ```

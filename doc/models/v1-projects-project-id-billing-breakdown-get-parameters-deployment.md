@@ -20,7 +20,7 @@ Deployment type for the requests
 ```ts
 import {
   V1ProjectsProjectIdBillingBreakdownGetParametersDeployment,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const v1ProjectsProjectIdBillingBreakdownGetParametersDeployment = V1ProjectsProjectIdBillingBreakdownGetParametersDeployment.Selfhosted;
 ```

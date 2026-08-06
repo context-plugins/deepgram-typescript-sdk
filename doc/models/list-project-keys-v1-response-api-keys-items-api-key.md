@@ -20,7 +20,7 @@
 ## Example
 
 ```ts
-import { ListProjectKeysV1ResponseApiKeysItemsApiKey } from 'rest-apilib';
+import { ListProjectKeysV1ResponseApiKeysItemsApiKey } from 'deepgram';
 
 const listProjectKeysV1ResponseApiKeysItemsApiKey: ListProjectKeysV1ResponseApiKeysItemsApiKey = {
   apiKeyId: 'api_key_id8',

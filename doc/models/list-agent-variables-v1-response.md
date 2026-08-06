@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { ListAgentVariablesV1Response } from 'rest-apilib';
+import { ListAgentVariablesV1Response } from 'deepgram';
 
 const listAgentVariablesV1Response: ListAgentVariablesV1Response = {
   variables: [

@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { UpdateProjectMemberScopesV1Request } from 'rest-apilib';
+import { UpdateProjectMemberScopesV1Request } from 'deepgram';
 
 const updateProjectMemberScopesV1Request: UpdateProjectMemberScopesV1Request = {
   scope: 'scope0',

@@ -27,7 +27,7 @@ A single request
 ## Example
 
 ```ts
-import { ProjectRequestResponse } from 'rest-apilib';
+import { ProjectRequestResponse } from 'deepgram';
 
 const projectRequestResponse: ProjectRequestResponse = {
   requestId: 'request_id6',

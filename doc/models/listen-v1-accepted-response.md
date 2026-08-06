@@ -19,7 +19,7 @@ Accepted response for asynchronous transcription requests
 ## Example
 
 ```ts
-import { ListenV1AcceptedResponse } from 'rest-apilib';
+import { ListenV1AcceptedResponse } from 'deepgram';
 
 const listenV1AcceptedResponse: ListenV1AcceptedResponse = {
   requestId: '000016c8-0000-0000-0000-000000000000',

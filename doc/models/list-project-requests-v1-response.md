@@ -19,7 +19,7 @@
 ## Example
 
 ```ts
-import { ListProjectRequestsV1Response } from 'rest-apilib';
+import { ListProjectRequestsV1Response } from 'deepgram';
 
 const listProjectRequestsV1Response: ListProjectRequestsV1Response = {
   page: 239.24,

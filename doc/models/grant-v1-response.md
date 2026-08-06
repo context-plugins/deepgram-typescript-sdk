@@ -18,7 +18,7 @@
 ## Example
 
 ```ts
-import { GrantV1Response } from 'rest-apilib';
+import { GrantV1Response } from 'deepgram';
 
 const grantV1Response: GrantV1Response = {
   accessToken: 'access_token8',

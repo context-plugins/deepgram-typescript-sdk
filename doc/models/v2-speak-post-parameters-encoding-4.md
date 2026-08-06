@@ -16,7 +16,7 @@ Encoding - mp3. Popular compressed audio format for music and streaming.
 ## Example
 
 ```ts
-import { V2SpeakPostParametersEncoding4 } from 'rest-apilib';
+import { V2SpeakPostParametersEncoding4 } from 'deepgram';
 
 const v2SpeakPostParametersEncoding4 = V2SpeakPostParametersEncoding4.Mp3;
 ```

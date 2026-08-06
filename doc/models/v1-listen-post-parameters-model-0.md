@@ -44,7 +44,7 @@ Our public models available to all accounts
 ## Example
 
 ```ts
-import { V1ListenPostParametersModel0 } from 'rest-apilib';
+import { V1ListenPostParametersModel0 } from 'deepgram';
 
 const v1ListenPostParametersModel0 = V1ListenPostParametersModel0.Phonecall;
 ```

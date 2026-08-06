@@ -19,7 +19,7 @@ Request body for creating distribution credentials
 ## Example
 
 ```ts
-import { CreateProjectDistributionCredentialsV1Request } from 'rest-apilib';
+import { CreateProjectDistributionCredentialsV1Request } from 'deepgram';
 
 const createProjectDistributionCredentialsV1Request: CreateProjectDistributionCredentialsV1Request = {
   comment: 'comment2',

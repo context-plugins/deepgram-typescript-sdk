@@ -19,7 +19,7 @@
 ```ts
 import {
   V1ProjectsProjectIdBillingBreakdownGetParametersGroupingSchemaItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const v1ProjectsProjectIdBillingBreakdownGetParametersGroupingSchemaItems = V1ProjectsProjectIdBillingBreakdownGetParametersGroupingSchemaItems.LineItem;
 ```

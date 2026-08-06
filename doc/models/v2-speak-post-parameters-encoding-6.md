@@ -16,7 +16,7 @@ Encoding - aac. Advanced audio format offering better quality at smaller file si
 ## Example
 
 ```ts
-import { V2SpeakPostParametersEncoding6 } from 'rest-apilib';
+import { V2SpeakPostParametersEncoding6 } from 'deepgram';
 
 const v2SpeakPostParametersEncoding6 = V2SpeakPostParametersEncoding6.Aac;
 ```

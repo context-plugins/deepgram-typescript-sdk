@@ -17,7 +17,7 @@ Encoding - mp3(default). Supported bitrates - 32000, 48000(default) bps.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersBitRate0 } from 'rest-apilib';
+import { V1SpeakPostParametersBitRate0 } from 'deepgram';
 
 const v1SpeakPostParametersBitRate0 = V1SpeakPostParametersBitRate0.Enum32000;
 ```

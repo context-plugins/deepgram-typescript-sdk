@@ -23,7 +23,7 @@
 ## Example
 
 ```ts
-import { GetModelV1Response1 } from 'rest-apilib';
+import { GetModelV1Response1 } from 'deepgram';
 
 const getModelV1Response1: GetModelV1Response1 = {
   name: 'name6',

@@ -20,7 +20,7 @@ Request body for creating a project invite
 ## Example
 
 ```ts
-import { CreateProjectInviteV1Request } from 'rest-apilib';
+import { CreateProjectInviteV1Request } from 'deepgram';
 
 const createProjectInviteV1Request: CreateProjectInviteV1Request = {
   email: 'email6',

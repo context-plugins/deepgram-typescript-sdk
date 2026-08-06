@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { GrantV1Request } from 'rest-apilib';
+import { GrantV1Request } from 'deepgram';
 
 const grantV1Request: GrantV1Request = {
   ttlSeconds: 33.48,

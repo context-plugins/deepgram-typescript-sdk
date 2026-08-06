@@ -16,7 +16,7 @@ Encoding - linear16. Supported container - wav (default), or no container.
 ## Example
 
 ```ts
-import { V2SpeakPostParametersContainer1 } from 'rest-apilib';
+import { V2SpeakPostParametersContainer1 } from 'deepgram';
 
 const v2SpeakPostParametersContainer1 = V2SpeakPostParametersContainer1.Wav;
 ```

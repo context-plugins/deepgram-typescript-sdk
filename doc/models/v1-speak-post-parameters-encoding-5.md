@@ -16,7 +16,7 @@ Encoding - opus. High-compression audio format optimized for real-time communica
 ## Example
 
 ```ts
-import { V1SpeakPostParametersEncoding5 } from 'rest-apilib';
+import { V1SpeakPostParametersEncoding5 } from 'deepgram';
 
 const v1SpeakPostParametersEncoding5 = V1SpeakPostParametersEncoding5.Opus;
 ```

@@ -18,12 +18,9 @@ const manageV1ProjectsRequestsApi = new ManageV1ProjectsRequestsApi(client);
 
 Generates a list of requests for a specific project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   start?: string,
   end?: string,
   limit?: number,
@@ -38,12 +35,15 @@ async list(
 ): Promise<ApiResponse<ListProjectRequestsV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `start` | `string \| undefined` | Query, Optional | Start date of the requested date range. Formats accepted are YYYY-MM-DD, YYYY-MM-DDTHH:MM:SS, or YYYY-MM-DDTHH:MM:SS+HH:MM |
 | `end` | `string \| undefined` | Query, Optional | End date of the requested date range. Formats accepted are YYYY-MM-DD, YYYY-MM-DDTHH:MM:SS, or YYYY-MM-DDTHH:MM:SS+HH:MM |
 | `limit` | `number \| undefined` | Query, Optional | Number of results to return per page. Default 10. Range [1,1000]<br><br>**Default**: `10` |
@@ -67,14 +67,11 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 const limit = 10;
 
 try {
   const response = await manageV1ProjectsRequestsApi.list(
     projectId,
-    authorization,
     undefined,
     undefined,
     limit
@@ -112,16 +109,17 @@ try {
 
 Retrieves a specific request for a specific project
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async get(
   projectId: string,
   requestId: string,
-  authorization: string,
   requestOptions?: RequestOptions
 ): Promise<ApiResponse<GetProjectRequestV1Response>>
 ```
+
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
 
 ## Parameters
 
@@ -129,7 +127,6 @@ async get(
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
 | `requestId` | `string` | Template, Required | The unique identifier of the request |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `requestOptions` | `RequestOptions \| undefined` | Optional | Pass additional request options. |
 
 ## Response Type
@@ -145,13 +142,10 @@ const projectId = 'project_id6';
 
 const requestId = 'request_id8';
 
-const authorization = 'Authorization8';
-
 try {
   const response = await manageV1ProjectsRequestsApi.get(
     projectId,
-    requestId,
-    authorization
+    requestId
   );
 
   // Extracting fully parsed response body.

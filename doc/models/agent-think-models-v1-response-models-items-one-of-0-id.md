@@ -23,7 +23,7 @@ The unique identifier of the OpenAI model
 ## Example
 
 ```ts
-import { AgentThinkModelsV1ResponseModelsItemsOneOf0Id } from 'rest-apilib';
+import { AgentThinkModelsV1ResponseModelsItemsOneOf0Id } from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItemsOneOf0Id = AgentThinkModelsV1ResponseModelsItemsOneOf0Id.Gpt5;
 ```

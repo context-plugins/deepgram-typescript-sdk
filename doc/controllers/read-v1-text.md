@@ -13,11 +13,8 @@ const readV1TextApi = new ReadV1TextApi(client);
 
 Analyze text content using Deepgrams text analysis API
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async analyze(
-  authorization: string,
   callback?: string,
   callbackMethod?: V1ListenPostParametersCallbackMethod,
   sentiment?: boolean,
@@ -35,11 +32,14 @@ async analyze(
 ): Promise<ApiResponse<ReadV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `callback` | `string \| undefined` | Query, Optional | URL to which we'll make the callback request |
 | `callbackMethod` | [`V1ListenPostParametersCallbackMethod \| undefined`](../../doc/models/v1-listen-post-parameters-callback-method.md) | Query, Optional | HTTP method by which the callback request will be made<br><br>**Default**: `V1ListenPostParametersCallbackMethod.Post` |
 | `sentiment` | `boolean \| undefined` | Query, Optional | Recognizes the sentiment throughout a transcript or text<br><br>**Default**: `false` |
@@ -64,8 +64,6 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ## Example Usage
 
 ```ts
-const authorization = 'Authorization8';
-
 const callbackMethod = V1ListenPostParametersCallbackMethod.Post;
 
 const sentiment = false;
@@ -84,7 +82,6 @@ const language = 'en';
 
 try {
   const response = await readV1TextApi.analyze(
-    authorization,
     undefined,
     callbackMethod,
     sentiment,

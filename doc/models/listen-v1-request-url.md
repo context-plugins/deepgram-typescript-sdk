@@ -19,7 +19,7 @@ Audio file URL to transcribe
 ## Example
 
 ```ts
-import { ListenV1RequestUrl } from 'rest-apilib';
+import { ListenV1RequestUrl } from 'deepgram';
 
 const listenV1RequestUrl: ListenV1RequestUrl = {
   url: 'url8',

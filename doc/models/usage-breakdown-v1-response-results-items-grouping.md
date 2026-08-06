@@ -25,7 +25,7 @@
 ## Example
 
 ```ts
-import { UsageBreakdownV1ResponseResultsItemsGrouping } from 'rest-apilib';
+import { UsageBreakdownV1ResponseResultsItemsGrouping } from 'deepgram';
 
 const usageBreakdownV1ResponseResultsItemsGrouping: UsageBreakdownV1ResponseResultsItemsGrouping = {
   start: '2016-03-13T12:52:32.123Z',

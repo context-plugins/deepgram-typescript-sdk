@@ -29,7 +29,7 @@
 ## Example
 
 ```ts
-import { ListenV1ResponseMetadata } from 'rest-apilib';
+import { ListenV1ResponseMetadata } from 'deepgram';
 
 const listenV1ResponseMetadata: ListenV1ResponseMetadata = {
   requestId: '00000a0c-0000-0000-0000-000000000000',

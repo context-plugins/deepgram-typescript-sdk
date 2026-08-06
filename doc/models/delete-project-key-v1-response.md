@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { DeleteProjectKeyV1Response } from 'rest-apilib';
+import { DeleteProjectKeyV1Response } from 'deepgram';
 
 const deleteProjectKeyV1Response: DeleteProjectKeyV1Response = {
   message: 'message6',

@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { GetProjectRequestV1Response } from 'rest-apilib';
+import { GetProjectRequestV1Response } from 'deepgram';
 
 const getProjectRequestV1Response: GetProjectRequestV1Response = {
   request: {

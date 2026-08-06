@@ -20,7 +20,7 @@
 ```ts
 import {
   ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsMember,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const listProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsMember: ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsMember = {
   memberId: '0000062e-0000-0000-0000-000000000000',

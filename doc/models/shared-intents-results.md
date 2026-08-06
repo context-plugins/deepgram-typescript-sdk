@@ -17,7 +17,7 @@
 ## Example
 
 ```ts
-import { SharedIntentsResults } from 'rest-apilib';
+import { SharedIntentsResults } from 'deepgram';
 
 const sharedIntentsResults: SharedIntentsResults = {
   intents: {

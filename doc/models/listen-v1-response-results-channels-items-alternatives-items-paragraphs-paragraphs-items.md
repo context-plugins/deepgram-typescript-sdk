@@ -23,7 +23,7 @@
 ```ts
 import {
   ListenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParagraphsItems,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const listenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParagraphsItems: ListenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParagraphsItems = {
   sentences: [

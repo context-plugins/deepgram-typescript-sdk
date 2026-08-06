@@ -13,12 +13,9 @@ const manageV1ProjectsBillingBreakdownApi = new ManageV1ProjectsBillingBreakdown
 
 Retrieves the billing summary for a specific project, with various filter options or by grouping options.
 
-:information_source: **Note** This endpoint does not require authentication.
-
 ```ts
 async list(
   projectId: string,
-  authorization: string,
   start?: string,
   end?: string,
   accessor?: string,
@@ -30,12 +27,15 @@ async list(
 ): Promise<ApiResponse<BillingBreakdownV1Response>>
 ```
 
+## Authentication
+
+This endpoint requires [ApiKeyAuth](../../doc/auth/custom-header-signature.md)
+
 ## Parameters
 
 | Parameter | Type | Tags | Description |
 |  --- | --- | --- | --- |
 | `projectId` | `string` | Template, Required | The unique identifier of the project |
-| `authorization` | `string` | Header, Required | Use `Authorization: Token <API_KEY>`<br>Example: `Authorization: Token 12345abcdef` |
 | `start` | `string \| undefined` | Query, Optional | Start date of the requested date range. Format accepted is YYYY-MM-DD |
 | `end` | `string \| undefined` | Query, Optional | End date of the requested date range. Format accepted is YYYY-MM-DD |
 | `accessor` | `string \| undefined` | Query, Optional | Filter for requests where a specific accessor was used |
@@ -56,13 +56,8 @@ This method returns an [`ApiResponse`](../../doc/api-response.md) instance. The 
 ```ts
 const projectId = 'project_id6';
 
-const authorization = 'Authorization8';
-
 try {
-  const response = await manageV1ProjectsBillingBreakdownApi.list(
-    projectId,
-    authorization
-  );
+  const response = await manageV1ProjectsBillingBreakdownApi.list(projectId);
 
   // Extracting fully parsed response body.
   console.log(response.result);

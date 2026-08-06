@@ -24,7 +24,7 @@ Google models
 import {
   AgentThinkModelsV1ResponseModelsItems2,
   AgentThinkModelsV1ResponseModelsItemsOneOf2Id,
-} from 'rest-apilib';
+} from 'deepgram';
 
 const agentThinkModelsV1ResponseModelsItems2: AgentThinkModelsV1ResponseModelsItems2 = {
   id: AgentThinkModelsV1ResponseModelsItemsOneOf2Id.EnumGemini25Flash,

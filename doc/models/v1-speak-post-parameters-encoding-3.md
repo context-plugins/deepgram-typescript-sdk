@@ -16,7 +16,7 @@ Encoding - alaw. Similar to mulaw but used in international telephony.
 ## Example
 
 ```ts
-import { V1SpeakPostParametersEncoding3 } from 'rest-apilib';
+import { V1SpeakPostParametersEncoding3 } from 'deepgram';
 
 const v1SpeakPostParametersEncoding3 = V1SpeakPostParametersEncoding3.Alaw;
 ```
