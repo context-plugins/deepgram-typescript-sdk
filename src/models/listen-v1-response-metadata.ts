@@ -18,6 +18,7 @@ import {
 } from "./listen-v1-response-metadata-topics-info.js";
 
 export type ListenV1ResponseMetadata = {
+  /** @default "deprecated" */
   transactionKey?: string;
   requestId: string;
   sha256: string;
@@ -35,12 +36,12 @@ export type ListenV1ResponseMetadata = {
 
 export const listenV1ResponseMetadataSchema: Schema<ListenV1ResponseMetadata> =
   s.object<ListenV1ResponseMetadata>({
-    transactionKey: s.optional(s.string()),
+    transactionKey: s.defaulted(s.string(), "deprecated"),
     requestId: s.string(),
     sha256: s.string(),
     created: s.dateTime(),
-    duration: s.number(),
-    channels: s.number(),
+    duration: s.float64(),
+    channels: s.int(),
     models: s.array(s.string()),
     modelInfo: s.record(s.string(), s.unknown()),
     summaryInfo: s.optional(s.lazy(() => listenV1ResponseMetadataSummaryInfoSchema)),

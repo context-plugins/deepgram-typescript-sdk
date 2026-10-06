@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createProjectInviteV1RequestSchema,
@@ -34,6 +35,21 @@ export class ManageV1ProjectsMembersInvites {
     this.#auth = auth;
   }
 
+  /**
+   * Create a Project Invite
+   *
+   * @remarks
+   * Generates an invite for a specific project
+   *
+   * @returns The invite was successfully generated
+   *
+   * @throws {@link ManageV1ProjectsMembersInvites.Create4Error} when the API answers with an error
+   * status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   create4(
     request: ManageV1ProjectsMembersInvites.Create4Request,
     options?: RequestOptions,
@@ -41,9 +57,11 @@ export class ManageV1ProjectsMembersInvites {
     return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v1/projects/{project_id}/invites"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/invites"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -58,6 +76,21 @@ export class ManageV1ProjectsMembersInvites {
     );
   }
 
+  /**
+   * Delete a Project Invite
+   *
+   * @remarks
+   * Deletes an invite for a specific project
+   *
+   * @returns The invite was successfully deleted
+   *
+   * @throws {@link ManageV1ProjectsMembersInvites.Delete6Error} when the API answers with an error
+   * status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   delete6(
     request: ManageV1ProjectsMembersInvites.Delete6Request,
     options?: RequestOptions,
@@ -65,12 +98,14 @@ export class ManageV1ProjectsMembersInvites {
     return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v1/projects/{project_id}/invites/{email}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/invites/{email}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [
           { name: "project_id", value: request.projectId, schema: s.string() },
           { name: "email", value: request.email, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
@@ -81,6 +116,21 @@ export class ManageV1ProjectsMembersInvites {
     );
   }
 
+  /**
+   * List Project Invites
+   *
+   * @remarks
+   * Generates a list of invites for a specific project
+   *
+   * @returns A list of invites for a specific project
+   *
+   * @throws {@link ManageV1ProjectsMembersInvites.List10Error} when the API answers with an error
+   * status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   list10(
     request: ManageV1ProjectsMembersInvites.List10Request,
     options?: RequestOptions,
@@ -88,9 +138,11 @@ export class ManageV1ProjectsMembersInvites {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/invites"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/invites"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -104,32 +156,43 @@ export class ManageV1ProjectsMembersInvites {
 
 export namespace ManageV1ProjectsMembersInvites {
   export type Create4Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** email to invite to the project */
     body?: CreateProjectInviteV1Request;
   };
 
-  export class Create4Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Create4Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Create4Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Delete6Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The email address of the member */
     email: string;
   };
 
-  export class Delete6Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Delete6Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Delete6Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type List10Request = {
+    /** The unique identifier of the project */
     projectId: string;
   };
 
-  export class List10Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class List10Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<List10Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

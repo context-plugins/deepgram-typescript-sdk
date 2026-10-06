@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - opus. Sample rate is fixed at 48000 Hz. */
 export const V1SpeakPostParametersSampleRate4 = {
   _48000: "48000",
 } as const;

@@ -10,8 +10,8 @@ export type ListenV1ResponseMetadataTopicsInfo = {
 export const listenV1ResponseMetadataTopicsInfoSchema: Schema<ListenV1ResponseMetadataTopicsInfo> =
   s.object<ListenV1ResponseMetadataTopicsInfo>({
     modelUuid: s.optional(s.string()),
-    inputTokens: s.optional(s.number()),
-    outputTokens: s.optional(s.number()),
+    inputTokens: s.optional(s.int()),
+    outputTokens: s.optional(s.int()),
     _keysMap: {
       modelUuid: "model_uuid",
       inputTokens: "input_tokens",

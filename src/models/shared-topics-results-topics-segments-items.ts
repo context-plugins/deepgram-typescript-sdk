@@ -15,8 +15,8 @@ export type SharedTopicsResultsTopicsSegmentsItems = {
 export const sharedTopicsResultsTopicsSegmentsItemsSchema: Schema<SharedTopicsResultsTopicsSegmentsItems> =
   s.object<SharedTopicsResultsTopicsSegmentsItems>({
     text: s.optional(s.string()),
-    startWord: s.optional(s.number()),
-    endWord: s.optional(s.number()),
+    startWord: s.optional(s.float64()),
+    endWord: s.optional(s.float64()),
     topics: s.optional(s.array(s.lazy(() => sharedTopicsResultsTopicsSegmentsItemsTopicsItemsSchema))),
     _keysMap: {
       startWord: "start_word",

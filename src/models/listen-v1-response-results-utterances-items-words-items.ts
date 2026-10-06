@@ -14,11 +14,11 @@ export type ListenV1ResponseResultsUtterancesItemsWordsItems = {
 export const listenV1ResponseResultsUtterancesItemsWordsItemsSchema: Schema<ListenV1ResponseResultsUtterancesItemsWordsItems> =
   s.object<ListenV1ResponseResultsUtterancesItemsWordsItems>({
     word: s.optional(s.string()),
-    start: s.optional(s.number()),
-    end: s.optional(s.number()),
-    confidence: s.optional(s.number()),
-    speaker: s.optional(s.number()),
-    speakerConfidence: s.optional(s.number()),
+    start: s.optional(s.float64()),
+    end: s.optional(s.float64()),
+    confidence: s.optional(s.float64()),
+    speaker: s.optional(s.int()),
+    speakerConfidence: s.optional(s.float64()),
     punctuatedWord: s.optional(s.string()),
     _keysMap: {
       speakerConfidence: "speaker_confidence",

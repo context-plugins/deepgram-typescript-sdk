@@ -2,8 +2,11 @@ import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
 export type ErrorResponseLegacyError = {
+  /** The error code */
   errCode?: string;
+  /** The error message */
   errMsg?: string;
+  /** The request ID */
   requestId?: string;
 };
 

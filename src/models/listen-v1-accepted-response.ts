@@ -1,7 +1,9 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
+/** Accepted response for asynchronous transcription requests */
 export type ListenV1AcceptedResponse = {
+  /** Unique identifier for tracking the asynchronous request */
   requestId: string;
 };
 

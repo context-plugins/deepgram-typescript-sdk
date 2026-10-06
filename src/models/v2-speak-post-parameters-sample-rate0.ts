@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - linear16. Supported sample rates - 8000, 16000, 24000, 32000, 44100, 48000 Hz. */
 export const V2SpeakPostParametersSampleRate0 = {
   _8000: "8000",
   _16000: "16000",

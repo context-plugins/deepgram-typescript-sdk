@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   createProjectDistributionCredentialsV1RequestSchema,
@@ -42,6 +43,21 @@ export class SelfHostedV1DistributionCredentials {
     this.#auth = auth;
   }
 
+  /**
+   * Create a Project Self-Hosted Distribution Credential
+   *
+   * @remarks
+   * Creates a set of distribution credentials for the specified project
+   *
+   * @returns Single distribution credential
+   *
+   * @throws {@link SelfHostedV1DistributionCredentials.Create5Error} when the API answers with an
+   * error status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   create5(
     request: SelfHostedV1DistributionCredentials.Create5Request,
     options?: RequestOptions,
@@ -52,7 +68,7 @@ export class SelfHostedV1DistributionCredentials {
     return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v1/projects/{project_id}/self-hosted/distribution/credentials"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/self-hosted/distribution/credentials"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
         query: [
@@ -77,6 +93,7 @@ export class SelfHostedV1DistributionCredentials {
             ),
           },
         ],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -91,6 +108,21 @@ export class SelfHostedV1DistributionCredentials {
     );
   }
 
+  /**
+   * Delete a Project Self-Hosted Distribution Credential
+   *
+   * @remarks
+   * Deletes a set of distribution credentials for the specified project
+   *
+   * @returns Single distribution credential
+   *
+   * @throws {@link SelfHostedV1DistributionCredentials.Delete7Error} when the API answers with an
+   * error status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   delete7(
     request: SelfHostedV1DistributionCredentials.Delete7Request,
     options?: RequestOptions,
@@ -101,7 +133,7 @@ export class SelfHostedV1DistributionCredentials {
     return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default(
+        urlTemplate: this.#servers.default(
           "/v1/projects/{project_id}/self-hosted/distribution/credentials/{distribution_credentials_id}",
         ),
         auth: this.#auth.apiKeyAuth,
@@ -113,6 +145,8 @@ export class SelfHostedV1DistributionCredentials {
             schema: s.string(),
           },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
@@ -123,6 +157,21 @@ export class SelfHostedV1DistributionCredentials {
     );
   }
 
+  /**
+   * Get a Project Self-Hosted Distribution Credential
+   *
+   * @remarks
+   * Returns a set of distribution credentials for the specified project
+   *
+   * @returns Single distribution credential
+   *
+   * @throws {@link SelfHostedV1DistributionCredentials.Get11Error} when the API answers with an
+   * error status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   get11(
     request: SelfHostedV1DistributionCredentials.Get11Request,
     options?: RequestOptions,
@@ -130,7 +179,7 @@ export class SelfHostedV1DistributionCredentials {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default(
+        urlTemplate: this.#servers.default(
           "/v1/projects/{project_id}/self-hosted/distribution/credentials/{distribution_credentials_id}",
         ),
         auth: this.#auth.apiKeyAuth,
@@ -142,6 +191,8 @@ export class SelfHostedV1DistributionCredentials {
             schema: s.string(),
           },
         ],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -152,6 +203,21 @@ export class SelfHostedV1DistributionCredentials {
     );
   }
 
+  /**
+   * List Project Self-Hosted Distribution Credentials
+   *
+   * @remarks
+   * Lists sets of distribution credentials for the specified project
+   *
+   * @returns A list of distribution credentials for a specific project
+   *
+   * @throws {@link SelfHostedV1DistributionCredentials.List17Error} when the API answers with an
+   * error status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   list17(
     request: SelfHostedV1DistributionCredentials.List17Request,
     options?: RequestOptions,
@@ -162,9 +228,11 @@ export class SelfHostedV1DistributionCredentials {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/self-hosted/distribution/credentials"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/self-hosted/distribution/credentials"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -178,45 +246,66 @@ export class SelfHostedV1DistributionCredentials {
 
 export namespace SelfHostedV1DistributionCredentials {
   export type Create5Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** List of permission scopes for the credentials */
     scopes?: V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems[];
+    /**
+     * The provider of the distribution service
+     *
+     * @default V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider.Quay
+     */
     provider?: V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider;
+    /** The set of distribution credentials to create */
     body?: CreateProjectDistributionCredentialsV1Request;
   };
 
-  export class Create5Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Create5Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Create5Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Delete7Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The UUID of the distribution credentials */
     distributionCredentialsId: string;
   };
 
-  export class Delete7Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Delete7Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Delete7Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Get11Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The UUID of the distribution credentials */
     distributionCredentialsId: string;
   };
 
-  export class Get11Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Get11Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Get11Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type List17Request = {
+    /** The unique identifier of the project */
     projectId: string;
   };
 
-  export class List17Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class List17Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<List17Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

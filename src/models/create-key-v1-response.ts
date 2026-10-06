@@ -1,12 +1,19 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
+/** API key created */
 export type CreateKeyV1Response = {
+  /** The unique identifier of the API key */
   apiKeyId?: string;
+  /** The API key */
   key?: string;
+  /** A comment for the API key */
   comment?: string;
+  /** The scopes for the API key */
   scopes?: string[];
+  /** The tags for the API key */
   tags?: string[];
+  /** The expiration date of the API key */
   expirationDate?: Date;
 };
 

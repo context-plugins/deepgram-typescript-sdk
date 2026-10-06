@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - flac. Lossless audio format for high-quality compression. */
 export const V1SpeakPostParametersEncoding1 = {
   Flac: "flac",
 } as const;

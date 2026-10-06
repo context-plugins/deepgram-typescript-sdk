@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Deployment type for the requests */
 export const V1ProjectsProjectIdBillingBreakdownGetParametersDeployment = {
   Hosted: "hosted",
   Beta: "beta",

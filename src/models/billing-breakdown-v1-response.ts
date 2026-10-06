@@ -10,7 +10,9 @@ import {
 } from "./billing-breakdown-v1-response-results-items.js";
 
 export type BillingBreakdownV1Response = {
+  /** Start date of the billing summmary period */
   start: string;
+  /** End date of the billing summary period */
   end: string;
   resolution: BillingBreakdownV1ResponseResolution;
   results: BillingBreakdownV1ResponseResultsItems[];

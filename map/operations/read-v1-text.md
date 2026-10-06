@@ -4,16 +4,17 @@
 
 Accessor: `client.readV1Text` · Source: `src/resources/read-v1-text.ts` · 1 operation · Request and error types: namespace `ReadV1Text`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### analyze
 
 - **Signature**: `analyze(request: ReadV1Text.AnalyzeRequest, options?: RequestOptions): ApiPromise<ReadV1Response, ReadV1Text.AnalyzeError>`
 - **Wire**: `POST /v1/read`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `ReadV1Response`
-- **Error**: `ReadV1Text.AnalyzeError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ReadV1Text.AnalyzeError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ReadV1Text.AnalyzeRequest` (13):

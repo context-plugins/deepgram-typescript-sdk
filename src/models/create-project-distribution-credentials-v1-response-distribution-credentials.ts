@@ -2,10 +2,15 @@ import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
 export type CreateProjectDistributionCredentialsV1ResponseDistributionCredentials = {
+  /** Unique identifier for the distribution credentials */
   distributionCredentialsId: string;
+  /** The provider of the distribution service */
   provider: string;
+  /** Optional comment about the credentials */
   comment?: string;
+  /** List of permission scopes for the credentials */
   scopes: string[];
+  /** Timestamp when the credentials were created */
   created: Date;
 };
 

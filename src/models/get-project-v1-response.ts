@@ -2,8 +2,11 @@ import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
 export type GetProjectV1Response = {
+  /** The unique identifier of the project */
   projectId?: string;
+  /** Model Improvement Program opt-out */
   mipOptOut?: boolean;
+  /** The name of the project */
   name?: string;
 };
 

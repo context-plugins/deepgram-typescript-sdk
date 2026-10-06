@@ -9,7 +9,7 @@ export type SharedTopicsResultsTopicsSegmentsItemsTopicsItems = {
 export const sharedTopicsResultsTopicsSegmentsItemsTopicsItemsSchema: Schema<SharedTopicsResultsTopicsSegmentsItemsTopicsItems> =
   s.object<SharedTopicsResultsTopicsSegmentsItemsTopicsItems>({
     topic: s.optional(s.string()),
-    confidenceScore: s.optional(s.number()),
+    confidenceScore: s.optional(s.float64()),
     _keysMap: {
       confidenceScore: "confidence_score",
     },

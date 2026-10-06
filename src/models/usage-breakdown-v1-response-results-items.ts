@@ -6,25 +6,32 @@ import {
 } from "./usage-breakdown-v1-response-results-items-grouping.js";
 
 export type UsageBreakdownV1ResponseResultsItems = {
+  /** Audio hours processed */
   hours: number;
+  /** Total hours including all processing */
   totalHours: number;
+  /** Agent hours used */
   agentHours: number;
+  /** Number of input tokens */
   tokensIn: number;
+  /** Number of output tokens */
   tokensOut: number;
+  /** Number of text-to-speech characters processed */
   ttsCharacters: number;
+  /** Number of requests */
   requests: number;
   grouping: UsageBreakdownV1ResponseResultsItemsGrouping;
 };
 
 export const usageBreakdownV1ResponseResultsItemsSchema: Schema<UsageBreakdownV1ResponseResultsItems> =
   s.object<UsageBreakdownV1ResponseResultsItems>({
-    hours: s.number(),
-    totalHours: s.number(),
-    agentHours: s.number(),
-    tokensIn: s.number(),
-    tokensOut: s.number(),
-    ttsCharacters: s.number(),
-    requests: s.number(),
+    hours: s.float64(),
+    totalHours: s.float64(),
+    agentHours: s.float64(),
+    tokensIn: s.float64(),
+    tokensOut: s.float64(),
+    ttsCharacters: s.float64(),
+    requests: s.float64(),
     grouping: usageBreakdownV1ResponseResultsItemsGroupingSchema,
     _keysMap: {
       totalHours: "total_hours",

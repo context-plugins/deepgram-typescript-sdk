@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - mp3. Sample rate is fixed and not configurable (22050 Hz). */
 export const V1SpeakPostParametersSampleRate3 = {
   _22050: "22050",
 } as const;

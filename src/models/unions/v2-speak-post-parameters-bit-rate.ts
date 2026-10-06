@@ -8,6 +8,4 @@ import {
 export type V2SpeakPostParametersBitRate = V2SpeakPostParametersBitRate0 | number;
 
 export const v2SpeakPostParametersBitRateSchema: Schema<V2SpeakPostParametersBitRate> =
-  s.of<V2SpeakPostParametersBitRate>(
-    s.union([s.lazy(() => v2SpeakPostParametersBitRate0Schema), s.number()]),
-  );
+  s.of<V2SpeakPostParametersBitRate>(s.union([s.lazy(() => v2SpeakPostParametersBitRate0Schema), s.int()]));

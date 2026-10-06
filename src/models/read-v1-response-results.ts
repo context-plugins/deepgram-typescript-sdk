@@ -9,9 +9,13 @@ import { sharedSentimentsSchema, type SharedSentiments } from "./shared-sentimen
 import { sharedTopicsSchema, type SharedTopics } from "./shared-topics.js";
 
 export type ReadV1ResponseResults = {
+  /** Output whenever `summary=true` is used */
   summary?: ReadV1ResponseResultsSummary;
+  /** Output whenever `topics=true` is used */
   topics?: SharedTopics;
+  /** Output whenever `intents=true` is used */
   intents?: SharedIntents;
+  /** Output whenever `sentiment=true` is used */
   sentiments?: SharedSentiments;
 };
 

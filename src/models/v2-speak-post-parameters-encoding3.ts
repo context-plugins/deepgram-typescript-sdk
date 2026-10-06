@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - alaw. Similar to mulaw but used in international telephony. */
 export const V2SpeakPostParametersEncoding3 = {
   Alaw: "alaw",
 } as const;

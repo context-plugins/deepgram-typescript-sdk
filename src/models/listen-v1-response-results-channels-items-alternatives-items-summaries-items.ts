@@ -10,8 +10,8 @@ export type ListenV1ResponseResultsChannelsItemsAlternativesItemsSummariesItems 
 export const listenV1ResponseResultsChannelsItemsAlternativesItemsSummariesItemsSchema: Schema<ListenV1ResponseResultsChannelsItemsAlternativesItemsSummariesItems> =
   s.object<ListenV1ResponseResultsChannelsItemsAlternativesItemsSummariesItems>({
     summary: s.optional(s.string()),
-    startWord: s.optional(s.number()),
-    endWord: s.optional(s.number()),
+    startWord: s.optional(s.float64()),
+    endWord: s.optional(s.float64()),
     _keysMap: {
       startWord: "start_word",
       endWord: "end_word",

@@ -6,9 +6,13 @@ import {
 } from "./list-billing-fields-v1-response-deployments-items.js";
 
 export type ListBillingFieldsV1Response = {
+  /** List of accessor UUIDs for the time period */
   accessors?: string[];
+  /** List of deployment types for the time period */
   deployments?: ListBillingFieldsV1ResponseDeploymentsItems[];
+  /** List of tags for the time period */
   tags?: string[];
+  /** Map of line item names to human-readable descriptions for the time period */
   lineItems?: Record<string, string>;
 };
 

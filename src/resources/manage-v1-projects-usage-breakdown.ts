@@ -1,8 +1,8 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
 import * as s from "../core/validation/index.js";
 import { errorResponseSchema, type ErrorResponse } from "../models/unions/error-response.js";
 import {
@@ -38,6 +38,24 @@ export class ManageV1ProjectsUsageBreakdown {
     this.#auth = auth;
   }
 
+  /**
+   * Get Project Usage Breakdown
+   *
+   * @remarks
+   * Retrieves the usage breakdown for a specific project, with various filter options by API
+   * feature or by groupings. Setting a feature (e.g. diarize) to true includes requests that used
+   * that feature, while false excludes requests that used it. Multiple true filters are combined
+   * with OR logic, while false filters use AND logic.
+   *
+   * @returns Usage breakdown response
+   *
+   * @throws {@link ManageV1ProjectsUsageBreakdown.Get9Error} when the API answers with an error
+   * status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   get9(
     request: ManageV1ProjectsUsageBreakdown.Get9Request,
     options?: RequestOptions,
@@ -45,7 +63,7 @@ export class ManageV1ProjectsUsageBreakdown {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/usage/breakdown"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/usage/breakdown"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
         query: [
@@ -111,6 +129,7 @@ export class ManageV1ProjectsUsageBreakdown {
           { name: "utterances", value: request.utterances, schema: s.optional(s.boolean()) },
           { name: "version", value: request.version, schema: s.optional(s.boolean()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -124,55 +143,103 @@ export class ManageV1ProjectsUsageBreakdown {
 
 export namespace ManageV1ProjectsUsageBreakdown {
   export type Get9Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** Start date of the requested date range. Format accepted is YYYY-MM-DD */
     start?: string;
+    /** End date of the requested date range. Format accepted is YYYY-MM-DD */
     end?: string;
+    /** Common usage grouping parameters */
     grouping?: V1ProjectsProjectIdUsageBreakdownGetParametersGrouping;
+    /** Filter for requests where a specific accessor was used */
     accessor?: string;
+    /** Filter for requests where alternatives were used */
     alternatives?: boolean;
+    /** Filter for requests where callback method was used */
     callbackMethod?: boolean;
+    /** Filter for requests where callback was used */
     callback?: boolean;
+    /** Filter for requests where channels were used */
     channels?: boolean;
+    /** Filter for requests where custom intent mode was used */
     customIntentMode?: boolean;
+    /** Filter for requests where custom intent was used */
     customIntent?: boolean;
+    /** Filter for requests where custom topic mode was used */
     customTopicMode?: boolean;
+    /** Filter for requests where custom topic was used */
     customTopic?: boolean;
+    /** Filter for requests where a specific deployment was used */
     deployment?: V1ProjectsProjectIdUsageBreakdownGetParametersDeployment;
+    /** Filter for requests where detect entities was used */
     detectEntities?: boolean;
+    /** Filter for requests where detect language was used */
     detectLanguage?: boolean;
+    /** Filter for requests where diarize was used */
     diarize?: boolean;
+    /** Filter for requests where dictation was used */
     dictation?: boolean;
+    /** Filter for requests where encoding was used */
     encoding?: boolean;
+    /** Filter for requests where a specific endpoint was used */
     endpoint?: V1ProjectsProjectIdUsageBreakdownGetParametersEndpoint;
+    /** Filter for requests where extra was used */
     extra?: boolean;
+    /** Filter for requests where filler words was used */
     fillerWords?: boolean;
+    /** Filter for requests where intents was used */
     intents?: boolean;
+    /** Filter for requests where keyterm was used */
     keyterm?: boolean;
+    /** Filter for requests where keywords was used */
     keywords?: boolean;
+    /** Filter for requests where language was used */
     language?: boolean;
+    /** Filter for requests where measurements were used */
     measurements?: boolean;
+    /** Filter for requests where a specific method was used */
     method?: V1ProjectsProjectIdUsageBreakdownGetParametersMethod;
+    /** Filter for requests where a specific model uuid was used */
     model?: string;
+    /** Filter for requests where multichannel was used */
     multichannel?: boolean;
+    /** Filter for requests where numerals were used */
     numerals?: boolean;
+    /** Filter for requests where paragraphs were used */
     paragraphs?: boolean;
+    /** Filter for requests where profanity filter was used */
     profanityFilter?: boolean;
+    /** Filter for requests where punctuate was used */
     punctuate?: boolean;
+    /** Filter for requests where redact was used */
     redact?: boolean;
+    /** Filter for requests where replace was used */
     replace?: boolean;
+    /** Filter for requests where sample rate was used */
     sampleRate?: boolean;
+    /** Filter for requests where search was used */
     search?: boolean;
+    /** Filter for requests where sentiment was used */
     sentiment?: boolean;
+    /** Filter for requests where smart format was used */
     smartFormat?: boolean;
+    /** Filter for requests where summarize was used */
     summarize?: boolean;
+    /** Filter for requests where a specific tag was used */
     tag?: string;
+    /** Filter for requests where topics was used */
     topics?: boolean;
+    /** Filter for requests where utt split was used */
     uttSplit?: boolean;
+    /** Filter for requests where utterances was used */
     utterances?: boolean;
+    /** Filter for requests where version was used */
     version?: boolean;
   };
 
-  export class Get9Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Get9Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Get9Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

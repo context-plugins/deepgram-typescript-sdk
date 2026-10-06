@@ -11,7 +11,7 @@ export type ListenV1ResponseResultsChannelsItemsAlternativesItemsWordsItems = {
 export const listenV1ResponseResultsChannelsItemsAlternativesItemsWordsItemsSchema: Schema<ListenV1ResponseResultsChannelsItemsAlternativesItemsWordsItems> =
   s.object<ListenV1ResponseResultsChannelsItemsAlternativesItemsWordsItems>({
     word: s.optional(s.string()),
-    start: s.optional(s.number()),
-    end: s.optional(s.number()),
-    confidence: s.optional(s.number()),
+    start: s.optional(s.float64()),
+    end: s.optional(s.float64()),
+    confidence: s.optional(s.float64()),
   });

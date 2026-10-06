@@ -1,18 +1,28 @@
-import type { FetchLike } from "./core/api-request.js";
 import type { TokenProvider } from "./core/auth/credentials.js";
-import { ServerEnvironment, type ServerOptions } from "./servers.js";
+import type { CoreClientOptions } from "./core/client-options.js";
+import { ServerEnvironment } from "./servers.js";
 
-export type ClientOptions = {
-  readonly serverEnvironment: ServerEnvironment;
-  readonly serverOptions: ServerOptions;
-  readonly timeout: number;
-  readonly fetch?: FetchLike | undefined;
+export type ClientOptions = SdkClientOptions & CoreClientOptions;
+
+type SdkClientOptions = ServerOptions & {
+  /** Use `Authorization: Token <API_KEY>` Example: `Authorization: Token 12345abcdef` */
   readonly apiKeyAuth?: TokenProvider | undefined;
+  /** Use `Authorization: Bearer <JWT>` Example: `Authorization: Bearer eyJhbGciOiJ...` */
   readonly jwtAuth?: TokenProvider | undefined;
 };
 
-export const DEFAULT_CLIENT_OPTIONS: ClientOptions = {
-  serverEnvironment: ServerEnvironment.Production,
-  serverOptions: {},
-  timeout: 60_000,
-};
+type ServerOptions =
+  | {
+      readonly serverEnvironment?: typeof ServerEnvironment.Production;
+      /** Production */
+      readonly serverOptions?: {
+        baseUrl?: string;
+      };
+    }
+  | {
+      readonly serverEnvironment: typeof ServerEnvironment.Environment2;
+      /** Production */
+      readonly serverOptions?: {
+        baseUrl?: string;
+      };
+    };

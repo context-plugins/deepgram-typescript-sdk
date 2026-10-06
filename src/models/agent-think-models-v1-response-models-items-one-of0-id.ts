@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** The unique identifier of the OpenAI model */
 export const AgentThinkModelsV1ResponseModelsItemsOneOf0Id = {
   Gpt5: "gpt-5",
   Gpt5Mini: "gpt-5-mini",

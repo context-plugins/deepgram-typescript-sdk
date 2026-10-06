@@ -9,5 +9,5 @@ export type UsageV1ResponseResolution = {
 export const usageV1ResponseResolutionSchema: Schema<UsageV1ResponseResolution> =
   s.object<UsageV1ResponseResolution>({
     units: s.optional(s.string()),
-    amount: s.optional(s.number()),
+    amount: s.optional(s.float64()),
   });

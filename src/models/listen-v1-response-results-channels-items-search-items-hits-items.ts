@@ -10,8 +10,8 @@ export type ListenV1ResponseResultsChannelsItemsSearchItemsHitsItems = {
 
 export const listenV1ResponseResultsChannelsItemsSearchItemsHitsItemsSchema: Schema<ListenV1ResponseResultsChannelsItemsSearchItemsHitsItems> =
   s.object<ListenV1ResponseResultsChannelsItemsSearchItemsHitsItems>({
-    confidence: s.optional(s.number()),
-    start: s.optional(s.number()),
-    end: s.optional(s.number()),
+    confidence: s.optional(s.float64()),
+    start: s.optional(s.float64()),
+    end: s.optional(s.float64()),
     snippet: s.optional(s.string()),
   });

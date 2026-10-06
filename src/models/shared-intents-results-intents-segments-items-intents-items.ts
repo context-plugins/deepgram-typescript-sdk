@@ -9,7 +9,7 @@ export type SharedIntentsResultsIntentsSegmentsItemsIntentsItems = {
 export const sharedIntentsResultsIntentsSegmentsItemsIntentsItemsSchema: Schema<SharedIntentsResultsIntentsSegmentsItemsIntentsItems> =
   s.object<SharedIntentsResultsIntentsSegmentsItemsIntentsItems>({
     intent: s.optional(s.string()),
-    confidenceScore: s.optional(s.number()),
+    confidenceScore: s.optional(s.float64()),
     _keysMap: {
       confidenceScore: "confidence_score",
     },

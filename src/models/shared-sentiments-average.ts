@@ -9,7 +9,7 @@ export type SharedSentimentsAverage = {
 export const sharedSentimentsAverageSchema: Schema<SharedSentimentsAverage> =
   s.object<SharedSentimentsAverage>({
     sentiment: s.optional(s.string()),
-    sentimentScore: s.optional(s.number()),
+    sentimentScore: s.optional(s.float64()),
     _keysMap: {
       sentimentScore: "sentiment_score",
     },

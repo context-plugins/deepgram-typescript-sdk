@@ -15,9 +15,9 @@ export const listenV1ResponseResultsChannelsItemsAlternativesItemsEntitiesItemsS
     label: s.optional(s.string()),
     value: s.optional(s.string()),
     rawValue: s.optional(s.string()),
-    confidence: s.optional(s.number()),
-    startWord: s.optional(s.number()),
-    endWord: s.optional(s.number()),
+    confidence: s.optional(s.float64()),
+    startWord: s.optional(s.float64()),
+    endWord: s.optional(s.float64()),
     _keysMap: {
       rawValue: "raw_value",
       startWord: "start_word",

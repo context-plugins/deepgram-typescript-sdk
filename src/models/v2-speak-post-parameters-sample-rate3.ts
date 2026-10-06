@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - flac. Supported sample rates - 8000, 16000, 22050, 32000, 48000 Hz. */
 export const V2SpeakPostParametersSampleRate3 = {
   _8000: "8000",
   _16000: "16000",

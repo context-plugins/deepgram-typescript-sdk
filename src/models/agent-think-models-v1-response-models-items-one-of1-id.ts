@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** The unique identifier of the Anthropic model */
 export const AgentThinkModelsV1ResponseModelsItemsOneOf1Id = {
   Claude35HaikuLatest: "claude-3-5-haiku-latest",
   ClaudeSonnet420250514: "claude-sonnet-4-20250514",

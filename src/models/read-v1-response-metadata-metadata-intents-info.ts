@@ -10,8 +10,8 @@ export type ReadV1ResponseMetadataMetadataIntentsInfo = {
 export const readV1ResponseMetadataMetadataIntentsInfoSchema: Schema<ReadV1ResponseMetadataMetadataIntentsInfo> =
   s.object<ReadV1ResponseMetadataMetadataIntentsInfo>({
     modelUuid: s.optional(s.string()),
-    inputTokens: s.optional(s.number()),
-    outputTokens: s.optional(s.number()),
+    inputTokens: s.optional(s.int()),
+    outputTokens: s.optional(s.int()),
     _keysMap: {
       modelUuid: "model_uuid",
       inputTokens: "input_tokens",

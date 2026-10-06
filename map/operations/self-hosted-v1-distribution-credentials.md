@@ -4,16 +4,17 @@
 
 Accessor: `client.selfHostedV1DistributionCredentials` · Source: `src/resources/self-hosted-v1-distribution-credentials.ts` · 4 operations · Request and error types: namespace `SelfHostedV1DistributionCredentials`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### create5
 
 - **Signature**: `create5(request: SelfHostedV1DistributionCredentials.Create5Request, options?: RequestOptions): ApiPromise<CreateProjectDistributionCredentialsV1Response, SelfHostedV1DistributionCredentials.Create5Error>`
 - **Wire**: `POST /v1/projects/{project_id}/self-hosted/distribution/credentials`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateProjectDistributionCredentialsV1Response`
-- **Error**: `SelfHostedV1DistributionCredentials.Create5Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `SelfHostedV1DistributionCredentials.Create5Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `SelfHostedV1DistributionCredentials.Create5Request` (4):
@@ -39,8 +40,9 @@ Accessor: `client.selfHostedV1DistributionCredentials` · Source: `src/resources
 - **Wire**: `DELETE /v1/projects/{project_id}/self-hosted/distribution/credentials/{distribution_credentials_id}`
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `GetProjectDistributionCredentialsV1Response`
-- **Error**: `SelfHostedV1DistributionCredentials.Delete7Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `SelfHostedV1DistributionCredentials.Delete7Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `SelfHostedV1DistributionCredentials.Delete7Request` (2):
@@ -62,7 +64,7 @@ Accessor: `client.selfHostedV1DistributionCredentials` · Source: `src/resources
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetProjectDistributionCredentialsV1Response`
-- **Error**: `SelfHostedV1DistributionCredentials.Get11Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `SelfHostedV1DistributionCredentials.Get11Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `SelfHostedV1DistributionCredentials.Get11Request` (2):
@@ -84,7 +86,7 @@ Accessor: `client.selfHostedV1DistributionCredentials` · Source: `src/resources
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListProjectDistributionCredentialsV1Response`
-- **Error**: `SelfHostedV1DistributionCredentials.List17Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `SelfHostedV1DistributionCredentials.List17Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `SelfHostedV1DistributionCredentials.List17Request` (1):

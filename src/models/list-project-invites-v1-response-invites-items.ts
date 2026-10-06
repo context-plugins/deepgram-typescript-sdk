@@ -2,7 +2,9 @@ import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
 export type ListProjectInvitesV1ResponseInvitesItems = {
+  /** The email address of the invitee */
   email?: string;
+  /** The scope of the invitee */
   scope?: string;
 };
 

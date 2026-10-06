@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - aac. Advanced audio format offering better quality at smaller file sizes than mp3. */
 export const V2SpeakPostParametersEncoding6 = {
   Aac: "aac",
 } as const;

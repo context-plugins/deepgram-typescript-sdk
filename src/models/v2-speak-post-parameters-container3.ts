@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - alaw. Supported container - wav (default), or no container. */
 export const V2SpeakPostParametersContainer3 = {
   Wav: "wav",
 } as const;

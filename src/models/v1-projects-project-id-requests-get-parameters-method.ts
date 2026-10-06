@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Method type for the request */
 export const V1ProjectsProjectIdRequestsGetParametersMethod = {
   Sync: "sync",
   Async: "async",

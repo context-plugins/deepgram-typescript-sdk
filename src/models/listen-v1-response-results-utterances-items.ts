@@ -18,12 +18,12 @@ export type ListenV1ResponseResultsUtterancesItems = {
 
 export const listenV1ResponseResultsUtterancesItemsSchema: Schema<ListenV1ResponseResultsUtterancesItems> =
   s.object<ListenV1ResponseResultsUtterancesItems>({
-    start: s.optional(s.number()),
-    end: s.optional(s.number()),
-    confidence: s.optional(s.number()),
-    channel: s.optional(s.number()),
+    start: s.optional(s.float64()),
+    end: s.optional(s.float64()),
+    confidence: s.optional(s.float64()),
+    channel: s.optional(s.int()),
     transcript: s.optional(s.string()),
     words: s.optional(s.array(s.lazy(() => listenV1ResponseResultsUtterancesItemsWordsItemsSchema))),
-    speaker: s.optional(s.number()),
+    speaker: s.optional(s.int()),
     id: s.optional(s.string()),
   });

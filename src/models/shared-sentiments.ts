@@ -6,6 +6,7 @@ import {
   type SharedSentimentsSegmentsItems,
 } from "./shared-sentiments-segments-items.js";
 
+/** Output whenever `sentiment=true` is used */
 export type SharedSentiments = {
   segments?: SharedSentimentsSegmentsItems[];
   average?: SharedSentimentsAverage;

@@ -6,6 +6,7 @@ import {
 } from "./listen-v1-response-metadata.js";
 import { listenV1ResponseResultsSchema, type ListenV1ResponseResults } from "./listen-v1-response-results.js";
 
+/** The standard transcription response */
 export type ListenV1Response = {
   metadata: ListenV1ResponseMetadata;
   results: ListenV1ResponseResults;

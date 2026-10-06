@@ -4,16 +4,17 @@
 
 Accessor: `client.manageV1ProjectsMembersInvites` · Source: `src/resources/manage-v1-projects-members-invites.ts` · 3 operations · Request and error types: namespace `ManageV1ProjectsMembersInvites`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### create4
 
 - **Signature**: `create4(request: ManageV1ProjectsMembersInvites.Create4Request, options?: RequestOptions): ApiPromise<CreateProjectInviteV1Response, ManageV1ProjectsMembersInvites.Create4Error>`
 - **Wire**: `POST /v1/projects/{project_id}/invites`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateProjectInviteV1Response`
-- **Error**: `ManageV1ProjectsMembersInvites.Create4Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsMembersInvites.Create4Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsMembersInvites.Create4Request` (2):
@@ -35,8 +36,9 @@ Accessor: `client.manageV1ProjectsMembersInvites` · Source: `src/resources/mana
 - **Wire**: `DELETE /v1/projects/{project_id}/invites/{email}`
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteProjectInviteV1Response`
-- **Error**: `ManageV1ProjectsMembersInvites.Delete6Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsMembersInvites.Delete6Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsMembersInvites.Delete6Request` (2):
@@ -58,7 +60,7 @@ Accessor: `client.manageV1ProjectsMembersInvites` · Source: `src/resources/mana
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListProjectInvitesV1Response`
-- **Error**: `ManageV1ProjectsMembersInvites.List10Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsMembersInvites.List10Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsMembersInvites.List10Request` (1):

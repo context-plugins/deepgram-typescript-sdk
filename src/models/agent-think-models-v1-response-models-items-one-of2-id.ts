@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** The unique identifier of the Google model */
 export const AgentThinkModelsV1ResponseModelsItemsOneOf2Id = {
   Gemini25Flash: "gemini-2.5-flash",
   Gemini20Flash: "gemini-2.0-flash",

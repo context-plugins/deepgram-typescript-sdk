@@ -9,5 +9,5 @@ export type V1SpeakPostParametersBitRate = V1SpeakPostParametersBitRate0 | numbe
 
 export const v1SpeakPostParametersBitRateSchema: Schema<V1SpeakPostParametersBitRate> =
   s.of<V1SpeakPostParametersBitRate>(
-    s.union([s.lazy(() => v1SpeakPostParametersBitRate0Schema), s.number()]),
+    s.union([s.lazy(() => v1SpeakPostParametersBitRate0Schema), s.float64()]),
   );

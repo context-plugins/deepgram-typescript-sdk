@@ -4,16 +4,17 @@
 
 Accessor: `client.manageV1ProjectsKeys` · Source: `src/resources/manage-v1-projects-keys.ts` · 4 operations · Request and error types: namespace `ManageV1ProjectsKeys`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### create3
 
 - **Signature**: `create3(request: ManageV1ProjectsKeys.Create3Request, options?: RequestOptions): ApiPromise<CreateKeyV1Response, ManageV1ProjectsKeys.Create3Error>`
 - **Wire**: `POST /v1/projects/{project_id}/keys`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateKeyV1Response`
-- **Error**: `ManageV1ProjectsKeys.Create3Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsKeys.Create3Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsKeys.Create3Request` (2):
@@ -35,8 +36,9 @@ Accessor: `client.manageV1ProjectsKeys` · Source: `src/resources/manage-v1-proj
 - **Wire**: `DELETE /v1/projects/{project_id}/keys/{key_id}`
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteProjectKeyV1Response`
-- **Error**: `ManageV1ProjectsKeys.Delete4Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsKeys.Delete4Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsKeys.Delete4Request` (2):
@@ -58,7 +60,7 @@ Accessor: `client.manageV1ProjectsKeys` · Source: `src/resources/manage-v1-proj
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetProjectKeyV1Response`
-- **Error**: `ManageV1ProjectsKeys.Get6Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsKeys.Get6Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsKeys.Get6Request` (2):
@@ -80,7 +82,7 @@ Accessor: `client.manageV1ProjectsKeys` · Source: `src/resources/manage-v1-proj
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListProjectKeysV1Response`
-- **Error**: `ManageV1ProjectsKeys.List7Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsKeys.List7Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsKeys.List7Request` (2):

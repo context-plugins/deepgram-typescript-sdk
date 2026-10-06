@@ -1,11 +1,17 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
+/** A template variable for agent configurations */
 export type AgentVariableV1 = {
+  /** The unique identifier of the variable */
   variableId: string;
+  /** The variable name, following the DG_<VARIABLE_NAME> format */
   key: string;
+  /** The value to substitute. Can be any valid JSON type */
   value: Record<string, unknown>;
+  /** Timestamp when the variable was created */
   createdAt?: Date;
+  /** Timestamp when the variable was last updated */
   updatedAt?: Date;
 };
 

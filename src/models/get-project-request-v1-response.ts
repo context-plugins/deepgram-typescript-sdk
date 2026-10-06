@@ -3,6 +3,7 @@ import type { Schema } from "../core/validation/schema.js";
 import { projectRequestResponseSchema, type ProjectRequestResponse } from "./project-request-response.js";
 
 export type GetProjectRequestV1Response = {
+  /** A single request */
   request?: ProjectRequestResponse;
 };
 

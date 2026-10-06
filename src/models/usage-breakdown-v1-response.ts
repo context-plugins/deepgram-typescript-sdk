@@ -10,7 +10,9 @@ import {
 } from "./usage-breakdown-v1-response-results-items.js";
 
 export type UsageBreakdownV1Response = {
+  /** Start date of the usage period */
   start: string;
+  /** End date of the usage period */
   end: string;
   resolution: UsageBreakdownV1ResponseResolution;
   results: UsageBreakdownV1ResponseResultsItems[];

@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import { readV1ResponseSchema, type ReadV1Response } from "../models/read-v1-response.js";
 import { errorResponseSchema, type ErrorResponse } from "../models/unions/error-response.js";
@@ -44,6 +45,21 @@ export class ReadV1Text {
     this.#auth = auth;
   }
 
+  /**
+   * Analyze text content
+   *
+   * @remarks
+   * Analyze text content using Deepgrams text analysis API
+   *
+   * @returns Successful text analysis
+   *
+   * @throws {@link ReadV1Text.AnalyzeError} when the API answers with an error status — narrow on
+   * `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   analyze(
     request: ReadV1Text.AnalyzeRequest,
     options?: RequestOptions,
@@ -51,8 +67,9 @@ export class ReadV1Text {
     return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v1/read"),
+        urlTemplate: this.#servers.default("/v1/read"),
         auth: this.#auth.apiKeyAuth,
+        pathParams: [],
         query: [
           { name: "callback", value: request.callback, schema: s.optional(s.string()) },
           {
@@ -104,6 +121,7 @@ export class ReadV1Text {
           },
           { name: "language", value: request.language, schema: s.defaulted(s.string(), "en") },
         ],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "json", value: request.body, schema: s.optional(s.lazy(() => readV1RequestSchema)) },
       },
       {
@@ -117,22 +135,66 @@ export class ReadV1Text {
 
 export namespace ReadV1Text {
   export type AnalyzeRequest = {
+    /** URL to which we'll make the callback request */
     callback?: string;
+    /**
+     * HTTP method by which the callback request will be made
+     *
+     * @default V1ListenPostParametersCallbackMethod.Post
+     */
     callbackMethod?: V1ListenPostParametersCallbackMethod;
+    /** Recognizes the sentiment throughout a transcript or text @default false */
     sentiment?: boolean;
+    /**
+     * Summarize content. For Listen API, supports string version option. For Read API, accepts
+     * boolean only.
+     */
     summarize?: V1ReadPostParametersSummarize;
+    /** Label your requests for the purpose of identification during usage reporting */
     tag?: V1ReadPostParametersTag;
+    /** Detect topics throughout a transcript or text @default false */
     topics?: boolean;
+    /**
+     * Custom topics you want the model to detect within your input audio or text if present Submit
+     * up to `100`.
+     */
     customTopic?: V1ReadPostParametersCustomTopic;
+    /**
+     * Sets how the model will interpret strings submitted to the `custom_topic` param. When
+     * `strict`, the model will only return topics submitted using the `custom_topic` param. When
+     * `extended`, the model will return its own detected topics in addition to those submitted
+     * using the `custom_topic` param
+     *
+     * @default V1ListenPostParametersCustomTopicMode.Extended
+     */
     customTopicMode?: V1ListenPostParametersCustomTopicMode;
+    /** Recognizes speaker intent throughout a transcript or text @default false */
     intents?: boolean;
+    /** Custom intents you want the model to detect within your input audio if present */
     customIntent?: V1ReadPostParametersCustomIntent;
+    /**
+     * Sets how the model will interpret intents submitted to the `custom_intent` param. When
+     * `strict`, the model will only return intents submitted using the `custom_intent` param. When
+     * `extended`, the model will return its own detected intents in the `custom_intent` param.
+     *
+     * @default V1ListenPostParametersCustomTopicMode.Extended
+     */
     customIntentMode?: V1ListenPostParametersCustomTopicMode;
+    /**
+     * The [BCP-47 language tag](https://tools.ietf.org/html/bcp47) that hints at the primary spoken
+     * language. Depending on the Model and API endpoint you choose only certain languages are
+     * available
+     *
+     * @default "en"
+     */
     language?: string;
+    /** Analyze a text file */
     body?: ReadV1Request;
   };
 
-  export class AnalyzeError extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class AnalyzeError extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<AnalyzeError> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

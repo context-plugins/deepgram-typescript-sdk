@@ -4,7 +4,7 @@
 
 Accessor: `client.agentV1SettingsThinkModels` · Source: `src/resources/agent-v1-settings-think-models.ts` · 1 operation · Request and error types: namespace `AgentV1SettingsThinkModels`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### list
 
@@ -13,7 +13,7 @@ Accessor: `client.agentV1SettingsThinkModels` · Source: `src/resources/agent-v1
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `AgentThinkModelsV1Response`
-- **Error**: `AgentV1SettingsThinkModels.ListError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `AgentV1SettingsThinkModels.ListError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 | Type | Schema value | Source |

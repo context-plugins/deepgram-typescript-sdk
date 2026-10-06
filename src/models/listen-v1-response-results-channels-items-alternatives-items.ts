@@ -34,7 +34,7 @@ export type ListenV1ResponseResultsChannelsItemsAlternativesItems = {
 export const listenV1ResponseResultsChannelsItemsAlternativesItemsSchema: Schema<ListenV1ResponseResultsChannelsItemsAlternativesItems> =
   s.object<ListenV1ResponseResultsChannelsItemsAlternativesItems>({
     transcript: s.optional(s.string()),
-    confidence: s.optional(s.number()),
+    confidence: s.optional(s.float64()),
     words: s.optional(
       s.array(s.lazy(() => listenV1ResponseResultsChannelsItemsAlternativesItemsWordsItemsSchema)),
     ),

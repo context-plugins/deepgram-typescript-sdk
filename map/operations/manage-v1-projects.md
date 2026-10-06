@@ -4,7 +4,7 @@
 
 Accessor: `client.manageV1Projects` · Source: `src/resources/manage-v1-projects.ts` · 5 operations · Request and error types: namespace `ManageV1Projects`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### delete3
 
@@ -12,8 +12,9 @@ Accessor: `client.manageV1Projects` · Source: `src/resources/manage-v1-projects
 - **Wire**: `DELETE /v1/projects/{project_id}`
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteProjectV1Response`
-- **Error**: `ManageV1Projects.Delete3Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1Projects.Delete3Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1Projects.Delete3Request` (1):
@@ -34,7 +35,7 @@ Accessor: `client.manageV1Projects` · Source: `src/resources/manage-v1-projects
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `GetProjectV1Response`
-- **Error**: `ManageV1Projects.Get3Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1Projects.Get3Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1Projects.Get3Request` (3):
@@ -56,8 +57,9 @@ Accessor: `client.manageV1Projects` · Source: `src/resources/manage-v1-projects
 - **Wire**: `DELETE /v1/projects/{project_id}/leave`
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `LeaveProjectV1Response`
-- **Error**: `ManageV1Projects.LeaveError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1Projects.LeaveError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1Projects.LeaveRequest` (1):
@@ -78,7 +80,7 @@ Accessor: `client.manageV1Projects` · Source: `src/resources/manage-v1-projects
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListProjectsV1Response`
-- **Error**: `ManageV1Projects.List4Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1Projects.List4Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 | Type | Schema value | Source |
@@ -91,9 +93,10 @@ Accessor: `client.manageV1Projects` · Source: `src/resources/manage-v1-projects
 - **Signature**: `update3(request: ManageV1Projects.Update3Request, options?: RequestOptions): ApiPromise<UpdateProjectV1Response, ManageV1Projects.Update3Error>`
 - **Wire**: `PATCH /v1/projects/{project_id}`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `UpdateProjectV1Response`
-- **Error**: `ManageV1Projects.Update3Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1Projects.Update3Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1Projects.Update3Request` (2):

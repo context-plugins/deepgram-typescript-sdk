@@ -15,7 +15,7 @@ export const listProjectPurchasesV1ResponseOrdersItemsSchema: Schema<ListProject
     orderId: s.optional(s.string()),
     expiration: s.optional(s.dateTime()),
     created: s.optional(s.dateTime()),
-    amount: s.optional(s.number()),
+    amount: s.optional(s.float64()),
     units: s.optional(s.string()),
     orderType: s.optional(s.string()),
     _keysMap: {

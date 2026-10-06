@@ -4,16 +4,17 @@
 
 Accessor: `client.voiceAgentConfigurations` · Source: `src/resources/voice-agent-configurations.ts` · 5 operations · Request and error types: namespace `VoiceAgentConfigurations`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### create
 
 - **Signature**: `create(request: VoiceAgentConfigurations.CreateRequest, options?: RequestOptions): ApiPromise<CreateAgentConfigurationV1Response, VoiceAgentConfigurations.CreateError>`
 - **Wire**: `POST /v1/projects/{project_id}/agents`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `CreateAgentConfigurationV1Response`
-- **Error**: `VoiceAgentConfigurations.CreateError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `VoiceAgentConfigurations.CreateError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `VoiceAgentConfigurations.CreateRequest` (2):
@@ -35,8 +36,9 @@ Accessor: `client.voiceAgentConfigurations` · Source: `src/resources/voice-agen
 - **Wire**: `DELETE /v1/projects/{project_id}/agents/{agent_id}`
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `Record<string, unknown>` — a bare `application/json` map; the success type *is* the map
-- **Error**: `VoiceAgentConfigurations.DeleteError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `VoiceAgentConfigurations.DeleteError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `VoiceAgentConfigurations.DeleteRequest` (2):
@@ -57,7 +59,7 @@ Accessor: `client.voiceAgentConfigurations` · Source: `src/resources/voice-agen
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `AgentConfigurationV1`
-- **Error**: `VoiceAgentConfigurations.GetError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `VoiceAgentConfigurations.GetError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `VoiceAgentConfigurations.GetRequest` (2):
@@ -79,7 +81,7 @@ Accessor: `client.voiceAgentConfigurations` · Source: `src/resources/voice-agen
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListAgentConfigurationsV1Response`
-- **Error**: `VoiceAgentConfigurations.List2Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `VoiceAgentConfigurations.List2Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `VoiceAgentConfigurations.List2Request` (1):
@@ -98,9 +100,10 @@ Accessor: `client.voiceAgentConfigurations` · Source: `src/resources/voice-agen
 - **Signature**: `update(request: VoiceAgentConfigurations.UpdateRequest, options?: RequestOptions): ApiPromise<AgentConfigurationV1, VoiceAgentConfigurations.UpdateError>`
 - **Wire**: `PUT /v1/projects/{project_id}/agents/{agent_id}`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `AgentConfigurationV1`
-- **Error**: `VoiceAgentConfigurations.UpdateError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `VoiceAgentConfigurations.UpdateError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `VoiceAgentConfigurations.UpdateRequest` (3):

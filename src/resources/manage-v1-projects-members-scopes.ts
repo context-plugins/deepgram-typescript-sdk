@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   listProjectMemberScopesV1ResponseSchema,
@@ -30,6 +31,21 @@ export class ManageV1ProjectsMembersScopes {
     this.#auth = auth;
   }
 
+  /**
+   * List Project Member Scopes
+   *
+   * @remarks
+   * Retrieves a list of scopes for a specific member
+   *
+   * @returns A list of scopes for a specific member
+   *
+   * @throws {@link ManageV1ProjectsMembersScopes.List9Error} when the API answers with an error
+   * status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   list9(
     request: ManageV1ProjectsMembersScopes.List9Request,
     options?: RequestOptions,
@@ -37,12 +53,14 @@ export class ManageV1ProjectsMembersScopes {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/members/{member_id}/scopes"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/members/{member_id}/scopes"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [
           { name: "project_id", value: request.projectId, schema: s.string() },
           { name: "member_id", value: request.memberId, schema: s.string() },
         ],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -53,6 +71,21 @@ export class ManageV1ProjectsMembersScopes {
     );
   }
 
+  /**
+   * Update Project Member Scopes
+   *
+   * @remarks
+   * Updates the scopes for a specific member
+   *
+   * @returns Updated the scopes for a specific member
+   *
+   * @throws {@link ManageV1ProjectsMembersScopes.Update4Error} when the API answers with an error
+   * status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   update4(
     request: ManageV1ProjectsMembersScopes.Update4Request,
     options?: RequestOptions,
@@ -60,12 +93,14 @@ export class ManageV1ProjectsMembersScopes {
     return this.#rawClient.execute(
       {
         method: "PUT",
-        url: this.#servers.default("/v1/projects/{project_id}/members/{member_id}/scopes"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/members/{member_id}/scopes"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [
           { name: "project_id", value: request.projectId, schema: s.string() },
           { name: "member_id", value: request.memberId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -83,23 +118,32 @@ export class ManageV1ProjectsMembersScopes {
 
 export namespace ManageV1ProjectsMembersScopes {
   export type List9Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The unique identifier of the Member */
     memberId: string;
   };
 
-  export class List9Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class List9Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<List9Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Update4Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The unique identifier of the Member */
     memberId: string;
+    /** A scope to update */
     body?: UpdateProjectMemberScopesV1Request;
   };
 
-  export class Update4Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Update4Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Update4Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

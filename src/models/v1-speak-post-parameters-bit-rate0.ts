@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - mp3(default). Supported bitrates - 32000, 48000(default) bps. */
 export const V1SpeakPostParametersBitRate0 = {
   _32000: "32000",
   _48000: "48000",

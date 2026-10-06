@@ -2,7 +2,9 @@ import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
 export type ListProjectMembersV1ResponseMembersItems = {
+  /** The unique identifier of the member */
   memberId?: string;
+  /** The API scopes of the member */
   scopes?: string[];
   email?: string;
   firstName?: string;

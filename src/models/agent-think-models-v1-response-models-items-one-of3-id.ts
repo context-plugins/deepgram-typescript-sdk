@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** The unique identifier of the Groq model */
 export const AgentThinkModelsV1ResponseModelsItemsOneOf3Id = {
   OpenaiGptOss20B: "openai/gpt-oss-20b",
 } as const;

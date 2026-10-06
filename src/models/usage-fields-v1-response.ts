@@ -6,9 +6,13 @@ import {
 } from "./usage-fields-v1-response-models-items.js";
 
 export type UsageFieldsV1Response = {
+  /** List of tags associated with the project */
   tags?: string[];
+  /** List of models available for the project. */
   models?: UsageFieldsV1ResponseModelsItems[];
+  /** Processing methods supported by the API */
   processingMethods?: string[];
+  /** API features available to the project */
   features?: string[];
 };
 

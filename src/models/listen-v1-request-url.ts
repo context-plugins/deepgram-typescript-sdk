@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
+/** Audio file URL to transcribe */
 export type ListenV1RequestUrl = {
   url: string;
 };

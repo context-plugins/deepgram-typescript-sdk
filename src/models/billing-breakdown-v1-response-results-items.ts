@@ -6,12 +6,13 @@ import {
 } from "./billing-breakdown-v1-response-results-items-grouping.js";
 
 export type BillingBreakdownV1ResponseResultsItems = {
+  /** USD cost of the billing for this grouping */
   dollars: number;
   grouping: BillingBreakdownV1ResponseResultsItemsGrouping;
 };
 
 export const billingBreakdownV1ResponseResultsItemsSchema: Schema<BillingBreakdownV1ResponseResultsItems> =
   s.object<BillingBreakdownV1ResponseResultsItems>({
-    dollars: s.number(),
+    dollars: s.float64(),
     grouping: billingBreakdownV1ResponseResultsItemsGroupingSchema,
   });

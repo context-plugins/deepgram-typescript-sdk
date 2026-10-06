@@ -1,7 +1,9 @@
 import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
+/** Request body for text-to-speech conversion */
 export type SpeakV1Request = {
+  /** The text content to be converted to speech */
   text: string;
 };
 

@@ -10,6 +10,6 @@ export type ListenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParag
 export const listenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParagraphsItemsSentencesItemsSchema: Schema<ListenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParagraphsItemsSentencesItems> =
   s.object<ListenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParagraphsItemsSentencesItems>({
     text: s.optional(s.string()),
-    start: s.optional(s.number()),
-    end: s.optional(s.number()),
+    start: s.optional(s.float64()),
+    end: s.optional(s.float64()),
   });

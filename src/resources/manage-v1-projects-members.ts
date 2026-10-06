@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   deleteProjectMemberV1ResponseSchema,
@@ -26,6 +27,21 @@ export class ManageV1ProjectsMembers {
     this.#auth = auth;
   }
 
+  /**
+   * Delete a Project Member
+   *
+   * @remarks
+   * Removes a member from the project using their unique member ID
+   *
+   * @returns Delete the specific member from the project
+   *
+   * @throws {@link ManageV1ProjectsMembers.Delete5Error} when the API answers with an error status
+   * — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   delete5(
     request: ManageV1ProjectsMembers.Delete5Request,
     options?: RequestOptions,
@@ -33,12 +49,14 @@ export class ManageV1ProjectsMembers {
     return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v1/projects/{project_id}/members/{member_id}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/members/{member_id}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [
           { name: "project_id", value: request.projectId, schema: s.string() },
           { name: "member_id", value: request.memberId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
@@ -49,6 +67,21 @@ export class ManageV1ProjectsMembers {
     );
   }
 
+  /**
+   * List Project Members
+   *
+   * @remarks
+   * Retrieves a list of members for a given project
+   *
+   * @returns A list of members for a given project
+   *
+   * @throws {@link ManageV1ProjectsMembers.List8Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   list8(
     request: ManageV1ProjectsMembers.List8Request,
     options?: RequestOptions,
@@ -56,9 +89,11 @@ export class ManageV1ProjectsMembers {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/members"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/members"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -72,21 +107,28 @@ export class ManageV1ProjectsMembers {
 
 export namespace ManageV1ProjectsMembers {
   export type Delete5Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The unique identifier of the Member */
     memberId: string;
   };
 
-  export class Delete5Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Delete5Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Delete5Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type List8Request = {
+    /** The unique identifier of the project */
     projectId: string;
   };
 
-  export class List8Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class List8Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<List8Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

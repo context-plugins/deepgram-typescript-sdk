@@ -4,16 +4,17 @@
 
 Accessor: `client.speakV1Audio` · Source: `src/resources/speak-v1-audio.ts` · 1 operation · Request and error types: namespace `SpeakV1Audio`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### generate
 
 - **Signature**: `generate(request: SpeakV1Audio.GenerateRequest, options?: RequestOptions): ApiPromise<Record<string, unknown>, SpeakV1Audio.GenerateError>`
 - **Wire**: `POST /v1/speak`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `Record<string, unknown>` — a bare `application/json` map; the success type *is* the map
-- **Error**: `SpeakV1Audio.GenerateError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `SpeakV1Audio.GenerateError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `SpeakV1Audio.GenerateRequest` (11):

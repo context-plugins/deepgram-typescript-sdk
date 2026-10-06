@@ -1,8 +1,8 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
 import * as s from "../core/validation/index.js";
 import {
   listProjectPurchasesV1ResponseSchema,
@@ -22,6 +22,21 @@ export class ManageV1ProjectsBillingPurchases {
     this.#auth = auth;
   }
 
+  /**
+   * List Project Purchases
+   *
+   * @remarks
+   * Returns the original purchased amount on an order transaction
+   *
+   * @returns A list of purchases for a specific project
+   *
+   * @throws {@link ManageV1ProjectsBillingPurchases.List16Error} when the API answers with an error
+   * status — narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   list16(
     request: ManageV1ProjectsBillingPurchases.List16Request,
     options?: RequestOptions,
@@ -29,10 +44,11 @@ export class ManageV1ProjectsBillingPurchases {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/purchases"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/purchases"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
-        query: [{ name: "limit", value: request.limit, schema: s.defaulted(s.number(), 10) }],
+        query: [{ name: "limit", value: request.limit, schema: s.defaulted(s.float64(), 10) }],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -46,11 +62,15 @@ export class ManageV1ProjectsBillingPurchases {
 
 export namespace ManageV1ProjectsBillingPurchases {
   export type List16Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** Number of results to return per page. Default 10. Range [1,1000] @default 10 */
     limit?: number;
   };
 
-  export class List16Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class List16Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<List16Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

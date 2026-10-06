@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Our public models available to all accounts */
 export const V1ListenPostParametersModel0 = {
   Nova3: "nova-3",
   Nova3General: "nova-3-general",

@@ -2,14 +2,22 @@ import * as s from "../core/validation/index.js";
 import type { Schema } from "../core/validation/schema.js";
 
 export type UsageBreakdownV1ResponseResultsItemsGrouping = {
+  /** Start date for this group */
   start?: string;
+  /** End date for this group */
   end?: string;
+  /** Optional accessor identifier */
   accessor?: string | null;
+  /** Optional endpoint identifier */
   endpoint?: string | null;
+  /** Optional feature set identifier */
   featureSet?: string | null;
   models?: string[];
+  /** Optional method identifier */
   method?: string | null;
+  /** Optional list of tags, null unless grouped by tags. */
   tags?: string[] | null;
+  /** Optional deployment identifier */
   deployment?: string | null;
 };
 

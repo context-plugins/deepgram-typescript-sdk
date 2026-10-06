@@ -6,6 +6,7 @@ import {
 } from "./list-project-distribution-credentials-v1-response-distribution-credentials-items.js";
 
 export type ListProjectDistributionCredentialsV1Response = {
+  /** Array of distribution credentials with associated member information */
   distributionCredentials?: ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItems[];
 };
 

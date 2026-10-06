@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Encoding - opus. Supported container - ogg (default). */
 export const V1SpeakPostParametersContainer4 = {
   Ogg: "ogg",
 } as const;

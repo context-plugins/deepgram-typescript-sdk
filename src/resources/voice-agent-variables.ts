@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import { agentVariableV1Schema, type AgentVariableV1 } from "../models/agent-variable-v1.js";
 import {
@@ -31,6 +32,22 @@ export class VoiceAgentVariables {
     this.#auth = auth;
   }
 
+  /**
+   * Create an Agent Variable
+   *
+   * @remarks
+   * Creates a new template variable. Variables follow the `DG_<VARIABLE_NAME>` naming format and
+   * can substitute any JSON value in an agent configuration.
+   *
+   * @returns Agent variable created successfully
+   *
+   * @throws {@link VoiceAgentVariables.Create2Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   create2(
     request: VoiceAgentVariables.Create2Request,
     options?: RequestOptions,
@@ -38,9 +55,11 @@ export class VoiceAgentVariables {
     return this.#rawClient.execute(
       {
         method: "POST",
-        url: this.#servers.default("/v1/projects/{project_id}/agent-variables"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/agent-variables"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -55,6 +74,21 @@ export class VoiceAgentVariables {
     );
   }
 
+  /**
+   * Delete an Agent Variable
+   *
+   * @remarks
+   * Deletes the specified template variable
+   *
+   * @returns Agent variable deleted
+   *
+   * @throws {@link VoiceAgentVariables.Delete2Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   delete2(
     request: VoiceAgentVariables.Delete2Request,
     options?: RequestOptions,
@@ -62,12 +96,14 @@ export class VoiceAgentVariables {
     return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v1/projects/{project_id}/agent-variables/{variable_id}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/agent-variables/{variable_id}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [
           { name: "project_id", value: request.projectId, schema: s.string() },
           { name: "variable_id", value: request.variableId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
@@ -78,6 +114,21 @@ export class VoiceAgentVariables {
     );
   }
 
+  /**
+   * Get an Agent Variable
+   *
+   * @remarks
+   * Returns the specified template variable
+   *
+   * @returns An agent variable
+   *
+   * @throws {@link VoiceAgentVariables.Get2Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   get2(
     request: VoiceAgentVariables.Get2Request,
     options?: RequestOptions,
@@ -85,12 +136,14 @@ export class VoiceAgentVariables {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/agent-variables/{variable_id}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/agent-variables/{variable_id}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [
           { name: "project_id", value: request.projectId, schema: s.string() },
           { name: "variable_id", value: request.variableId, schema: s.string() },
         ],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -101,6 +154,21 @@ export class VoiceAgentVariables {
     );
   }
 
+  /**
+   * List Agent Variables
+   *
+   * @remarks
+   * Returns all template variables for the specified project
+   *
+   * @returns A list of agent variables
+   *
+   * @throws {@link VoiceAgentVariables.List3Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   list3(
     request: VoiceAgentVariables.List3Request,
     options?: RequestOptions,
@@ -108,9 +176,11 @@ export class VoiceAgentVariables {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}/agent-variables"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/agent-variables"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -121,6 +191,21 @@ export class VoiceAgentVariables {
     );
   }
 
+  /**
+   * Update an Agent Variable
+   *
+   * @remarks
+   * Updates the value of an existing template variable
+   *
+   * @returns Agent variable updated
+   *
+   * @throws {@link VoiceAgentVariables.Update2Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   update2(
     request: VoiceAgentVariables.Update2Request,
     options?: RequestOptions,
@@ -128,12 +213,14 @@ export class VoiceAgentVariables {
     return this.#rawClient.execute(
       {
         method: "PATCH",
-        url: this.#servers.default("/v1/projects/{project_id}/agent-variables/{variable_id}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/agent-variables/{variable_id}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [
           { name: "project_id", value: request.projectId, schema: s.string() },
           { name: "variable_id", value: request.variableId, schema: s.string() },
         ],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -151,55 +238,75 @@ export class VoiceAgentVariables {
 
 export namespace VoiceAgentVariables {
   export type Create2Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** Agent variable details */
     body?: CreateAgentVariableV1Request;
   };
 
-  export class Create2Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Create2Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Create2Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Delete2Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The unique identifier of the agent variable */
     variableId: string;
   };
 
-  export class Delete2Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Delete2Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Delete2Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Get2Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The unique identifier of the agent variable */
     variableId: string;
   };
 
-  export class Get2Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Get2Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Get2Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type List3Request = {
+    /** The unique identifier of the project */
     projectId: string;
   };
 
-  export class List3Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class List3Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<List3Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Update2Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The unique identifier of the agent variable */
     variableId: string;
+    /** Updated value for the agent variable */
     body?: UpdateAgentVariableV1Request;
   };
 
-  export class Update2Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Update2Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Update2Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

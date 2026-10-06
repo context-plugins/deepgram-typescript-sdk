@@ -22,7 +22,7 @@ Retrieves the available think models that can be used for AI agent processing
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -32,9 +32,25 @@ try {
   const response = await client.agentV1SettingsThinkModels.list();
   // TODO: Handle 'response' of type AgentThinkModelsV1Response
 } catch (err) {
-  if (err instanceof AgentV1SettingsThinkModels.ListError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type AgentV1SettingsThinkModels.ListError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.agentV1SettingsThinkModels.list().asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type AgentThinkModelsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -46,9 +62,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AgentThinkModelsV1Response](src/models/agent-think-models-v1-response.ts)</code>
+**Direct**: `await client.agentV1SettingsThinkModels.list()`
 
-**OnError**: <code>[AgentV1SettingsThinkModels.ListError](src/resources/agent-v1-settings-think-models.ts)</code>
+- **OnSuccess**: <code>[AgentThinkModelsV1Response](src/models/agent-think-models-v1-response.ts)</code>
+- **OnError**: throws <code>[AgentV1SettingsThinkModels.ListError](src/resources/agent-v1-settings-think-models.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.agentV1SettingsThinkModels.list().asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;AgentThinkModelsV1Response, AgentV1SettingsThinkModels.ListError&gt;</code>, with `result.value` of type <code>[AgentThinkModelsV1Response](src/models/agent-think-models-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -78,19 +102,37 @@ Creates a new reusable agent configuration. The `config` field must be a valid J
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentConfigurations.create({ projectId });
+  const response = await client.voiceAgentConfigurations.create({ projectId: "some example string" });
   // TODO: Handle 'response' of type CreateAgentConfigurationV1Response
 } catch (err) {
-  if (err instanceof VoiceAgentConfigurations.CreateError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentConfigurations.CreateError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentConfigurations.create({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type CreateAgentConfigurationV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -115,9 +157,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CreateAgentConfigurationV1Response](src/models/create-agent-configuration-v1-response.ts)</code>
+**Direct**: `await client.voiceAgentConfigurations.create(request)`
 
-**OnError**: <code>[VoiceAgentConfigurations.CreateError](src/resources/voice-agent-configurations.ts)</code>
+- **OnSuccess**: <code>[CreateAgentConfigurationV1Response](src/models/create-agent-configuration-v1-response.ts)</code>
+- **OnError**: throws <code>[VoiceAgentConfigurations.CreateError](src/resources/voice-agent-configurations.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentConfigurations.create(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;CreateAgentConfigurationV1Response, VoiceAgentConfigurations.CreateError&gt;</code>, with `result.value` of type <code>[CreateAgentConfigurationV1Response](src/models/create-agent-configuration-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -143,19 +193,41 @@ Deletes the specified agent configuration. Deleting an agent configuration can c
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentConfigurations.delete({ projectId, agentId });
+  const response = await client.voiceAgentConfigurations.delete({
+    projectId: "some example string",
+    agentId: "some example string",
+  });
   // TODO: Handle 'response' of type Record<string, unknown>
 } catch (err) {
-  if (err instanceof VoiceAgentConfigurations.DeleteError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentConfigurations.DeleteError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentConfigurations.delete({
+  projectId: "some example string",
+  agentId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type Record<string, unknown>
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -180,9 +252,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>Record&lt;string, unknown&gt;</code>
+**Direct**: `await client.voiceAgentConfigurations.delete(request)`
 
-**OnError**: <code>[VoiceAgentConfigurations.DeleteError](src/resources/voice-agent-configurations.ts)</code>
+- **OnSuccess**: <code>Record&lt;string, unknown&gt;</code>
+- **OnError**: throws <code>[VoiceAgentConfigurations.DeleteError](src/resources/voice-agent-configurations.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentConfigurations.delete(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;Record&lt;string, unknown&gt;, VoiceAgentConfigurations.DeleteError&gt;</code>, with `result.value` of type <code>Record&lt;string, unknown&gt;</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -208,19 +288,41 @@ Returns the specified agent configuration in its uninterpolated form
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentConfigurations.get({ projectId, agentId });
+  const response = await client.voiceAgentConfigurations.get({
+    projectId: "some example string",
+    agentId: "some example string",
+  });
   // TODO: Handle 'response' of type AgentConfigurationV1
 } catch (err) {
-  if (err instanceof VoiceAgentConfigurations.GetError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentConfigurations.GetError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentConfigurations.get({
+  projectId: "some example string",
+  agentId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type AgentConfigurationV1
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -245,9 +347,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AgentConfigurationV1](src/models/agent-configuration-v1.ts)</code>
+**Direct**: `await client.voiceAgentConfigurations.get(request)`
 
-**OnError**: <code>[VoiceAgentConfigurations.GetError](src/resources/voice-agent-configurations.ts)</code>
+- **OnSuccess**: <code>[AgentConfigurationV1](src/models/agent-configuration-v1.ts)</code>
+- **OnError**: throws <code>[VoiceAgentConfigurations.GetError](src/resources/voice-agent-configurations.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentConfigurations.get(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;AgentConfigurationV1, VoiceAgentConfigurations.GetError&gt;</code>, with `result.value` of type <code>[AgentConfigurationV1](src/models/agent-configuration-v1.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -273,19 +383,37 @@ Returns all agent configurations for the specified project. Configurations are r
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentConfigurations.list2({ projectId });
+  const response = await client.voiceAgentConfigurations.list2({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListAgentConfigurationsV1Response
 } catch (err) {
-  if (err instanceof VoiceAgentConfigurations.List2Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentConfigurations.List2Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentConfigurations.list2({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListAgentConfigurationsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -309,9 +437,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListAgentConfigurationsV1Response](src/models/list-agent-configurations-v1-response.ts)</code>
+**Direct**: `await client.voiceAgentConfigurations.list2(request)`
 
-**OnError**: <code>[VoiceAgentConfigurations.List2Error](src/resources/voice-agent-configurations.ts)</code>
+- **OnSuccess**: <code>[ListAgentConfigurationsV1Response](src/models/list-agent-configurations-v1-response.ts)</code>
+- **OnError**: throws <code>[VoiceAgentConfigurations.List2Error](src/resources/voice-agent-configurations.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentConfigurations.list2(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListAgentConfigurationsV1Response, VoiceAgentConfigurations.List2Error&gt;</code>, with `result.value` of type <code>[ListAgentConfigurationsV1Response](src/models/list-agent-configurations-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -337,19 +473,41 @@ Updates the metadata associated with an agent configuration. The config itself i
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentConfigurations.update({ projectId, agentId });
+  const response = await client.voiceAgentConfigurations.update({
+    projectId: "some example string",
+    agentId: "some example string",
+  });
   // TODO: Handle 'response' of type AgentConfigurationV1
 } catch (err) {
-  if (err instanceof VoiceAgentConfigurations.UpdateError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentConfigurations.UpdateError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentConfigurations.update({
+  projectId: "some example string",
+  agentId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type AgentConfigurationV1
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -375,9 +533,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AgentConfigurationV1](src/models/agent-configuration-v1.ts)</code>
+**Direct**: `await client.voiceAgentConfigurations.update(request)`
 
-**OnError**: <code>[VoiceAgentConfigurations.UpdateError](src/resources/voice-agent-configurations.ts)</code>
+- **OnSuccess**: <code>[AgentConfigurationV1](src/models/agent-configuration-v1.ts)</code>
+- **OnError**: throws <code>[VoiceAgentConfigurations.UpdateError](src/resources/voice-agent-configurations.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentConfigurations.update(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;AgentConfigurationV1, VoiceAgentConfigurations.UpdateError&gt;</code>, with `result.value` of type <code>[AgentConfigurationV1](src/models/agent-configuration-v1.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -407,19 +573,35 @@ Creates a new template variable. Variables follow the `DG_<VARIABLE_NAME>` namin
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentVariables.create2({ projectId });
+  const response = await client.voiceAgentVariables.create2({ projectId: "some example string" });
   // TODO: Handle 'response' of type AgentVariableV1
 } catch (err) {
-  if (err instanceof VoiceAgentVariables.Create2Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentVariables.Create2Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentVariables.create2({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type AgentVariableV1
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -444,9 +626,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+**Direct**: `await client.voiceAgentVariables.create2(request)`
 
-**OnError**: <code>[VoiceAgentVariables.Create2Error](src/resources/voice-agent-variables.ts)</code>
+- **OnSuccess**: <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+- **OnError**: throws <code>[VoiceAgentVariables.Create2Error](src/resources/voice-agent-variables.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentVariables.create2(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;AgentVariableV1, VoiceAgentVariables.Create2Error&gt;</code>, with `result.value` of type <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -472,19 +662,41 @@ Deletes the specified template variable
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentVariables.delete2({ projectId, variableId });
+  const response = await client.voiceAgentVariables.delete2({
+    projectId: "some example string",
+    variableId: "some example string",
+  });
   // TODO: Handle 'response' of type Record<string, unknown>
 } catch (err) {
-  if (err instanceof VoiceAgentVariables.Delete2Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentVariables.Delete2Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentVariables.delete2({
+  projectId: "some example string",
+  variableId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type Record<string, unknown>
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -509,9 +721,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>Record&lt;string, unknown&gt;</code>
+**Direct**: `await client.voiceAgentVariables.delete2(request)`
 
-**OnError**: <code>[VoiceAgentVariables.Delete2Error](src/resources/voice-agent-variables.ts)</code>
+- **OnSuccess**: <code>Record&lt;string, unknown&gt;</code>
+- **OnError**: throws <code>[VoiceAgentVariables.Delete2Error](src/resources/voice-agent-variables.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentVariables.delete2(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;Record&lt;string, unknown&gt;, VoiceAgentVariables.Delete2Error&gt;</code>, with `result.value` of type <code>Record&lt;string, unknown&gt;</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -537,19 +757,41 @@ Returns the specified template variable
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentVariables.get2({ projectId, variableId });
+  const response = await client.voiceAgentVariables.get2({
+    projectId: "some example string",
+    variableId: "some example string",
+  });
   // TODO: Handle 'response' of type AgentVariableV1
 } catch (err) {
-  if (err instanceof VoiceAgentVariables.Get2Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentVariables.Get2Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentVariables.get2({
+  projectId: "some example string",
+  variableId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type AgentVariableV1
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -574,9 +816,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+**Direct**: `await client.voiceAgentVariables.get2(request)`
 
-**OnError**: <code>[VoiceAgentVariables.Get2Error](src/resources/voice-agent-variables.ts)</code>
+- **OnSuccess**: <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+- **OnError**: throws <code>[VoiceAgentVariables.Get2Error](src/resources/voice-agent-variables.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentVariables.get2(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;AgentVariableV1, VoiceAgentVariables.Get2Error&gt;</code>, with `result.value` of type <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -602,19 +852,35 @@ Returns all template variables for the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentVariables.list3({ projectId });
+  const response = await client.voiceAgentVariables.list3({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListAgentVariablesV1Response
 } catch (err) {
-  if (err instanceof VoiceAgentVariables.List3Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentVariables.List3Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentVariables.list3({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListAgentVariablesV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -638,9 +904,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListAgentVariablesV1Response](src/models/list-agent-variables-v1-response.ts)</code>
+**Direct**: `await client.voiceAgentVariables.list3(request)`
 
-**OnError**: <code>[VoiceAgentVariables.List3Error](src/resources/voice-agent-variables.ts)</code>
+- **OnSuccess**: <code>[ListAgentVariablesV1Response](src/models/list-agent-variables-v1-response.ts)</code>
+- **OnError**: throws <code>[VoiceAgentVariables.List3Error](src/resources/voice-agent-variables.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentVariables.list3(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListAgentVariablesV1Response, VoiceAgentVariables.List3Error&gt;</code>, with `result.value` of type <code>[ListAgentVariablesV1Response](src/models/list-agent-variables-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -666,19 +940,41 @@ Updates the value of an existing template variable
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.voiceAgentVariables.update2({ projectId, variableId });
+  const response = await client.voiceAgentVariables.update2({
+    projectId: "some example string",
+    variableId: "some example string",
+  });
   // TODO: Handle 'response' of type AgentVariableV1
 } catch (err) {
-  if (err instanceof VoiceAgentVariables.Update2Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type VoiceAgentVariables.Update2Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.voiceAgentVariables.update2({
+  projectId: "some example string",
+  variableId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type AgentVariableV1
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -704,9 +1000,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+**Direct**: `await client.voiceAgentVariables.update2(request)`
 
-**OnError**: <code>[VoiceAgentVariables.Update2Error](src/resources/voice-agent-variables.ts)</code>
+- **OnSuccess**: <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+- **OnError**: throws <code>[VoiceAgentVariables.Update2Error](src/resources/voice-agent-variables.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.voiceAgentVariables.update2(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;AgentVariableV1, VoiceAgentVariables.Update2Error&gt;</code>, with `result.value` of type <code>[AgentVariableV1](src/models/agent-variable-v1.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -736,7 +1040,7 @@ Transcribe audio and video using Deepgram's speech-to-text REST API
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -746,9 +1050,25 @@ try {
   const response = await client.listenV1Media.transcribe();
   // TODO: Handle 'response' of type ListenV1MediaTranscribeResponse200
 } catch (err) {
-  if (err instanceof ListenV1Media.TranscribeError && err.payload.kind === "listenV1Response") {
-    // TODO: Handle 'err.payload.body' of type ListenV1Response
-  }
+  // TODO: Handle 'err' of type ListenV1Media.TranscribeError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.listenV1Media.transcribe().asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListenV1MediaTranscribeResponse200
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -763,42 +1083,42 @@ try {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>callback?</code> | <code>string</code> | URL to which we'll make the callback request |
-| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made |
+| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made<br>**Default**: "POST" |
 | <code>extra?</code> | <code>[V1ListenPostParametersExtra](src/models/unions/v1-listen-post-parameters-extra.ts)</code> | Arbitrary key-value pairs that are attached to the API response for usage in downstream processing |
-| <code>sentiment?</code> | <code>boolean</code> | Recognizes the sentiment throughout a transcript or text |
+| <code>sentiment?</code> | <code>boolean</code> | Recognizes the sentiment throughout a transcript or text<br>**Default**: false |
 | <code>summarize?</code> | <code>[V1ListenPostParametersSummarize](src/models/unions/v1-listen-post-parameters-summarize.ts)</code> | Summarize content. For Listen API, supports string version option. For Read API, accepts boolean only. |
 | <code>tag?</code> | <code>[V1ListenPostParametersTag](src/models/unions/v1-listen-post-parameters-tag.ts)</code> | Label your requests for the purpose of identification during usage reporting |
-| <code>topics?</code> | <code>boolean</code> | Detect topics throughout a transcript or text |
+| <code>topics?</code> | <code>boolean</code> | Detect topics throughout a transcript or text<br>**Default**: false |
 | <code>customTopic?</code> | <code>[V1ListenPostParametersCustomTopic](src/models/unions/v1-listen-post-parameters-custom-topic.ts)</code> | Custom topics you want the model to detect within your input audio or text if present Submit up to `100`. |
-| <code>customTopicMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret strings submitted to the `custom_topic` param. When `strict`, the model will only return topics submitted using the `custom_topic` param. When `extended`, the model will return its own detected topics in addition to those submitted using the `custom_topic` param |
-| <code>intents?</code> | <code>boolean</code> | Recognizes speaker intent throughout a transcript or text |
+| <code>customTopicMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret strings submitted to the `custom_topic` param. When `strict`, the model will only return topics submitted using the `custom_topic` param. When `extended`, the model will return its own detected topics in addition to those submitted using the `custom_topic` param<br>**Default**: "extended" |
+| <code>intents?</code> | <code>boolean</code> | Recognizes speaker intent throughout a transcript or text<br>**Default**: false |
 | <code>customIntent?</code> | <code>[V1ListenPostParametersCustomIntent](src/models/unions/v1-listen-post-parameters-custom-intent.ts)</code> | Custom intents you want the model to detect within your input audio if present |
-| <code>customIntentMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret intents submitted to the `custom_intent` param. When `strict`, the model will only return intents submitted using the `custom_intent` param. When `extended`, the model will return its own detected intents in the `custom_intent` param. |
-| <code>detectEntities?</code> | <code>boolean</code> | Identifies and extracts key entities from content in submitted audio |
+| <code>customIntentMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret intents submitted to the `custom_intent` param. When `strict`, the model will only return intents submitted using the `custom_intent` param. When `extended`, the model will return its own detected intents in the `custom_intent` param.<br>**Default**: "extended" |
+| <code>detectEntities?</code> | <code>boolean</code> | Identifies and extracts key entities from content in submitted audio<br>**Default**: false |
 | <code>detectLanguage?</code> | <code>[V1ListenPostParametersDetectLanguage](src/models/unions/v1-listen-post-parameters-detect-language.ts)</code> | Identifies the dominant language spoken in submitted audio |
-| <code>diarize?</code> | <code>boolean</code> | Deprecated: use `diarize_model` instead. Recognize speaker changes. Each word in the transcript will be assigned a speaker number starting at 0. |
+| <code>diarize?</code> | <code>boolean</code> | Deprecated: use `diarize_model` instead. Recognize speaker changes. Each word in the transcript will be assigned a speaker number starting at 0.<br>**Default**: false |
 | <code>diarizeModel?</code> | <code>[V1ListenPostParametersDiarizeModel](src/models/v1-listen-post-parameters-diarize-model.ts)</code> | Select and enable a specific diarization model version. Specifying this parameter enables diarization and selects the model — you do not need to also set the deprecated `diarize=true` parameter. For batch, supported values are `latest` (currently v2), `v1`, and `v2`. For streaming, supported values are `latest` (currently v1) and `v1`; `v2` returns a validation error on streaming requests. |
-| <code>dictation?</code> | <code>boolean</code> | Dictation mode for controlling formatting with dictated speech |
+| <code>dictation?</code> | <code>boolean</code> | Dictation mode for controlling formatting with dictated speech<br>**Default**: false |
 | <code>encoding?</code> | <code>[V1ListenPostParametersEncoding](src/models/v1-listen-post-parameters-encoding.ts)</code> | Specify the expected encoding of your submitted audio |
-| <code>fillerWords?</code> | <code>boolean</code> | Filler Words can help transcribe interruptions in your audio, like "uh" and "um" |
+| <code>fillerWords?</code> | <code>boolean</code> | Filler Words can help transcribe interruptions in your audio, like "uh" and "um"<br>**Default**: false |
 | <code>keyterm?</code> | <code>string[]</code> | Key term prompting improves recognition of specialized terminology and brands. Only compatible with Nova-3.<br><br>`keyterm` accepts plain terms only. Unlike the legacy `keywords` feature, it does not support weights or intensifiers. Appending one (for example, `keyterm=term:0.15`) is not rejected—the weight is silently ignored and the entire value is treated as a literal keyterm.<br><br>To boost multiple separate keyterms, repeat the `keyterm` parameter (for example, `keyterm=term1&keyterm=term2`). To boost one multi-word phrase as a single keyterm, join the words with `%20` or `+` (for example, `keyterm=customer%20service`). Do not separate keyterms with commas, semicolons, or line breaks. |
 | <code>keywords?</code> | <code>[V1ListenPostParametersKeywords](src/models/unions/v1-listen-post-parameters-keywords.ts)</code> | Keywords can boost or suppress specialized terminology and brands |
-| <code>language?</code> | <code>string</code> | The [BCP-47 language tag](https://tools.ietf.org/html/bcp47) that hints at the primary spoken language. Depending on the Model and API endpoint you choose only certain languages are available |
-| <code>measurements?</code> | <code>boolean</code> | Spoken measurements will be converted to their corresponding abbreviations |
+| <code>language?</code> | <code>string</code> | The [BCP-47 language tag](https://tools.ietf.org/html/bcp47) that hints at the primary spoken language. Depending on the Model and API endpoint you choose only certain languages are available<br>**Default**: "en" |
+| <code>measurements?</code> | <code>boolean</code> | Spoken measurements will be converted to their corresponding abbreviations<br>**Default**: false |
 | <code>model?</code> | <code>[V1ListenPostParametersModel](src/models/unions/v1-listen-post-parameters-model.ts)</code> | AI model used to process submitted audio |
-| <code>multichannel?</code> | <code>boolean</code> | Transcribe each audio channel independently |
-| <code>numerals?</code> | <code>boolean</code> | Numerals converts numbers from written format to numerical format |
-| <code>paragraphs?</code> | <code>boolean</code> | Splits audio into paragraphs to improve transcript readability |
-| <code>profanityFilter?</code> | <code>boolean</code> | Profanity Filter looks for recognized profanity and converts it to the nearest recognized non-profane word or removes it from the transcript completely |
-| <code>punctuate?</code> | <code>boolean</code> | Add punctuation and capitalization to the transcript |
+| <code>multichannel?</code> | <code>boolean</code> | Transcribe each audio channel independently<br>**Default**: false |
+| <code>numerals?</code> | <code>boolean</code> | Numerals converts numbers from written format to numerical format<br>**Default**: false |
+| <code>paragraphs?</code> | <code>boolean</code> | Splits audio into paragraphs to improve transcript readability<br>**Default**: false |
+| <code>profanityFilter?</code> | <code>boolean</code> | Profanity Filter looks for recognized profanity and converts it to the nearest recognized non-profane word or removes it from the transcript completely<br>**Default**: false |
+| <code>punctuate?</code> | <code>boolean</code> | Add punctuation and capitalization to the transcript<br>**Default**: false |
 | <code>redact?</code> | <code>[V1ListenPostParametersRedact](src/models/unions/v1-listen-post-parameters-redact.ts)</code> | Redaction removes sensitive information from your transcripts |
 | <code>replace?</code> | <code>[V1ListenPostParametersReplace](src/models/unions/v1-listen-post-parameters-replace.ts)</code> | Search for terms or phrases in submitted audio and replaces them |
 | <code>search?</code> | <code>[V1ListenPostParametersSearch](src/models/unions/v1-listen-post-parameters-search.ts)</code> | Search for terms or phrases in submitted audio |
-| <code>smartFormat?</code> | <code>boolean</code> | Apply formatting to transcript output. When set to true, additional formatting will be applied to transcripts to improve readability |
-| <code>utterances?</code> | <code>boolean</code> | Segments speech into meaningful semantic units |
-| <code>uttSplit?</code> | <code>number</code> | Seconds to wait before detecting a pause between words in submitted audio |
+| <code>smartFormat?</code> | <code>boolean</code> | Apply formatting to transcript output. When set to true, additional formatting will be applied to transcripts to improve readability<br>**Default**: false |
+| <code>utterances?</code> | <code>boolean</code> | Segments speech into meaningful semantic units<br>**Default**: false |
+| <code>uttSplit?</code> | <code>number</code> | Seconds to wait before detecting a pause between words in submitted audio<br>**Default**: 0.8 |
 | <code>version?</code> | <code>[V1ListenPostParametersVersion](src/models/unions/v1-listen-post-parameters-version.ts)</code> | Version of an AI model to use |
-| <code>mipOptOut?</code> | <code>boolean</code> | Opts out requests from the Deepgram Model Improvement Program. Refer to our Docs for pricing impacts before setting this to true. https://dpgr.am/deepgram-mip |
+| <code>mipOptOut?</code> | <code>boolean</code> | Opts out requests from the Deepgram Model Improvement Program. Refer to our Docs for pricing impacts before setting this to true. https://dpgr.am/deepgram-mip<br>**Default**: false |
 | <code>body?</code> | <code>[ListenV1RequestUrl](src/models/listen-v1-request-url.ts)</code> | Transcribe an audio or video file |
 
 </dd>
@@ -809,9 +1129,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListenV1MediaTranscribeResponse200](src/models/unions/listen-v1-media-transcribe-response200.ts)</code>
+**Direct**: `await client.listenV1Media.transcribe(request)`
 
-**OnError**: <code>[ListenV1Media.TranscribeError](src/resources/listen-v1-media.ts)</code>
+- **OnSuccess**: <code>[ListenV1MediaTranscribeResponse200](src/models/unions/listen-v1-media-transcribe-response200.ts)</code>
+- **OnError**: throws <code>[ListenV1Media.TranscribeError](src/resources/listen-v1-media.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.listenV1Media.transcribe(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListenV1MediaTranscribeResponse200, ListenV1Media.TranscribeError&gt;</code>, with `result.value` of type <code>[ListenV1MediaTranscribeResponse200](src/models/unions/listen-v1-media-transcribe-response200.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -841,7 +1169,7 @@ Convert text into natural-sounding speech using Deepgram's TTS REST API
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -851,9 +1179,25 @@ try {
   const response = await client.speakV1Audio.generate();
   // TODO: Handle 'response' of type Record<string, unknown>
 } catch (err) {
-  if (err instanceof SpeakV1Audio.GenerateError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type SpeakV1Audio.GenerateError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.speakV1Audio.generate().asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type Record<string, unknown>
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -868,15 +1212,15 @@ try {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>callback?</code> | <code>string</code> | URL to which we'll make the callback request |
-| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made |
-| <code>mipOptOut?</code> | <code>boolean</code> | Opts out requests from the Deepgram Model Improvement Program. Refer to our Docs for pricing impacts before setting this to true. https://dpgr.am/deepgram-mip |
+| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made<br>**Default**: "POST" |
+| <code>mipOptOut?</code> | <code>boolean</code> | Opts out requests from the Deepgram Model Improvement Program. Refer to our Docs for pricing impacts before setting this to true. https://dpgr.am/deepgram-mip<br>**Default**: false |
 | <code>tag?</code> | <code>[V1SpeakPostParametersTag](src/models/unions/v1-speak-post-parameters-tag.ts)</code> | Label your requests for the purpose of identification during usage reporting |
 | <code>bitRate?</code> | <code>[V1SpeakPostParametersBitRate](src/models/unions/v1-speak-post-parameters-bit-rate.ts)</code> | The bitrate of the audio in bits per second. Choose from predefined ranges or specific values based on the encoding type. |
 | <code>container?</code> | <code>[V1SpeakPostParametersContainer](src/models/unions/v1-speak-post-parameters-container.ts)</code> | Container specifies the file format wrapper for the output audio. The available options depend on the encoding type. |
 | <code>encoding?</code> | <code>[V1SpeakPostParametersEncoding](src/models/unions/v1-speak-post-parameters-encoding.ts)</code> | Encoding allows you to specify the expected encoding of your audio output |
-| <code>model?</code> | <code>[V1SpeakPostParametersModel](src/models/v1-speak-post-parameters-model.ts)</code> | AI model used to process submitted text |
+| <code>model?</code> | <code>[V1SpeakPostParametersModel](src/models/v1-speak-post-parameters-model.ts)</code> | AI model used to process submitted text<br>**Default**: "aura-asteria-en" |
 | <code>sampleRate?</code> | <code>[V1SpeakPostParametersSampleRate](src/models/unions/v1-speak-post-parameters-sample-rate.ts)</code> | Sample Rate specifies the sample rate for the output audio. Based on the encoding, different sample rates are supported. For some encodings, the sample rate is not configurable |
-| <code>speed?</code> | <code>number</code> | Speaking rate multiplier that adjusts the pace of generated speech while preserving natural prosody and voice quality. Not yet supported in all languages. |
+| <code>speed?</code> | <code>number</code> | Speaking rate multiplier that adjusts the pace of generated speech while preserving natural prosody and voice quality. Not yet supported in all languages.<br>**Default**: 1 |
 | <code>body?</code> | <code>[SpeakV1Request](src/models/speak-v1-request.ts)</code> | Transform text to speech |
 
 </dd>
@@ -887,9 +1231,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>Record&lt;string, unknown&gt;</code>
+**Direct**: `await client.speakV1Audio.generate(request)`
 
-**OnError**: <code>[SpeakV1Audio.GenerateError](src/resources/speak-v1-audio.ts)</code>
+- **OnSuccess**: <code>Record&lt;string, unknown&gt;</code>
+- **OnError**: throws <code>[SpeakV1Audio.GenerateError](src/resources/speak-v1-audio.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.speakV1Audio.generate(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;Record&lt;string, unknown&gt;, SpeakV1Audio.GenerateError&gt;</code>, with `result.value` of type <code>Record&lt;string, unknown&gt;</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -919,7 +1271,7 @@ Analyze text content using Deepgrams text analysis API
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -929,9 +1281,25 @@ try {
   const response = await client.readV1Text.analyze();
   // TODO: Handle 'response' of type ReadV1Response
 } catch (err) {
-  if (err instanceof ReadV1Text.AnalyzeError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ReadV1Text.AnalyzeError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.readV1Text.analyze().asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ReadV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -946,17 +1314,17 @@ try {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>callback?</code> | <code>string</code> | URL to which we'll make the callback request |
-| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made |
-| <code>sentiment?</code> | <code>boolean</code> | Recognizes the sentiment throughout a transcript or text |
+| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made<br>**Default**: "POST" |
+| <code>sentiment?</code> | <code>boolean</code> | Recognizes the sentiment throughout a transcript or text<br>**Default**: false |
 | <code>summarize?</code> | <code>[V1ReadPostParametersSummarize](src/models/unions/v1-read-post-parameters-summarize.ts)</code> | Summarize content. For Listen API, supports string version option. For Read API, accepts boolean only. |
 | <code>tag?</code> | <code>[V1ReadPostParametersTag](src/models/unions/v1-read-post-parameters-tag.ts)</code> | Label your requests for the purpose of identification during usage reporting |
-| <code>topics?</code> | <code>boolean</code> | Detect topics throughout a transcript or text |
+| <code>topics?</code> | <code>boolean</code> | Detect topics throughout a transcript or text<br>**Default**: false |
 | <code>customTopic?</code> | <code>[V1ReadPostParametersCustomTopic](src/models/unions/v1-read-post-parameters-custom-topic.ts)</code> | Custom topics you want the model to detect within your input audio or text if present Submit up to `100`. |
-| <code>customTopicMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret strings submitted to the `custom_topic` param. When `strict`, the model will only return topics submitted using the `custom_topic` param. When `extended`, the model will return its own detected topics in addition to those submitted using the `custom_topic` param |
-| <code>intents?</code> | <code>boolean</code> | Recognizes speaker intent throughout a transcript or text |
+| <code>customTopicMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret strings submitted to the `custom_topic` param. When `strict`, the model will only return topics submitted using the `custom_topic` param. When `extended`, the model will return its own detected topics in addition to those submitted using the `custom_topic` param<br>**Default**: "extended" |
+| <code>intents?</code> | <code>boolean</code> | Recognizes speaker intent throughout a transcript or text<br>**Default**: false |
 | <code>customIntent?</code> | <code>[V1ReadPostParametersCustomIntent](src/models/unions/v1-read-post-parameters-custom-intent.ts)</code> | Custom intents you want the model to detect within your input audio if present |
-| <code>customIntentMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret intents submitted to the `custom_intent` param. When `strict`, the model will only return intents submitted using the `custom_intent` param. When `extended`, the model will return its own detected intents in the `custom_intent` param. |
-| <code>language?</code> | <code>string</code> | The [BCP-47 language tag](https://tools.ietf.org/html/bcp47) that hints at the primary spoken language. Depending on the Model and API endpoint you choose only certain languages are available |
+| <code>customIntentMode?</code> | <code>[V1ListenPostParametersCustomTopicMode](src/models/v1-listen-post-parameters-custom-topic-mode.ts)</code> | Sets how the model will interpret intents submitted to the `custom_intent` param. When `strict`, the model will only return intents submitted using the `custom_intent` param. When `extended`, the model will return its own detected intents in the `custom_intent` param.<br>**Default**: "extended" |
+| <code>language?</code> | <code>string</code> | The [BCP-47 language tag](https://tools.ietf.org/html/bcp47) that hints at the primary spoken language. Depending on the Model and API endpoint you choose only certain languages are available<br>**Default**: "en" |
 | <code>body?</code> | <code>[ReadV1Request](src/models/unions/read-v1-request.ts)</code> | Analyze a text file |
 
 </dd>
@@ -967,9 +1335,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ReadV1Response](src/models/read-v1-response.ts)</code>
+**Direct**: `await client.readV1Text.analyze(request)`
 
-**OnError**: <code>[ReadV1Text.AnalyzeError](src/resources/read-v1-text.ts)</code>
+- **OnSuccess**: <code>[ReadV1Response](src/models/read-v1-response.ts)</code>
+- **OnError**: throws <code>[ReadV1Text.AnalyzeError](src/resources/read-v1-text.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.readV1Text.analyze(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ReadV1Response, ReadV1Text.AnalyzeError&gt;</code>, with `result.value` of type <code>[ReadV1Response](src/models/read-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -999,19 +1375,35 @@ Deletes the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1Projects.delete3({ projectId });
+  const response = await client.manageV1Projects.delete3({ projectId: "some example string" });
   // TODO: Handle 'response' of type DeleteProjectV1Response
 } catch (err) {
-  if (err instanceof ManageV1Projects.Delete3Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1Projects.Delete3Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1Projects.delete3({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type DeleteProjectV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1035,9 +1427,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[DeleteProjectV1Response](src/models/delete-project-v1-response.ts)</code>
+**Direct**: `await client.manageV1Projects.delete3(request)`
 
-**OnError**: <code>[ManageV1Projects.Delete3Error](src/resources/manage-v1-projects.ts)</code>
+- **OnSuccess**: <code>[DeleteProjectV1Response](src/models/delete-project-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1Projects.Delete3Error](src/resources/manage-v1-projects.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1Projects.delete3(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;DeleteProjectV1Response, ManageV1Projects.Delete3Error&gt;</code>, with `result.value` of type <code>[DeleteProjectV1Response](src/models/delete-project-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1063,19 +1463,35 @@ Retrieves information about the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1Projects.get3({ projectId });
+  const response = await client.manageV1Projects.get3({ projectId: "some example string" });
   // TODO: Handle 'response' of type GetProjectV1Response
 } catch (err) {
-  if (err instanceof ManageV1Projects.Get3Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1Projects.Get3Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1Projects.get3({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetProjectV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1090,7 +1506,7 @@ try {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>projectId</code> | <code>string</code> | The unique identifier of the project |
-| <code>limit?</code> | <code>number</code> | Number of results to return per page. Default 10. Range [1,1000] |
+| <code>limit?</code> | <code>number</code> | Number of results to return per page. Default 10. Range [1,1000]<br>**Default**: 10 |
 | <code>page?</code> | <code>number</code> | Navigate and return the results to retrieve specific portions of information of the response |
 
 </dd>
@@ -1101,9 +1517,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetProjectV1Response](src/models/get-project-v1-response.ts)</code>
+**Direct**: `await client.manageV1Projects.get3(request)`
 
-**OnError**: <code>[ManageV1Projects.Get3Error](src/resources/manage-v1-projects.ts)</code>
+- **OnSuccess**: <code>[GetProjectV1Response](src/models/get-project-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1Projects.Get3Error](src/resources/manage-v1-projects.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1Projects.get3(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetProjectV1Response, ManageV1Projects.Get3Error&gt;</code>, with `result.value` of type <code>[GetProjectV1Response](src/models/get-project-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1129,19 +1553,35 @@ Removes the authenticated account from the specific project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1Projects.leave({ projectId });
+  const response = await client.manageV1Projects.leave({ projectId: "some example string" });
   // TODO: Handle 'response' of type LeaveProjectV1Response
 } catch (err) {
-  if (err instanceof ManageV1Projects.LeaveError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1Projects.LeaveError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1Projects.leave({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type LeaveProjectV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1165,9 +1605,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[LeaveProjectV1Response](src/models/leave-project-v1-response.ts)</code>
+**Direct**: `await client.manageV1Projects.leave(request)`
 
-**OnError**: <code>[ManageV1Projects.LeaveError](src/resources/manage-v1-projects.ts)</code>
+- **OnSuccess**: <code>[LeaveProjectV1Response](src/models/leave-project-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1Projects.LeaveError](src/resources/manage-v1-projects.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1Projects.leave(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;LeaveProjectV1Response, ManageV1Projects.LeaveError&gt;</code>, with `result.value` of type <code>[LeaveProjectV1Response](src/models/leave-project-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1193,7 +1641,7 @@ Retrieves basic information about the projects associated with the API key
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -1203,9 +1651,25 @@ try {
   const response = await client.manageV1Projects.list4();
   // TODO: Handle 'response' of type ListProjectsV1Response
 } catch (err) {
-  if (err instanceof ManageV1Projects.List4Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1Projects.List4Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1Projects.list4().asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1217,9 +1681,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectsV1Response](src/models/list-projects-v1-response.ts)</code>
+**Direct**: `await client.manageV1Projects.list4()`
 
-**OnError**: <code>[ManageV1Projects.List4Error](src/resources/manage-v1-projects.ts)</code>
+- **OnSuccess**: <code>[ListProjectsV1Response](src/models/list-projects-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1Projects.List4Error](src/resources/manage-v1-projects.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1Projects.list4().asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectsV1Response, ManageV1Projects.List4Error&gt;</code>, with `result.value` of type <code>[ListProjectsV1Response](src/models/list-projects-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1245,19 +1717,35 @@ Updates the name or other properties of an existing project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1Projects.update3({ projectId });
+  const response = await client.manageV1Projects.update3({ projectId: "some example string" });
   // TODO: Handle 'response' of type UpdateProjectV1Response
 } catch (err) {
-  if (err instanceof ManageV1Projects.Update3Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1Projects.Update3Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1Projects.update3({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type UpdateProjectV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1282,9 +1770,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[UpdateProjectV1Response](src/models/update-project-v1-response.ts)</code>
+**Direct**: `await client.manageV1Projects.update3(request)`
 
-**OnError**: <code>[ManageV1Projects.Update3Error](src/resources/manage-v1-projects.ts)</code>
+- **OnSuccess**: <code>[UpdateProjectV1Response](src/models/update-project-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1Projects.Update3Error](src/resources/manage-v1-projects.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1Projects.update3(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;UpdateProjectV1Response, ManageV1Projects.Update3Error&gt;</code>, with `result.value` of type <code>[UpdateProjectV1Response](src/models/update-project-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1314,19 +1810,41 @@ Returns metadata for a specific model
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsModels.get4({ projectId, modelId });
+  const response = await client.manageV1ProjectsModels.get4({
+    projectId: "some example string",
+    modelId: "some example string",
+  });
   // TODO: Handle 'response' of type GetModelV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsModels.Get4Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsModels.Get4Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsModels.get4({
+  projectId: "some example string",
+  modelId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetModelV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1351,9 +1869,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetModelV1Response](src/models/unions/get-model-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsModels.get4(request)`
 
-**OnError**: <code>[ManageV1ProjectsModels.Get4Error](src/resources/manage-v1-projects-models.ts)</code>
+- **OnSuccess**: <code>[GetModelV1Response](src/models/unions/get-model-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsModels.Get4Error](src/resources/manage-v1-projects-models.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsModels.get4(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetModelV1Response, ManageV1ProjectsModels.Get4Error&gt;</code>, with `result.value` of type <code>[GetModelV1Response](src/models/unions/get-model-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1379,19 +1905,35 @@ Returns metadata on all the latest models that a specific project has access to,
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsModels.list5({ projectId });
+  const response = await client.manageV1ProjectsModels.list5({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListModelsV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsModels.List5Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsModels.List5Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsModels.list5({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListModelsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1416,9 +1958,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListModelsV1Response](src/models/list-models-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsModels.list5(request)`
 
-**OnError**: <code>[ManageV1ProjectsModels.List5Error](src/resources/manage-v1-projects-models.ts)</code>
+- **OnSuccess**: <code>[ListModelsV1Response](src/models/list-models-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsModels.List5Error](src/resources/manage-v1-projects-models.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsModels.list5(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListModelsV1Response, ManageV1ProjectsModels.List5Error&gt;</code>, with `result.value` of type <code>[ListModelsV1Response](src/models/list-models-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1448,19 +1998,35 @@ Returns metadata for a specific public model
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1Models.get5({ modelId });
+  const response = await client.manageV1Models.get5({ modelId: "some example string" });
   // TODO: Handle 'response' of type GetModelV1Response
 } catch (err) {
-  if (err instanceof ManageV1Models.Get5Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1Models.Get5Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1Models.get5({ modelId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetModelV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1484,9 +2050,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetModelV1Response](src/models/unions/get-model-v1-response.ts)</code>
+**Direct**: `await client.manageV1Models.get5(request)`
 
-**OnError**: <code>[ManageV1Models.Get5Error](src/resources/manage-v1-models.ts)</code>
+- **OnSuccess**: <code>[GetModelV1Response](src/models/unions/get-model-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1Models.Get5Error](src/resources/manage-v1-models.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1Models.get5(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetModelV1Response, ManageV1Models.Get5Error&gt;</code>, with `result.value` of type <code>[GetModelV1Response](src/models/unions/get-model-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1512,7 +2086,7 @@ Returns metadata on all the latest public models. To retrieve custom models, use
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -1522,9 +2096,25 @@ try {
   const response = await client.manageV1Models.list6();
   // TODO: Handle 'response' of type ListModelsV1Response
 } catch (err) {
-  if (err instanceof ManageV1Models.List6Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1Models.List6Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1Models.list6().asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListModelsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1548,9 +2138,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListModelsV1Response](src/models/list-models-v1-response.ts)</code>
+**Direct**: `await client.manageV1Models.list6(request)`
 
-**OnError**: <code>[ManageV1Models.List6Error](src/resources/manage-v1-models.ts)</code>
+- **OnSuccess**: <code>[ListModelsV1Response](src/models/list-models-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1Models.List6Error](src/resources/manage-v1-models.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1Models.list6(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListModelsV1Response, ManageV1Models.List6Error&gt;</code>, with `result.value` of type <code>[ListModelsV1Response](src/models/list-models-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1580,19 +2178,35 @@ Creates a new API key with specified settings for the project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsKeys.create3({ projectId });
+  const response = await client.manageV1ProjectsKeys.create3({ projectId: "some example string" });
   // TODO: Handle 'response' of type CreateKeyV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsKeys.Create3Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsKeys.Create3Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsKeys.create3({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type CreateKeyV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1617,9 +2231,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CreateKeyV1Response](src/models/create-key-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsKeys.create3(request)`
 
-**OnError**: <code>[ManageV1ProjectsKeys.Create3Error](src/resources/manage-v1-projects-keys.ts)</code>
+- **OnSuccess**: <code>[CreateKeyV1Response](src/models/create-key-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsKeys.Create3Error](src/resources/manage-v1-projects-keys.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsKeys.create3(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;CreateKeyV1Response, ManageV1ProjectsKeys.Create3Error&gt;</code>, with `result.value` of type <code>[CreateKeyV1Response](src/models/create-key-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1645,19 +2267,41 @@ Deletes an API key for a specific project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsKeys.delete4({ projectId, keyId });
+  const response = await client.manageV1ProjectsKeys.delete4({
+    projectId: "some example string",
+    keyId: "some example string",
+  });
   // TODO: Handle 'response' of type DeleteProjectKeyV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsKeys.Delete4Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsKeys.Delete4Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsKeys.delete4({
+  projectId: "some example string",
+  keyId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type DeleteProjectKeyV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1682,9 +2326,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[DeleteProjectKeyV1Response](src/models/delete-project-key-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsKeys.delete4(request)`
 
-**OnError**: <code>[ManageV1ProjectsKeys.Delete4Error](src/resources/manage-v1-projects-keys.ts)</code>
+- **OnSuccess**: <code>[DeleteProjectKeyV1Response](src/models/delete-project-key-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsKeys.Delete4Error](src/resources/manage-v1-projects-keys.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsKeys.delete4(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;DeleteProjectKeyV1Response, ManageV1ProjectsKeys.Delete4Error&gt;</code>, with `result.value` of type <code>[DeleteProjectKeyV1Response](src/models/delete-project-key-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1710,19 +2362,41 @@ Retrieves information about a specified API key
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsKeys.get6({ projectId, keyId });
+  const response = await client.manageV1ProjectsKeys.get6({
+    projectId: "some example string",
+    keyId: "some example string",
+  });
   // TODO: Handle 'response' of type GetProjectKeyV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsKeys.Get6Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsKeys.Get6Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsKeys.get6({
+  projectId: "some example string",
+  keyId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetProjectKeyV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1747,9 +2421,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetProjectKeyV1Response](src/models/get-project-key-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsKeys.get6(request)`
 
-**OnError**: <code>[ManageV1ProjectsKeys.Get6Error](src/resources/manage-v1-projects-keys.ts)</code>
+- **OnSuccess**: <code>[GetProjectKeyV1Response](src/models/get-project-key-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsKeys.Get6Error](src/resources/manage-v1-projects-keys.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsKeys.get6(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetProjectKeyV1Response, ManageV1ProjectsKeys.Get6Error&gt;</code>, with `result.value` of type <code>[GetProjectKeyV1Response](src/models/get-project-key-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1775,19 +2457,35 @@ Retrieves all API keys associated with the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsKeys.list7({ projectId });
+  const response = await client.manageV1ProjectsKeys.list7({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListProjectKeysV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsKeys.List7Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsKeys.List7Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsKeys.list7({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectKeysV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1812,9 +2510,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectKeysV1Response](src/models/list-project-keys-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsKeys.list7(request)`
 
-**OnError**: <code>[ManageV1ProjectsKeys.List7Error](src/resources/manage-v1-projects-keys.ts)</code>
+- **OnSuccess**: <code>[ListProjectKeysV1Response](src/models/list-project-keys-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsKeys.List7Error](src/resources/manage-v1-projects-keys.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsKeys.list7(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectKeysV1Response, ManageV1ProjectsKeys.List7Error&gt;</code>, with `result.value` of type <code>[ListProjectKeysV1Response](src/models/list-project-keys-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1844,19 +2550,41 @@ Removes a member from the project using their unique member ID
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsMembers.delete5({ projectId, memberId });
+  const response = await client.manageV1ProjectsMembers.delete5({
+    projectId: "some example string",
+    memberId: "some example string",
+  });
   // TODO: Handle 'response' of type DeleteProjectMemberV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsMembers.Delete5Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsMembers.Delete5Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsMembers.delete5({
+  projectId: "some example string",
+  memberId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type DeleteProjectMemberV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1881,9 +2609,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[DeleteProjectMemberV1Response](src/models/delete-project-member-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsMembers.delete5(request)`
 
-**OnError**: <code>[ManageV1ProjectsMembers.Delete5Error](src/resources/manage-v1-projects-members.ts)</code>
+- **OnSuccess**: <code>[DeleteProjectMemberV1Response](src/models/delete-project-member-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsMembers.Delete5Error](src/resources/manage-v1-projects-members.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsMembers.delete5(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;DeleteProjectMemberV1Response, ManageV1ProjectsMembers.Delete5Error&gt;</code>, with `result.value` of type <code>[DeleteProjectMemberV1Response](src/models/delete-project-member-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1909,19 +2645,35 @@ Retrieves a list of members for a given project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsMembers.list8({ projectId });
+  const response = await client.manageV1ProjectsMembers.list8({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListProjectMembersV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsMembers.List8Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsMembers.List8Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsMembers.list8({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectMembersV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -1945,9 +2697,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectMembersV1Response](src/models/list-project-members-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsMembers.list8(request)`
 
-**OnError**: <code>[ManageV1ProjectsMembers.List8Error](src/resources/manage-v1-projects-members.ts)</code>
+- **OnSuccess**: <code>[ListProjectMembersV1Response](src/models/list-project-members-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsMembers.List8Error](src/resources/manage-v1-projects-members.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsMembers.list8(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectMembersV1Response, ManageV1ProjectsMembers.List8Error&gt;</code>, with `result.value` of type <code>[ListProjectMembersV1Response](src/models/list-project-members-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -1977,19 +2737,41 @@ Retrieves a list of scopes for a specific member
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsMembersScopes.list9({ projectId, memberId });
+  const response = await client.manageV1ProjectsMembersScopes.list9({
+    projectId: "some example string",
+    memberId: "some example string",
+  });
   // TODO: Handle 'response' of type ListProjectMemberScopesV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsMembersScopes.List9Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsMembersScopes.List9Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsMembersScopes.list9({
+  projectId: "some example string",
+  memberId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectMemberScopesV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2014,9 +2796,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectMemberScopesV1Response](src/models/list-project-member-scopes-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsMembersScopes.list9(request)`
 
-**OnError**: <code>[ManageV1ProjectsMembersScopes.List9Error](src/resources/manage-v1-projects-members-scopes.ts)</code>
+- **OnSuccess**: <code>[ListProjectMemberScopesV1Response](src/models/list-project-member-scopes-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsMembersScopes.List9Error](src/resources/manage-v1-projects-members-scopes.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsMembersScopes.list9(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectMemberScopesV1Response, ManageV1ProjectsMembersScopes.List9Error&gt;</code>, with `result.value` of type <code>[ListProjectMemberScopesV1Response](src/models/list-project-member-scopes-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2042,19 +2832,41 @@ Updates the scopes for a specific member
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsMembersScopes.update4({ projectId, memberId });
+  const response = await client.manageV1ProjectsMembersScopes.update4({
+    projectId: "some example string",
+    memberId: "some example string",
+  });
   // TODO: Handle 'response' of type UpdateProjectMemberScopesV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsMembersScopes.Update4Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsMembersScopes.Update4Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsMembersScopes.update4({
+  projectId: "some example string",
+  memberId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type UpdateProjectMemberScopesV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2080,9 +2892,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[UpdateProjectMemberScopesV1Response](src/models/update-project-member-scopes-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsMembersScopes.update4(request)`
 
-**OnError**: <code>[ManageV1ProjectsMembersScopes.Update4Error](src/resources/manage-v1-projects-members-scopes.ts)</code>
+- **OnSuccess**: <code>[UpdateProjectMemberScopesV1Response](src/models/update-project-member-scopes-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsMembersScopes.Update4Error](src/resources/manage-v1-projects-members-scopes.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsMembersScopes.update4(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;UpdateProjectMemberScopesV1Response, ManageV1ProjectsMembersScopes.Update4Error&gt;</code>, with `result.value` of type <code>[UpdateProjectMemberScopesV1Response](src/models/update-project-member-scopes-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2112,19 +2932,37 @@ Generates an invite for a specific project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsMembersInvites.create4({ projectId });
+  const response = await client.manageV1ProjectsMembersInvites.create4({ projectId: "some example string" });
   // TODO: Handle 'response' of type CreateProjectInviteV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsMembersInvites.Create4Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsMembersInvites.Create4Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsMembersInvites.create4({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type CreateProjectInviteV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2149,9 +2987,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CreateProjectInviteV1Response](src/models/create-project-invite-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsMembersInvites.create4(request)`
 
-**OnError**: <code>[ManageV1ProjectsMembersInvites.Create4Error](src/resources/manage-v1-projects-members-invites.ts)</code>
+- **OnSuccess**: <code>[CreateProjectInviteV1Response](src/models/create-project-invite-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsMembersInvites.Create4Error](src/resources/manage-v1-projects-members-invites.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsMembersInvites.create4(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;CreateProjectInviteV1Response, ManageV1ProjectsMembersInvites.Create4Error&gt;</code>, with `result.value` of type <code>[CreateProjectInviteV1Response](src/models/create-project-invite-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2177,19 +3023,41 @@ Deletes an invite for a specific project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsMembersInvites.delete6({ projectId, email });
+  const response = await client.manageV1ProjectsMembersInvites.delete6({
+    projectId: "some example string",
+    email: "some example string",
+  });
   // TODO: Handle 'response' of type DeleteProjectInviteV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsMembersInvites.Delete6Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsMembersInvites.Delete6Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsMembersInvites.delete6({
+  projectId: "some example string",
+  email: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type DeleteProjectInviteV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2214,9 +3082,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[DeleteProjectInviteV1Response](src/models/delete-project-invite-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsMembersInvites.delete6(request)`
 
-**OnError**: <code>[ManageV1ProjectsMembersInvites.Delete6Error](src/resources/manage-v1-projects-members-invites.ts)</code>
+- **OnSuccess**: <code>[DeleteProjectInviteV1Response](src/models/delete-project-invite-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsMembersInvites.Delete6Error](src/resources/manage-v1-projects-members-invites.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsMembersInvites.delete6(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;DeleteProjectInviteV1Response, ManageV1ProjectsMembersInvites.Delete6Error&gt;</code>, with `result.value` of type <code>[DeleteProjectInviteV1Response](src/models/delete-project-invite-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2242,19 +3118,37 @@ Generates a list of invites for a specific project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsMembersInvites.list10({ projectId });
+  const response = await client.manageV1ProjectsMembersInvites.list10({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListProjectInvitesV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsMembersInvites.List10Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsMembersInvites.List10Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsMembersInvites.list10({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectInvitesV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2278,9 +3172,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectInvitesV1Response](src/models/list-project-invites-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsMembersInvites.list10(request)`
 
-**OnError**: <code>[ManageV1ProjectsMembersInvites.List10Error](src/resources/manage-v1-projects-members-invites.ts)</code>
+- **OnSuccess**: <code>[ListProjectInvitesV1Response](src/models/list-project-invites-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsMembersInvites.List10Error](src/resources/manage-v1-projects-members-invites.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsMembersInvites.list10(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectInvitesV1Response, ManageV1ProjectsMembersInvites.List10Error&gt;</code>, with `result.value` of type <code>[ListProjectInvitesV1Response](src/models/list-project-invites-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2310,19 +3212,41 @@ Retrieves a specific request for a specific project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsRequests.get7({ projectId, requestId });
+  const response = await client.manageV1ProjectsRequests.get7({
+    projectId: "some example string",
+    requestId: "some example string",
+  });
   // TODO: Handle 'response' of type GetProjectRequestV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsRequests.Get7Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsRequests.Get7Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsRequests.get7({
+  projectId: "some example string",
+  requestId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetProjectRequestV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2347,9 +3271,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetProjectRequestV1Response](src/models/get-project-request-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsRequests.get7(request)`
 
-**OnError**: <code>[ManageV1ProjectsRequests.Get7Error](src/resources/manage-v1-projects-requests.ts)</code>
+- **OnSuccess**: <code>[GetProjectRequestV1Response](src/models/get-project-request-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsRequests.Get7Error](src/resources/manage-v1-projects-requests.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsRequests.get7(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetProjectRequestV1Response, ManageV1ProjectsRequests.Get7Error&gt;</code>, with `result.value` of type <code>[GetProjectRequestV1Response](src/models/get-project-request-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2375,19 +3307,37 @@ Generates a list of requests for a specific project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsRequests.list11({ projectId });
+  const response = await client.manageV1ProjectsRequests.list11({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListProjectRequestsV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsRequests.List11Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsRequests.List11Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsRequests.list11({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectRequestsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2404,7 +3354,7 @@ try {
 | <code>projectId</code> | <code>string</code> | The unique identifier of the project |
 | <code>start?</code> | <code>Date</code> (date-time) | Start date of the requested date range. Formats accepted are YYYY-MM-DD, YYYY-MM-DDTHH:MM:SS, or YYYY-MM-DDTHH:MM:SS+HH:MM |
 | <code>end?</code> | <code>Date</code> (date-time) | End date of the requested date range. Formats accepted are YYYY-MM-DD, YYYY-MM-DDTHH:MM:SS, or YYYY-MM-DDTHH:MM:SS+HH:MM |
-| <code>limit?</code> | <code>number</code> | Number of results to return per page. Default 10. Range [1,1000] |
+| <code>limit?</code> | <code>number</code> | Number of results to return per page. Default 10. Range [1,1000]<br>**Default**: 10 |
 | <code>page?</code> | <code>number</code> | Navigate and return the results to retrieve specific portions of information of the response |
 | <code>accessor?</code> | <code>string</code> | Filter for requests where a specific accessor was used |
 | <code>requestId?</code> | <code>string</code> | Filter for a specific request id |
@@ -2421,9 +3371,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectRequestsV1Response](src/models/list-project-requests-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsRequests.list11(request)`
 
-**OnError**: <code>[ManageV1ProjectsRequests.List11Error](src/resources/manage-v1-projects-requests.ts)</code>
+- **OnSuccess**: <code>[ListProjectRequestsV1Response](src/models/list-project-requests-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsRequests.List11Error](src/resources/manage-v1-projects-requests.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsRequests.list11(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectRequestsV1Response, ManageV1ProjectsRequests.List11Error&gt;</code>, with `result.value` of type <code>[ListProjectRequestsV1Response](src/models/list-project-requests-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2453,19 +3411,35 @@ Retrieves the usage for a specific project. Use Get Project Usage Breakdown for 
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsUsage.get8({ projectId });
+  const response = await client.manageV1ProjectsUsage.get8({ projectId: "some example string" });
   // TODO: Handle 'response' of type UsageV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsUsage.Get8Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsUsage.Get8Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsUsage.get8({ projectId: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type UsageV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2533,9 +3507,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[UsageV1Response](src/models/usage-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsUsage.get8(request)`
 
-**OnError**: <code>[ManageV1ProjectsUsage.Get8Error](src/resources/manage-v1-projects-usage.ts)</code>
+- **OnSuccess**: <code>[UsageV1Response](src/models/usage-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsUsage.Get8Error](src/resources/manage-v1-projects-usage.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsUsage.get8(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;UsageV1Response, ManageV1ProjectsUsage.Get8Error&gt;</code>, with `result.value` of type <code>[UsageV1Response](src/models/usage-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2565,19 +3547,37 @@ Lists the features, models, tags, languages, and processing method used for requ
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsUsageFields.list12({ projectId });
+  const response = await client.manageV1ProjectsUsageFields.list12({ projectId: "some example string" });
   // TODO: Handle 'response' of type UsageFieldsV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsUsageFields.List12Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsUsageFields.List12Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsUsageFields.list12({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type UsageFieldsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2603,9 +3603,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[UsageFieldsV1Response](src/models/usage-fields-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsUsageFields.list12(request)`
 
-**OnError**: <code>[ManageV1ProjectsUsageFields.List12Error](src/resources/manage-v1-projects-usage-fields.ts)</code>
+- **OnSuccess**: <code>[UsageFieldsV1Response](src/models/usage-fields-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsUsageFields.List12Error](src/resources/manage-v1-projects-usage-fields.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsUsageFields.list12(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;UsageFieldsV1Response, ManageV1ProjectsUsageFields.List12Error&gt;</code>, with `result.value` of type <code>[UsageFieldsV1Response](src/models/usage-fields-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2635,19 +3643,37 @@ Retrieves the usage breakdown for a specific project, with various filter option
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsUsageBreakdown.get9({ projectId });
+  const response = await client.manageV1ProjectsUsageBreakdown.get9({ projectId: "some example string" });
   // TODO: Handle 'response' of type UsageBreakdownV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsUsageBreakdown.Get9Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsUsageBreakdown.Get9Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsUsageBreakdown.get9({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type UsageBreakdownV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2716,9 +3742,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[UsageBreakdownV1Response](src/models/usage-breakdown-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsUsageBreakdown.get9(request)`
 
-**OnError**: <code>[ManageV1ProjectsUsageBreakdown.Get9Error](src/resources/manage-v1-projects-usage-breakdown.ts)</code>
+- **OnSuccess**: <code>[UsageBreakdownV1Response](src/models/usage-breakdown-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsUsageBreakdown.Get9Error](src/resources/manage-v1-projects-usage-breakdown.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsUsageBreakdown.get9(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;UsageBreakdownV1Response, ManageV1ProjectsUsageBreakdown.Get9Error&gt;</code>, with `result.value` of type <code>[UsageBreakdownV1Response](src/models/usage-breakdown-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2748,19 +3782,41 @@ Retrieves details about the specified balance
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsBillingBalances.get10({ projectId, balanceId });
+  const response = await client.manageV1ProjectsBillingBalances.get10({
+    projectId: "some example string",
+    balanceId: "some example string",
+  });
   // TODO: Handle 'response' of type GetProjectBalanceV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsBillingBalances.Get10Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsBillingBalances.Get10Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsBillingBalances.get10({
+  projectId: "some example string",
+  balanceId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetProjectBalanceV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2785,9 +3841,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetProjectBalanceV1Response](src/models/get-project-balance-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsBillingBalances.get10(request)`
 
-**OnError**: <code>[ManageV1ProjectsBillingBalances.Get10Error](src/resources/manage-v1-projects-billing-balances.ts)</code>
+- **OnSuccess**: <code>[GetProjectBalanceV1Response](src/models/get-project-balance-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsBillingBalances.Get10Error](src/resources/manage-v1-projects-billing-balances.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsBillingBalances.get10(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetProjectBalanceV1Response, ManageV1ProjectsBillingBalances.Get10Error&gt;</code>, with `result.value` of type <code>[GetProjectBalanceV1Response](src/models/get-project-balance-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2813,19 +3877,37 @@ Generates a list of outstanding balances for the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsBillingBalances.list13({ projectId });
+  const response = await client.manageV1ProjectsBillingBalances.list13({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListProjectBalancesV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsBillingBalances.List13Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsBillingBalances.List13Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsBillingBalances.list13({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectBalancesV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2849,9 +3931,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectBalancesV1Response](src/models/list-project-balances-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsBillingBalances.list13(request)`
 
-**OnError**: <code>[ManageV1ProjectsBillingBalances.List13Error](src/resources/manage-v1-projects-billing-balances.ts)</code>
+- **OnSuccess**: <code>[ListProjectBalancesV1Response](src/models/list-project-balances-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsBillingBalances.List13Error](src/resources/manage-v1-projects-billing-balances.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsBillingBalances.list13(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectBalancesV1Response, ManageV1ProjectsBillingBalances.List13Error&gt;</code>, with `result.value` of type <code>[ListProjectBalancesV1Response](src/models/list-project-balances-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2881,19 +3971,37 @@ Retrieves the billing summary for a specific project, with various filter option
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsBillingBreakdown.list14({ projectId });
+  const response = await client.manageV1ProjectsBillingBreakdown.list14({ projectId: "some example string" });
   // TODO: Handle 'response' of type BillingBreakdownV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsBillingBreakdown.List14Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsBillingBreakdown.List14Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsBillingBreakdown.list14({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type BillingBreakdownV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2924,9 +4032,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[BillingBreakdownV1Response](src/models/billing-breakdown-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsBillingBreakdown.list14(request)`
 
-**OnError**: <code>[ManageV1ProjectsBillingBreakdown.List14Error](src/resources/manage-v1-projects-billing-breakdown.ts)</code>
+- **OnSuccess**: <code>[BillingBreakdownV1Response](src/models/billing-breakdown-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsBillingBreakdown.List14Error](src/resources/manage-v1-projects-billing-breakdown.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsBillingBreakdown.list14(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;BillingBreakdownV1Response, ManageV1ProjectsBillingBreakdown.List14Error&gt;</code>, with `result.value` of type <code>[BillingBreakdownV1Response](src/models/billing-breakdown-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -2956,19 +4072,37 @@ Lists the accessors, deployment types, tags, and line items used for billing dat
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsBillingFields.list15({ projectId });
+  const response = await client.manageV1ProjectsBillingFields.list15({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListBillingFieldsV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsBillingFields.List15Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsBillingFields.List15Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsBillingFields.list15({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListBillingFieldsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -2994,9 +4128,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListBillingFieldsV1Response](src/models/list-billing-fields-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsBillingFields.list15(request)`
 
-**OnError**: <code>[ManageV1ProjectsBillingFields.List15Error](src/resources/manage-v1-projects-billing-fields.ts)</code>
+- **OnSuccess**: <code>[ListBillingFieldsV1Response](src/models/list-billing-fields-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsBillingFields.List15Error](src/resources/manage-v1-projects-billing-fields.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsBillingFields.list15(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListBillingFieldsV1Response, ManageV1ProjectsBillingFields.List15Error&gt;</code>, with `result.value` of type <code>[ListBillingFieldsV1Response](src/models/list-billing-fields-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -3026,19 +4168,37 @@ Returns the original purchased amount on an order transaction
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.manageV1ProjectsBillingPurchases.list16({ projectId });
+  const response = await client.manageV1ProjectsBillingPurchases.list16({ projectId: "some example string" });
   // TODO: Handle 'response' of type ListProjectPurchasesV1Response
 } catch (err) {
-  if (err instanceof ManageV1ProjectsBillingPurchases.List16Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type ManageV1ProjectsBillingPurchases.List16Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.manageV1ProjectsBillingPurchases.list16({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectPurchasesV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -3053,7 +4213,7 @@ try {
 | Name | Type | Description |
 | --- | --- | --- |
 | <code>projectId</code> | <code>string</code> | The unique identifier of the project |
-| <code>limit?</code> | <code>number</code> | Number of results to return per page. Default 10. Range [1,1000] |
+| <code>limit?</code> | <code>number</code> | Number of results to return per page. Default 10. Range [1,1000]<br>**Default**: 10 |
 
 </dd>
 </dl>
@@ -3063,9 +4223,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectPurchasesV1Response](src/models/list-project-purchases-v1-response.ts)</code>
+**Direct**: `await client.manageV1ProjectsBillingPurchases.list16(request)`
 
-**OnError**: <code>[ManageV1ProjectsBillingPurchases.List16Error](src/resources/manage-v1-projects-billing-purchases.ts)</code>
+- **OnSuccess**: <code>[ListProjectPurchasesV1Response](src/models/list-project-purchases-v1-response.ts)</code>
+- **OnError**: throws <code>[ManageV1ProjectsBillingPurchases.List16Error](src/resources/manage-v1-projects-billing-purchases.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.manageV1ProjectsBillingPurchases.list16(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectPurchasesV1Response, ManageV1ProjectsBillingPurchases.List16Error&gt;</code>, with `result.value` of type <code>[ListProjectPurchasesV1Response](src/models/list-project-purchases-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -3095,21 +4263,39 @@ Creates a set of distribution credentials for the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.selfHostedV1DistributionCredentials.create5({ projectId });
+  const response = await client.selfHostedV1DistributionCredentials.create5({
+    projectId: "some example string",
+  });
   // TODO: Handle 'response' of type CreateProjectDistributionCredentialsV1Response
 } catch (err) {
-  if (
-    err instanceof SelfHostedV1DistributionCredentials.Create5Error && err.payload.kind === "errorResponse"
-  ) {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type SelfHostedV1DistributionCredentials.Create5Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.selfHostedV1DistributionCredentials.create5({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type CreateProjectDistributionCredentialsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -3125,7 +4311,7 @@ try {
 | --- | --- | --- |
 | <code>projectId</code> | <code>string</code> | The unique identifier of the project |
 | <code>scopes?</code> | <code>[V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems](src/models/v1-projects-project-id-self-hosted-distribution-credentials-post-parameters-scopes-schema-items.ts)[]</code> | List of permission scopes for the credentials |
-| <code>provider?</code> | <code>[V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider](src/models/v1-projects-project-id-self-hosted-distribution-credentials-post-parameters-provider.ts)</code> | The provider of the distribution service |
+| <code>provider?</code> | <code>[V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider](src/models/v1-projects-project-id-self-hosted-distribution-credentials-post-parameters-provider.ts)</code> | The provider of the distribution service<br>**Default**: "quay" |
 | <code>body?</code> | <code>[CreateProjectDistributionCredentialsV1Request](src/models/create-project-distribution-credentials-v1-request.ts)</code> | The set of distribution credentials to create |
 
 </dd>
@@ -3136,9 +4322,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[CreateProjectDistributionCredentialsV1Response](src/models/create-project-distribution-credentials-v1-response.ts)</code>
+**Direct**: `await client.selfHostedV1DistributionCredentials.create5(request)`
 
-**OnError**: <code>[SelfHostedV1DistributionCredentials.Create5Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>
+- **OnSuccess**: <code>[CreateProjectDistributionCredentialsV1Response](src/models/create-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: throws <code>[SelfHostedV1DistributionCredentials.Create5Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.selfHostedV1DistributionCredentials.create5(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;CreateProjectDistributionCredentialsV1Response, SelfHostedV1DistributionCredentials.Create5Error&gt;</code>, with `result.value` of type <code>[CreateProjectDistributionCredentialsV1Response](src/models/create-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -3164,7 +4358,7 @@ Deletes a set of distribution credentials for the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -3172,16 +4366,33 @@ Deletes a set of distribution credentials for the specified project
 ```ts
 try {
   const response = await client.selfHostedV1DistributionCredentials.delete7({
-    projectId,
-    distributionCredentialsId,
+    projectId: "some example string",
+    distributionCredentialsId: "some example string",
   });
   // TODO: Handle 'response' of type GetProjectDistributionCredentialsV1Response
 } catch (err) {
-  if (
-    err instanceof SelfHostedV1DistributionCredentials.Delete7Error && err.payload.kind === "errorResponse"
-  ) {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type SelfHostedV1DistributionCredentials.Delete7Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.selfHostedV1DistributionCredentials.delete7({
+  projectId: "some example string",
+  distributionCredentialsId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetProjectDistributionCredentialsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -3206,9 +4417,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetProjectDistributionCredentialsV1Response](src/models/get-project-distribution-credentials-v1-response.ts)</code>
+**Direct**: `await client.selfHostedV1DistributionCredentials.delete7(request)`
 
-**OnError**: <code>[SelfHostedV1DistributionCredentials.Delete7Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>
+- **OnSuccess**: <code>[GetProjectDistributionCredentialsV1Response](src/models/get-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: throws <code>[SelfHostedV1DistributionCredentials.Delete7Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.selfHostedV1DistributionCredentials.delete7(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetProjectDistributionCredentialsV1Response, SelfHostedV1DistributionCredentials.Delete7Error&gt;</code>, with `result.value` of type <code>[GetProjectDistributionCredentialsV1Response](src/models/get-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -3234,7 +4453,7 @@ Returns a set of distribution credentials for the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -3242,14 +4461,33 @@ Returns a set of distribution credentials for the specified project
 ```ts
 try {
   const response = await client.selfHostedV1DistributionCredentials.get11({
-    projectId,
-    distributionCredentialsId,
+    projectId: "some example string",
+    distributionCredentialsId: "some example string",
   });
   // TODO: Handle 'response' of type GetProjectDistributionCredentialsV1Response
 } catch (err) {
-  if (err instanceof SelfHostedV1DistributionCredentials.Get11Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type SelfHostedV1DistributionCredentials.Get11Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.selfHostedV1DistributionCredentials.get11({
+  projectId: "some example string",
+  distributionCredentialsId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GetProjectDistributionCredentialsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -3274,9 +4512,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GetProjectDistributionCredentialsV1Response](src/models/get-project-distribution-credentials-v1-response.ts)</code>
+**Direct**: `await client.selfHostedV1DistributionCredentials.get11(request)`
 
-**OnError**: <code>[SelfHostedV1DistributionCredentials.Get11Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>
+- **OnSuccess**: <code>[GetProjectDistributionCredentialsV1Response](src/models/get-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: throws <code>[SelfHostedV1DistributionCredentials.Get11Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.selfHostedV1DistributionCredentials.get11(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GetProjectDistributionCredentialsV1Response, SelfHostedV1DistributionCredentials.Get11Error&gt;</code>, with `result.value` of type <code>[GetProjectDistributionCredentialsV1Response](src/models/get-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -3302,21 +4548,39 @@ Lists sets of distribution credentials for the specified project
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.selfHostedV1DistributionCredentials.list17({ projectId });
+  const response = await client.selfHostedV1DistributionCredentials.list17({
+    projectId: "some example string",
+  });
   // TODO: Handle 'response' of type ListProjectDistributionCredentialsV1Response
 } catch (err) {
-  if (
-    err instanceof SelfHostedV1DistributionCredentials.List17Error && err.payload.kind === "errorResponse"
-  ) {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type SelfHostedV1DistributionCredentials.List17Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.selfHostedV1DistributionCredentials.list17({
+  projectId: "some example string",
+}).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type ListProjectDistributionCredentialsV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -3340,9 +4604,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[ListProjectDistributionCredentialsV1Response](src/models/list-project-distribution-credentials-v1-response.ts)</code>
+**Direct**: `await client.selfHostedV1DistributionCredentials.list17(request)`
 
-**OnError**: <code>[SelfHostedV1DistributionCredentials.List17Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>
+- **OnSuccess**: <code>[ListProjectDistributionCredentialsV1Response](src/models/list-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: throws <code>[SelfHostedV1DistributionCredentials.List17Error](src/resources/self-hosted-v1-distribution-credentials.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.selfHostedV1DistributionCredentials.list17(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;ListProjectDistributionCredentialsV1Response, SelfHostedV1DistributionCredentials.List17Error&gt;</code>, with `result.value` of type <code>[ListProjectDistributionCredentialsV1Response](src/models/list-project-distribution-credentials-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -3372,7 +4644,7 @@ Generates a temporary JSON Web Token (JWT) with a 30-second (by default) TTL and
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
@@ -3382,9 +4654,25 @@ try {
   const response = await client.authV1Tokens.grant();
   // TODO: Handle 'response' of type GrantV1Response
 } catch (err) {
-  if (err instanceof AuthV1Tokens.GrantError && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type AuthV1Tokens.GrantError, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.authV1Tokens.grant().asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type GrantV1Response
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -3408,9 +4696,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[GrantV1Response](src/models/grant-v1-response.ts)</code>
+**Direct**: `await client.authV1Tokens.grant(request)`
 
-**OnError**: <code>[AuthV1Tokens.GrantError](src/resources/auth-v1-tokens.ts)</code>
+- **OnSuccess**: <code>[GrantV1Response](src/models/grant-v1-response.ts)</code>
+- **OnError**: throws <code>[AuthV1Tokens.GrantError](src/resources/auth-v1-tokens.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.authV1Tokens.grant(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;GrantV1Response, AuthV1Tokens.GrantError&gt;</code>, with `result.value` of type <code>[GrantV1Response](src/models/grant-v1-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>
@@ -3440,19 +4736,35 @@ Synthesize a complete block of text into a single audio response using Deepgram'
 </dd>
 </dl>
 
-### Usage
+### Direct Usage
 
 <dl>
 <dd>
 
 ```ts
 try {
-  const response = await client.speakV2Audio.generate2({ model });
+  const response = await client.speakV2Audio.generate2({ model: "some example string" });
   // TODO: Handle 'response' of type SpeakV2AcceptedResponse
 } catch (err) {
-  if (err instanceof SpeakV2Audio.Generate2Error && err.payload.kind === "errorResponse") {
-    // TODO: Handle 'err.payload.body' of type ErrorResponse
-  }
+  // TODO: Handle 'err' of type SpeakV2Audio.Generate2Error, discriminated with 'err.payload.kind'
+}
+```
+
+</dd>
+</dl>
+
+### Usage as ApiResult
+
+<dl>
+<dd>
+
+```ts
+const result = await client.speakV2Audio.generate2({ model: "some example string" }).asApiResult();
+// TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+if (result.ok) {
+  // TODO: Use 'result.value' of type SpeakV2AcceptedResponse
+} else {
+  // TODO: Handle 'result', discriminated with 'result.payload.kind'
 }
 ```
 
@@ -3468,8 +4780,8 @@ try {
 | --- | --- | --- |
 | <code>model</code> | <code>string</code> | Flux TTS model used to synthesize the submitted text, in the form `flux-{voice}-{language}` (for example, `flux-alexis-en`). Required; unlike the v1 (Aura) endpoint there is no default and only flux models are accepted. English-only at launch. |
 | <code>callback?</code> | <code>string</code> | URL to which we'll make the callback request |
-| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made |
-| <code>mipOptOut?</code> | <code>boolean</code> | Opts out requests from the Deepgram Model Improvement Program. Refer to our Docs for pricing impacts before setting this to true. https://dpgr.am/deepgram-mip |
+| <code>callbackMethod?</code> | <code>[V1ListenPostParametersCallbackMethod](src/models/v1-listen-post-parameters-callback-method.ts)</code> | HTTP method by which the callback request will be made<br>**Default**: "POST" |
+| <code>mipOptOut?</code> | <code>boolean</code> | Opts out requests from the Deepgram Model Improvement Program. Refer to our Docs for pricing impacts before setting this to true. https://dpgr.am/deepgram-mip<br>**Default**: false |
 | <code>tag?</code> | <code>[V2SpeakPostParametersTag](src/models/unions/v2-speak-post-parameters-tag.ts)</code> | Label your requests for the purpose of identification during usage reporting |
 | <code>bitRate?</code> | <code>[V2SpeakPostParametersBitRate](src/models/unions/v2-speak-post-parameters-bit-rate.ts)</code> | The bitrate of the audio in bits per second. Choose from predefined ranges or specific values based on the encoding type. |
 | <code>container?</code> | <code>[V2SpeakPostParametersContainer](src/models/unions/v2-speak-post-parameters-container.ts)</code> | Container specifies the file format wrapper for the output audio. The available options depend on the encoding type. |
@@ -3486,9 +4798,17 @@ try {
 <dl>
 <dd>
 
-**OnSuccess**: <code>[SpeakV2AcceptedResponse](src/models/speak-v2-accepted-response.ts)</code>
+**Direct**: `await client.speakV2Audio.generate2(request)`
 
-**OnError**: <code>[SpeakV2Audio.Generate2Error](src/resources/speak-v2-audio.ts)</code>
+- **OnSuccess**: <code>[SpeakV2AcceptedResponse](src/models/speak-v2-accepted-response.ts)</code>
+- **OnError**: throws <code>[SpeakV2Audio.Generate2Error](src/resources/speak-v2-audio.ts)</code>, with `err.payload` discriminated on `kind`
+
+**As ApiResult**: `await client.speakV2Audio.generate2(request).asApiResult()`
+
+- **OnSuccess**: <code>[ApiResult](src/core/api-promise.ts)&lt;SpeakV2AcceptedResponse, SpeakV2Audio.Generate2Error&gt;</code>, with `result.value` of type <code>[SpeakV2AcceptedResponse](src/models/speak-v2-accepted-response.ts)</code>
+- **OnError**: `result.payload` discriminated on `kind`, with `result.message`
+
+**Thrown**: <code>[DeepgramError](src/core/errors.ts)</code> on any operational failure — a caller abort and a programmer error stay outside the family and reach you raw
 
 </dd>
 </dl>

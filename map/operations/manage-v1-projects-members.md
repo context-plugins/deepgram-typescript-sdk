@@ -4,7 +4,7 @@
 
 Accessor: `client.manageV1ProjectsMembers` · Source: `src/resources/manage-v1-projects-members.ts` · 2 operations · Request and error types: namespace `ManageV1ProjectsMembers`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### delete5
 
@@ -12,8 +12,9 @@ Accessor: `client.manageV1ProjectsMembers` · Source: `src/resources/manage-v1-p
 - **Wire**: `DELETE /v1/projects/{project_id}/members/{member_id}`
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `DeleteProjectMemberV1Response`
-- **Error**: `ManageV1ProjectsMembers.Delete5Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsMembers.Delete5Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsMembers.Delete5Request` (2):
@@ -35,7 +36,7 @@ Accessor: `client.manageV1ProjectsMembers` · Source: `src/resources/manage-v1-p
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `ListProjectMembersV1Response`
-- **Error**: `ManageV1ProjectsMembers.List8Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsMembers.List8Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsMembers.List8Request` (1):

@@ -5,6 +5,7 @@ import {
   type ReadV1ResponseResultsSummaryResults,
 } from "./read-v1-response-results-summary-results.js";
 
+/** Output whenever `summary=true` is used */
 export type ReadV1ResponseResultsSummary = {
   results?: ReadV1ResponseResultsSummaryResults;
 };

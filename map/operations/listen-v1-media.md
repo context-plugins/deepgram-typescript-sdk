@@ -4,16 +4,17 @@
 
 Accessor: `client.listenV1Media` · Source: `src/resources/listen-v1-media.ts` · 1 operation · Request and error types: namespace `ListenV1Media`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### transcribe
 
 - **Signature**: `transcribe(request: ListenV1Media.TranscribeRequest, options?: RequestOptions): ApiPromise<ListenV1MediaTranscribeResponse200, ListenV1Media.TranscribeError>`
 - **Wire**: `POST /v1/listen`
 - **Auth**: `apiKeyAuth`
-- **Request body**: `application/json` — the `body` field
+- **Request body**: `application/json` — the `body` field. **Optional**: omit it and the request carries no body and no `Content-Type` header at all
+- **SDK-sent**: `header Idempotency-Key` (minted per call)
 - **Returns**: `ListenV1MediaTranscribeResponse200`
-- **Error**: `ListenV1Media.TranscribeError` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ListenV1Media.TranscribeError` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"listenV1Response"` [400] `ListenV1Response` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ListenV1Media.TranscribeRequest` (38):

@@ -20,8 +20,11 @@ export type ListenV1ResponseResults = {
   channels: ListenV1ResponseResultsChannelsItems[];
   utterances?: ListenV1ResponseResultsUtterancesItems[];
   summary?: ListenV1ResponseResultsSummary;
+  /** Output whenever `topics=true` is used */
   topics?: SharedTopics;
+  /** Output whenever `intents=true` is used */
   intents?: SharedIntents;
+  /** Output whenever `sentiment=true` is used */
   sentiments?: SharedSentiments;
 };
 

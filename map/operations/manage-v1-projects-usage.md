@@ -4,7 +4,7 @@
 
 Accessor: `client.manageV1ProjectsUsage` · Source: `src/resources/manage-v1-projects-usage.ts` · 1 operation · Request and error types: namespace `ManageV1ProjectsUsage`
 
-**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ResponseError` and the runtime error family are excluded — see sdk-map.md.
+**Type sources**: every type an operation names, with the file that declares it and the schema value exported beside it. Import every name from `deepgram`; the `Source` path is where to **read** the shape, never what to import. `ApiError`, the runtime error family and the file vocabulary are excluded — see sdk-map.md.
 
 ### get8
 
@@ -13,7 +13,7 @@ Accessor: `client.manageV1ProjectsUsage` · Source: `src/resources/manage-v1-pro
 - **Auth**: `apiKeyAuth`
 - **Request body**: none — no `Content-Type` header is sent
 - **Returns**: `UsageV1Response`
-- **Error**: `ManageV1ProjectsUsage.Get8Error` — **typed arms**, narrowed on `err.payload.kind`
+- **Error**: `DeepgramError` with `kind: "api"`, an instance of `ManageV1ProjectsUsage.Get8Error` — **typed arms**, narrowed on `err.payload.kind`
 - **Error arms**: `"errorResponse"` [400] `ErrorResponse` · `"undeclared"` [any other] `rawBody: ArrayBuffer`
 
 **Fields** — `ManageV1ProjectsUsage.Get8Request` (45):

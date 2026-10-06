@@ -5,9 +5,13 @@ import {
   type AgentThinkModelsV1ResponseModelsItemsOneOf1Id,
 } from "./agent-think-models-v1-response-models-items-one-of1-id.js";
 
+/** Anthropic models */
 export type AgentThinkModelsV1ResponseModelsItems1 = {
+  /** The unique identifier of the Anthropic model */
   id: AgentThinkModelsV1ResponseModelsItemsOneOf1Id;
+  /** The display name of the model */
   name: string;
+  /** The provider of the model */
   provider: Record<string, unknown>;
 };
 

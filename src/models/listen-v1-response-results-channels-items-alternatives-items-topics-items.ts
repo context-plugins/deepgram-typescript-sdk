@@ -11,8 +11,8 @@ export type ListenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems = {
 export const listenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItemsSchema: Schema<ListenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems> =
   s.object<ListenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems>({
     text: s.optional(s.string()),
-    startWord: s.optional(s.number()),
-    endWord: s.optional(s.number()),
+    startWord: s.optional(s.float64()),
+    endWord: s.optional(s.float64()),
     topics: s.optional(s.array(s.string())),
     _keysMap: {
       startWord: "start_word",

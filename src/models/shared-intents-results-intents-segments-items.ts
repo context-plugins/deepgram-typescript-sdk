@@ -15,8 +15,8 @@ export type SharedIntentsResultsIntentsSegmentsItems = {
 export const sharedIntentsResultsIntentsSegmentsItemsSchema: Schema<SharedIntentsResultsIntentsSegmentsItems> =
   s.object<SharedIntentsResultsIntentsSegmentsItems>({
     text: s.optional(s.string()),
-    startWord: s.optional(s.number()),
-    endWord: s.optional(s.number()),
+    startWord: s.optional(s.float64()),
+    endWord: s.optional(s.float64()),
     intents: s.optional(s.array(s.lazy(() => sharedIntentsResultsIntentsSegmentsItemsIntentsItemsSchema))),
     _keysMap: {
       startWord: "start_word",

@@ -10,8 +10,8 @@ export type ReadV1ResponseMetadataMetadataTopicsInfo = {
 export const readV1ResponseMetadataMetadataTopicsInfoSchema: Schema<ReadV1ResponseMetadataMetadataTopicsInfo> =
   s.object<ReadV1ResponseMetadataMetadataTopicsInfo>({
     modelUuid: s.optional(s.string()),
-    inputTokens: s.optional(s.number()),
-    outputTokens: s.optional(s.number()),
+    inputTokens: s.optional(s.int()),
+    outputTokens: s.optional(s.int()),
     _keysMap: {
       modelUuid: "model_uuid",
       inputTokens: "input_tokens",

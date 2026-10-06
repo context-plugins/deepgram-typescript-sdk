@@ -1,8 +1,9 @@
 import type { AuthSchemes } from "../auth-schemes.js";
+import { ApiError, type Declared, type ErrorDecoders, type ErrorPayload } from "../core/api-error.js";
 import type { ApiPromise } from "../core/api-promise.js";
 import type { RequestOptions } from "../core/api-request.js";
 import type { RawClient } from "../core/raw-client.js";
-import { ResponseError, type Declared, type ErrorDecoders } from "../core/response-error.js";
+import { uuid } from "../core/uuid.js";
 import * as s from "../core/validation/index.js";
 import {
   deleteProjectV1ResponseSchema,
@@ -39,6 +40,21 @@ export class ManageV1Projects {
     this.#auth = auth;
   }
 
+  /**
+   * Delete a Project
+   *
+   * @remarks
+   * Deletes the specified project
+   *
+   * @returns A project
+   *
+   * @throws {@link ManageV1Projects.Delete3Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   delete3(
     request: ManageV1Projects.Delete3Request,
     options?: RequestOptions,
@@ -46,9 +62,11 @@ export class ManageV1Projects {
     return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v1/projects/{project_id}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
@@ -59,6 +77,21 @@ export class ManageV1Projects {
     );
   }
 
+  /**
+   * Get a Project
+   *
+   * @remarks
+   * Retrieves information about the specified project
+   *
+   * @returns A project
+   *
+   * @throws {@link ManageV1Projects.Get3Error} when the API answers with an error status — narrow
+   * on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   get3(
     request: ManageV1Projects.Get3Request,
     options?: RequestOptions,
@@ -66,13 +99,14 @@ export class ManageV1Projects {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects/{project_id}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
         query: [
-          { name: "limit", value: request.limit, schema: s.defaulted(s.number(), 10) },
-          { name: "page", value: request.page, schema: s.optional(s.number()) },
+          { name: "limit", value: request.limit, schema: s.defaulted(s.float64(), 10) },
+          { name: "page", value: request.page, schema: s.optional(s.float64()) },
         ],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -83,6 +117,21 @@ export class ManageV1Projects {
     );
   }
 
+  /**
+   * Leave a Project
+   *
+   * @remarks
+   * Removes the authenticated account from the specific project
+   *
+   * @returns Successfully removed account from project
+   *
+   * @throws {@link ManageV1Projects.LeaveError} when the API answers with an error status — narrow
+   * on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   leave(
     request: ManageV1Projects.LeaveRequest,
     options?: RequestOptions,
@@ -90,9 +139,11 @@ export class ManageV1Projects {
     return this.#rawClient.execute(
       {
         method: "DELETE",
-        url: this.#servers.default("/v1/projects/{project_id}/leave"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}/leave"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: { kind: "empty" },
       },
       {
@@ -103,12 +154,30 @@ export class ManageV1Projects {
     );
   }
 
+  /**
+   * List Projects
+   *
+   * @remarks
+   * Retrieves basic information about the projects associated with the API key
+   *
+   * @returns A list of projects
+   *
+   * @throws {@link ManageV1Projects.List4Error} when the API answers with an error status — narrow
+   * on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   list4(options?: RequestOptions): ApiPromise<ListProjectsV1Response, ManageV1Projects.List4Error> {
     return this.#rawClient.execute(
       {
         method: "GET",
-        url: this.#servers.default("/v1/projects"),
+        urlTemplate: this.#servers.default("/v1/projects"),
         auth: this.#auth.apiKeyAuth,
+        pathParams: [],
+        query: [],
+        headers: [],
         body: { kind: "empty" },
       },
       {
@@ -119,6 +188,21 @@ export class ManageV1Projects {
     );
   }
 
+  /**
+   * Update a Project
+   *
+   * @remarks
+   * Updates the name or other properties of an existing project
+   *
+   * @returns A project
+   *
+   * @throws {@link ManageV1Projects.Update3Error} when the API answers with an error status —
+   * narrow on `err.payload.kind`
+   *
+   * @throws {@link DeepgramError} when no usable response was produced: a connection failure, a
+   * timeout, a body that would not decode, a value that would not encode, or a credential that
+   * could not be obtained
+   */
   update3(
     request: ManageV1Projects.Update3Request,
     options?: RequestOptions,
@@ -126,9 +210,11 @@ export class ManageV1Projects {
     return this.#rawClient.execute(
       {
         method: "PATCH",
-        url: this.#servers.default("/v1/projects/{project_id}"),
+        urlTemplate: this.#servers.default("/v1/projects/{project_id}"),
         auth: this.#auth.apiKeyAuth,
         pathParams: [{ name: "project_id", value: request.projectId, schema: s.string() }],
+        query: [],
+        headers: [{ name: "Idempotency-Key", value: uuid(), schema: s.string() }],
         body: {
           kind: "json",
           value: request.body,
@@ -146,49 +232,68 @@ export class ManageV1Projects {
 
 export namespace ManageV1Projects {
   export type Delete3Request = {
+    /** The unique identifier of the project */
     projectId: string;
   };
 
-  export class Delete3Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Delete3Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Delete3Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Get3Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** Number of results to return per page. Default 10. Range [1,1000] @default 10 */
     limit?: number;
+    /**
+     * Navigate and return the results to retrieve specific portions of information of the response
+     */
     page?: number;
   };
 
-  export class Get3Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Get3Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Get3Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type LeaveRequest = {
+    /** The unique identifier of the project */
     projectId: string;
   };
 
-  export class LeaveError extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class LeaveError extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<LeaveError> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
-  export class List4Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class List4Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<List4Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];
   }
 
   export type Update3Request = {
+    /** The unique identifier of the project */
     projectId: string;
+    /** The name of the project */
     body?: UpdateProjectV1Request;
   };
 
-  export class Update3Error extends ResponseError<Declared<"errorResponse", ErrorResponse>> {
+  export class Update3Error extends ApiError {
+    declare readonly payload: ErrorPayload<Declared<"errorResponse", ErrorResponse>>;
+
     static readonly errors: ErrorDecoders<Update3Error> = [
       { on: 400, kind: "errorResponse", decode: { kind: "json", schema: errorResponseSchema } },
     ];

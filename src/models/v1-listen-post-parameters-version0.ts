@@ -1,6 +1,7 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/** Use the latest version of a model */
 export const V1ListenPostParametersVersion0 = {
   Latest: "latest",
 } as const;

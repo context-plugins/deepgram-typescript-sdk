@@ -2,7 +2,7 @@
 
 # SDK map — Deepgram (TypeScript)
 
-> A generated table of contents for this SDK. Consult this map and its sub-pages to learn signatures, request-field placement, error types and server wiring **by lookup**. Model shapes are *not* duplicated here — the map names the file declaring each type and the schema value exported beside it; read the shape there. The compiler is the backstop: a wrong name fails to build.
+> A generated table of contents for this SDK. Consult this map and its sub-pages to learn signatures, request-field placement, error types and server wiring **by lookup**. Model shapes and enum values are *not* duplicated here — the map names the file declaring each type and the schema value exported beside it; read the shape there. The compiler is the backstop: a wrong name fails to build.
 
 |  |  |
 | --- | --- |
@@ -12,7 +12,7 @@
 | API spec version | `1.0.0` |
 | Import specifier | `deepgram` — the package root is the **only** entry. Deep imports (`deepgram/models/...`) do not resolve; the `exports` map exposes `.` and `./package.json` and nothing else |
 | Module format | dual ESM + CommonJS, as folder dialects (`dist/esm`, `dist/commonjs`), each with its own `package.json` marker. No `.mjs`, `.cjs`, `.d.mts` or `.d.cts` files exist |
-| Node floor | `>=20` (`engines.node`) |
+| Node floor | `>=20.3` (`engines.node`) |
 | TypeScript floor | a resolver that reads `exports` (4.7+), plus whatever the pinned `zod` requires — `zod@4` needs 5.5 or later. The public `.d.ts` chain reaches `zod/v4-mini`, so this is a real constraint rather than a build-tool version |
 | Runtime dependency | `zod` (`^3.25.0 \|\| ^4.0.0`), imported as `zod/v4-mini`. The only runtime dependency |
 | Generator | APIMatic |
@@ -35,91 +35,164 @@ const client = new DeepgramClient({
 });
 ```
 
-The only constructor is `new DeepgramClient(clientOptions: Partial<ClientOptions> = {})`, so `new DeepgramClient()` is valid. Resources are memoized lazy getters on the client — `client.agentV1SettingsThinkModels`, `client.voiceAgentConfigurations`, `client.voiceAgentVariables`, `client.listenV1Media`, `client.speakV1Audio`, `client.readV1Text`, `client.manageV1Projects`, `client.manageV1ProjectsModels`, `client.manageV1Models`, `client.manageV1ProjectsKeys`, `client.manageV1ProjectsMembers`, `client.manageV1ProjectsMembersScopes`, `client.manageV1ProjectsMembersInvites`, `client.manageV1ProjectsRequests`, `client.manageV1ProjectsUsage`, `client.manageV1ProjectsUsageFields`, `client.manageV1ProjectsUsageBreakdown`, `client.manageV1ProjectsBillingBalances`, `client.manageV1ProjectsBillingBreakdown`, `client.manageV1ProjectsBillingFields`, `client.manageV1ProjectsBillingPurchases`, `client.selfHostedV1DistributionCredentials`, `client.authV1Tokens`, `client.speakV2Audio` — and their classes are exported only for their merged namespaces and for `instanceof`; their constructors take engine internals that are not exported, so reach a resource only through its getter.
+The only constructor is `new DeepgramClient(options: ClientOptions = {})`, so `new DeepgramClient()` is the minimum. Resources are memoized lazy getters on the client — `client.agentV1SettingsThinkModels`, `client.voiceAgentConfigurations`, `client.voiceAgentVariables`, `client.listenV1Media`, `client.speakV1Audio`, `client.readV1Text`, `client.manageV1Projects`, `client.manageV1ProjectsModels`, `client.manageV1Models`, `client.manageV1ProjectsKeys`, `client.manageV1ProjectsMembers`, `client.manageV1ProjectsMembersScopes`, `client.manageV1ProjectsMembersInvites`, `client.manageV1ProjectsRequests`, `client.manageV1ProjectsUsage`, `client.manageV1ProjectsUsageFields`, `client.manageV1ProjectsUsageBreakdown`, `client.manageV1ProjectsBillingBalances`, `client.manageV1ProjectsBillingBreakdown`, `client.manageV1ProjectsBillingFields`, `client.manageV1ProjectsBillingPurchases`, `client.selfHostedV1DistributionCredentials`, `client.authV1Tokens`, `client.speakV2Audio` — and their classes are exported only for their merged namespaces and for `instanceof`; their constructors take engine internals that are not exported, so reach a resource only through its getter.
 
 All `ClientOptions` fields (source: `src/client-options.ts`; every field is `readonly`):
 
 | Field | Type | Default |
 | --- | --- | --- |
-| `serverEnvironment` | `ServerEnvironment` | `ServerEnvironment.Production` |
-| `serverOptions` | `ServerOptions` | `{}` — each resolver merges its own per-environment defaults in |
-| `timeout` | `number` (ms) | `60_000` |
+| `serverEnvironment` | `typeof ServerEnvironment.<member>`, one per union arm | `ServerEnvironment.Production` |
+| `serverOptions` | the selected environment's server overrides | `{}` — each resolver merges its own per-environment defaults in |
+| `retry` | `RetryOptions` | the `RetryOptions` defaults below |
 | `fetch` | `FetchLike \| undefined` | the global `fetch`, resolved by the transport |
 | `apiKeyAuth` | `TokenProvider \| undefined` | unset |
 | `jwtAuth` | `TokenProvider \| undefined` | unset |
 
 The 2 auth fields are all optional, and an unset one is not an error — the operation that wanted it simply sends no credential. What each one puts on the wire, and which operations require it, are under Servers & auth.
 
-Two engine behaviours the table cannot show. A non-finite or non-positive `timeout` is **not** "no timeout" — the transport (`src/core/raw-client.ts`) falls back to its own ceiling and clamps anything above it. And when no `fetch` is reachable the **constructor** throws `SdkError`, not the first call.
+When no `fetch` is reachable the **constructor** throws `ConfigurationError`, not the first call.
 
-**`ClientOptions.fetch` is the one extension point** — there are no hooks, no middleware and no interceptors, so a proxy, a custom agent, extra headers, retries or request logging all go here. A replacement **must forward `init.signal`** to whatever actually performs the request; spreading `...init` does it. Drop it and both the per-call signal and `timeout` go inert — the call neither aborts nor times out.
+`RetryOptions` fields (source: `src/core/retry.ts`; exported from `deepgram` as a type). Every field is optional, so pass only the fields you change — each one left out takes its default:
 
-**Cancellation.** The `signal` on `RequestOptions` is the whole per-request surface. An already-aborted signal rejects immediately, `err.cause` is whatever was passed to `abort()`, and the client-level `timeout` surfaces through the same branch with `err.kind === "timeout"`. There is no per-request timeout.
+| Field | Type | Default |
+| --- | --- | --- |
+| `timeout` | `number` (ms) | `60_000` |
+| `statusCodesToRetry` | `readonly number[]` | `[408, 429, 500, 502, 503, 504]` |
+| `httpMethodsToRetry` | `readonly HttpMethod[]` | `["GET", "HEAD", "PUT", "OPTIONS"]` |
+| `maxRetries` | `number` | `3` |
+| `delay` | `number` (ms) | `1000` |
+| `backoffFactor` | `number` | `2` |
+| `useExponentialBackoff` | `boolean` | `true` |
+| `maxJitter` | `number` (a fraction, `0` to `1`) | `0.25` |
+| `onRetry` | `((attempt: RetryAttempt) => void) \| undefined` | unset |
+
+`retry: { maxRetries: 0 }` turns retries off.
+
+A call may override three of these through `RequestOptions.retry`, typed `RequestRetryOptions`: `maxRetries`, `timeout` and `statusCodesToRetry`.
+
+Retry types named by the fields above — public members with their **declared types**, verbatim from source; every member is `readonly`, and both are exported as types:
+
+| Type | Public members | Source |
+| --- | --- | --- |
+| `RetryAttempt` — the `onRetry` callback argument | `attemptNumber: number` · `delay: number` · `reason: RetryReason` | `src/core/retry.ts` |
+| `RetryReason` — narrow on `kind` | `{ kind: "status"; status: number; headers: Headers }` or `{ kind: "fault"; error: ConnectionError \| TimeoutError }`, the two retryable leaves of `DeepgramError` | `src/core/retry.ts` |
+
+**`ClientOptions.fetch` is the one extension point** — there are no hooks, no middleware and no interceptors, so a proxy, a custom agent, extra headers and request logging all go here. A replacement **must forward `init.signal`** to whatever actually performs the request; spreading `...init` does it. Drop it and both the per-call signal and `retry.timeout` go inert — the call neither aborts nor times out.
+
+**Cancellation.** The `signal` on `RequestOptions` is the per-request cancellation surface. Aborting rejects with the signal's **own `reason`** — whatever you passed to `abort()`, or the platform `DOMException` a bare `abort()` supplies — unwrapped, so it is **not** an `DeepgramError` and a `catch` that tests the family must rethrow it. An already-aborted signal rejects immediately. The `retry.timeout` that bounded the attempt is the SDK's own and does stay in the family, as `err.kind === "timeout"`. It starts once the credential is in hand and covers the request up to its response headers — not obtaining the credential and not reading the body, which only the signal bounds, so a body that stalls after its headers holds a call with no signal until the transport gives up.
 
 The entire per-request surface is the optional second argument of every operation:
 
 | Type | Members | Source |
 | --- | --- | --- |
-| `RequestOptions` | `signal?: AbortSignal` | `src/core/api-request.ts` |
+| `RequestOptions` | `signal?: AbortSignal \| undefined` · `retry?: RequestRetryOptions` | `src/core/api-request.ts` |
+| `RequestRetryOptions` — `Pick<RetryOptions, "maxRetries" \| "timeout" \| "statusCodesToRetry">` | `maxRetries?: number` · `timeout?: number` · `statusCodesToRetry?: readonly number[]` | `src/core/retry.ts` |
+
+**A per-call `retry` is merged field by field over the client's resolved policy**, so `{ retry: { maxRetries: 0 } }` changes that one field for that one call and leaves every other call alone.
 
 **Not on this SDK.** These are absent by design, not undocumented. This table ships with `src/core/` and is versioned with it.
 
 | You might reach for | Reality |
 | --- | --- |
-| `maxRetries`, backoff, `Retry-After` handling | no retries. A failed call rejects once |
 | a logger, `logLevel`, request/response logging | none. `src/core/` contains no `console` call |
 | hooks, middleware, interceptors, `onRequest`/`onResponse` | none. `fetch` is the one extension point |
 | pagination, `for await`, auto-paging helpers | no operation is paginated and nothing is async-iterable |
-| SSE, `text/event-stream`, `ReadableStream` | no streaming. Every decoder reads the body to completion |
-| `FormData`, `Blob`, `File`, multipart, binary bodies | none. The only body kinds are empty, JSON, form-urlencoded and text |
-| per-request `headers`, `timeout`, `baseUrl`, idempotency key | none. `RequestOptions` is `{ signal }` |
+| SSE, `text/event-stream` | no event streams. Every decoder reads the body to completion, bar a binary success, which hands its stream over unread |
+| multipart <em>responses</em>, XML bodies | none. A multipart reply is not decoded and an XML body is not sent — an operation declaring either is still emitted, with no body to supply or read |
+| per-request `headers`, `baseUrl`, idempotency key | none. `RequestOptions` is `{ signal, retry }`; a header, a base URL and a caller-supplied idempotency key are not on it |
 | the raw `fetch` `Response` | deliberately unreachable. `status` and `headers` are on `asApiResult()` and on a thrown `ResponseError` |
 
 ---
 
 ## Error-handling model (read once — applies to every operation)
 
-Operations are **throw-based**, and failures fall into **two disjoint families**. Neither is `instanceof` the other, so the two branches can never overlap and a complete `catch` needs both. `instanceof` is reliable **within one dialect**: a process that loads both — `import` in one file, `require` in another — gets two independent copies of every error class, and `instanceof` across that boundary is `false`. Narrow on `err.kind` or on `err.payload.kind` there, or on `err.name`, which is stable across copies.
-
-- **Family A — the API answered with an error status.** The call rejects with `ResponseError`, or with a subclass of it where the spec declared error bodies for that operation. `err.payload` is a discriminated union whose `kind` names the **response schema the spec declared**, *not* the status code — so two statuses sharing one schema share one arm, and `"undeclared"` is an always-present arm carrying the raw bytes.
-- **Family B — no usable response was produced.** The call rejects with a member of the `DeepgramError` set. `DeepgramError` is **abstract**: use it for `instanceof`, never construct it.
+Operations are **throw-based**, and every **operational** failure belongs to **one family**: `DeepgramError`, a union over six leaves, so one `instanceof DeepgramError` sees all of them. It is not the whole escape set — four throwables sit outside it, enumerated below. Every leaf names the call it raised — `err.method` and `err.uri` — and `message` opens with that name. `instanceof` is reliable **within one dialect**: a process that loads both — `import` in one file, `require` in another — gets two independent copies of every error class, and `instanceof` across that boundary is `false`. Narrow on `err.kind` there, or on `err.name`, which is stable across copies.
 
 Core types (public members with their declared types; all are `readonly`):
 
 | Type | Public members | Source |
 | --- | --- | --- |
-| `ResponseError<P>` | `status: number` · `headers: Headers` · `payload: ErrorPayload<P>`, and a `message` of the form `<status> <statusText>` | `src/core/response-error.ts` |
-| `Declared<K, B>` | `kind: K` · `body: B` | `src/core/response-error.ts` |
-| `ErrorPayload<P>` | `P` or `{ kind: "undeclared"; rawBody: ArrayBuffer }` | `src/core/response-error.ts` |
-| `DeepgramError` (abstract; declared as `CoreError`) | `kind: ErrorKind` · `message` · `cause` | `src/core/errors.ts` |
-| `SchemaError` | `kind: "schema"` · `rawBody: unknown` | `src/core/validation/schema-error.ts` |
-| `AuthError` | `kind: "auth"` · `failures: readonly unknown[]` | `src/core/errors.ts` |
-| `ApiResult<T, E>` | on success `{ ok: true; status; headers; value: T }`, on failure `{ ok: false; status; headers; errorMessage: string; error }` — `error` carries the **payload**, not the error object | `src/core/api-promise.ts` |
+| `DeepgramError` (declared as `CoreError`) | `kind: ErrorKind` · `method: HttpMethod` · `uri: string` · `message` · `cause` — the union every failure below belongs to | `src/core/errors.ts` |
+| `ResponseError` | the rung the server answered on, `ApiError \| DecodeError`; adds `status: number` · `headers: Headers` | `src/core/errors.ts` |
+| `ApiError` | `kind: "api"` · `payload` — the open arm, whose `kind` is `string`. **Not generic**: a typed operation's subclass redeclares `payload` with its own literal arms | `src/core/api-error.ts` |
+| `TimeoutError` | `kind: "timeout"` · `timeout: number` | `src/core/errors.ts` |
+| `DecodeError`, `EncodeError`, `ConnectionError`, `AuthError` | their `kind`, and nothing beyond the two rows above | `src/core/errors.ts` |
+| `Declared<K, B>` | `kind: K` · `body: B` | `src/core/api-error.ts` |
+| `ErrorPayload<P>` | `P` or `{ kind: "undeclared"; rawBody: ArrayBuffer }` | `src/core/api-error.ts` |
+| `Undeclared` | `kind: "undeclared"` · `rawBody: ArrayBuffer` — the always-present arm, carrying the untouched bytes of a status the spec does not describe | `src/core/api-error.ts` |
+| `ApiResult<T, E>` | on success `{ ok: true; status; headers; value: T }`, on failure `{ ok: false; status; headers; message: string; method: HttpMethod; uri: string; payload: ErrorPayload<P> }` — the failure branch carries the error's own members, never the error object | `src/core/api-promise.ts` |
 
-`ErrorKind` is one value per Family B class: `connection` (the `fetch` call rejected, or the body read failed mid-stream), `timeout` (the client-level timeout elapsed), `abort` (the per-call signal aborted, including one that was already aborted), `sdk` (a defect on the SDK side), `schema` (a value failed its schema in **either** direction — inbound the response body was malformed, outbound nothing was sent at all), and `auth` (a credential could not be **obtained**).
+`DeepgramError` and `ResponseError` are each a **type and a value**: the type is the union, the value is the abstract class every leaf extends, so `instanceof` and `err.kind` select the same set. Neither can be constructed or extended. `uri` is the absolute URL the call dialled, with the server variables expanded and the path parameters filled. It carries no query, fragment or userinfo, so no query parameter reaches it. One failure names an unresolved URI: a path parameter rejected by its schema arrives as an `EncodeError` whose `uri` still shows the unfilled `{braces}` — an `undefined` one included, since a path parameter is always required, so its schema rejects it first.
 
-**`AuthError` is about obtaining a credential, never about being refused one.** A 401 *from the API* is a Family A `ResponseError` like any other status, so the two are disjoint and one `catch` arm cannot absorb the other. A 401 does have one auth consequence: it invalidates whatever that operation's scheme had cached, so the **next** call re-acquires. The current request is not retried — see Servers & auth.
+`ErrorKind` is closed, so a `switch` over `err.kind` is exhaustive:
+
+| `err.kind` | What happened | Adds |
+| --- | --- | --- |
+| `"api"` | the API answered with an error status | `status` · `headers` · `payload` |
+| `"decode"` | the answer could not be turned into the declared value — the body was not JSON, failed its schema, arrived where none is declared, or died mid-read after the response line; `cause` carries the underlying failure | `status` · `headers` |
+| `"encode"` | a request value did not match its declared type, so **nothing was sent**. `cause` is the `SchemaError` that rejected it | — |
+| `"connection"` | `fetch` rejected before a response line arrived | — |
+| `"timeout"` | `ClientOptions.retry.timeout` elapsed. `timeout` is the budget that ran out | `timeout` |
+| `"auth"` | a credential could not be **obtained**, per the paragraph below | — |
+
+**Four throwables sit outside the family**, so `instanceof DeepgramError` is `false` on each and a `catch` that tests it has to rethrow what is left. `ConfigurationError` comes out of the **`DeepgramClient` constructor**, synchronously and before any `ApiPromise` exists: no reachable `fetch` or an unknown `ClientOptions.serverEnvironment`. One call can reject with it too: a `RequestOptions.retry` whose reads throw, with that failure on `cause`. `SchemaError` is what a codec throws when called directly — `agentConfigurationV1Schema.decode(json)` — so it names no call; through an operation the same failure arrives one level down, on `DecodeError.cause` or `EncodeError.cause`, and a `serverOptions` override whose value is not a string raises it from the constructor too. Bugs stay outside the family and reach you raw — an unparseable `baseUrl` is a `TypeError`. And a caller abort arrives as the signal's own `reason`, unwrapped. The first two are exported from the package root; the other two are not ours to export.
+
+**`AuthError` is about obtaining a credential, never about being refused one.** A 401 *from the API* is an `ApiError` like any other status. A 401 does have one auth consequence: it invalidates whatever that operation's scheme had cached, so the **next** call re-acquires.
 
 ```ts
 try {
   const response = await client.agentV1SettingsThinkModels.list();
 } catch (err) {
-  if (err instanceof ResponseError) {
-    // TODO: the API answered with an error status — read err.status and err.payload
-  }
   if (err instanceof DeepgramError) {
-    // TODO: no usable response was produced — err.kind says which
+    switch (err.kind) {
+      case "api":
+        // TODO: the API answered with an error status — read err.status and err.payload
+        break;
+      case "decode":
+        // TODO: the answer did not fit the spec — read err.status and err.cause
+        break;
+      case "encode":
+        // TODO: nothing was sent — err.cause is the SchemaError that rejected the value
+        break;
+      case "connection":
+      case "timeout":
+      case "auth":
+        // TODO: no response was produced — err.kind says which
+        break;
+    }
+  } else {
+    throw err;
   }
 }
 ```
 
-A typed subclass narrows further, on `err.payload.kind`. Which arms an operation declares, with the status each covers, is the **Error arms** bullet on its page below.
+**Narrowing the payload.** A typed subclass declares its arms as literals, so `switch (err.payload.kind)` narrows `payload.body` to exactly one model. The `kind` is named after the arm's **body**, *not* its status code: a body that references a model takes that model's name in lower camel, any other body `error{Status}`, and a second arm that would land on the same name takes a numeric suffix. On the base `ApiError` — what an operation with no declared error bodies rejects with — `payload.kind` is `string`, so comparing it to `"undeclared"` narrows **nothing**: use `"rawBody" in err.payload`. Which arms an operation declares, with the status each covers, is the **Error arms** bullet on its page below.
 
-**Matcher precedence** for a subclass with several arms: an exact numeric status is looked up across the whole table **first**; only then does the first covering wildcard or range win.
+**Matcher precedence** for a subclass with several arms, in three passes: an exact numeric status is looked up across the whole table **first**, then the first covering `[lo, hi]` range, and last a `"default"` arm where the spec declared one. A body that does not fit the arm it matched is a `DecodeError` — except on `"default"`, which describes no status in particular and so **degrades to the `"undeclared"` arm** rather than throwing.
 
-**The non-throwing form exists on every operation.** `.asApiResult()` returns `ApiResult<T, E>` and does **not** reject for an HTTP error status — it still rejects for Family B. It must be called on the value the operation returned: `ApiPromise` overrides `Symbol.species`, so `.then()`, `.catch()` and `.finally()` hand back a plain `Promise` and the method is gone.
+**The non-throwing form exists on every operation.** `.asApiResult()` returns `ApiResult<T, E>` and does **not** reject for an HTTP error status — every other failure still rejects, `DecodeError` included, so the `catch` stays. It must be called on the value the operation returned: `ApiPromise` overrides `Symbol.species`, so `.then()`, `.catch()` and `.finally()` hand back a plain `Promise` and the method is gone.
 
-Of **50 operations**, **50** declare typed error bodies and **0** reject with the base `ResponseError`, whose payload is always the `"undeclared"` arm.
+```ts
+try {
+  const result = await client.agentV1SettingsThinkModels.list().asApiResult();
+  // TODO: Use 'result.status' and 'result.headers' to read the raw response status and headers
+  if (result.ok) {
+    // TODO: Use 'result.value' — what this operation resolves to
+  } else {
+    // TODO: Use 'result.message', 'result.method' and 'result.uri', and narrow 'result.payload'
+  }
+} catch (err) {
+  if (err instanceof DeepgramError) {
+    // TODO: no error status was produced — err.kind says which failure this is
+  } else {
+    throw err;
+  }
+}
+```
+
+`result.payload` is the same `ErrorPayload<P>` a thrown `ApiError` carries on `err.payload`, and `result.message`, `result.method` and `result.uri` are that error's own members — so the **Error arms** bullet on an operation's page enumerates the payload either way, and the `catch` above it is for the rest of the family. `result.method` and `result.uri` are named on this map alone.
+
+Of **50 operations**, **50** declare typed error bodies and **0** reject with the base `ApiError`, whose payload is always the `"undeclared"` arm.
 
 ---
 
@@ -131,21 +204,23 @@ Each page below carries one block per operation, with bullets in the fixed order
 
 | Applies to every operation | Stated where | A block departs from it only by |
 | --- | --- | --- |
-| **Call shape `op(request, options?)`** — one flat request object first, the per-call options second. There is no positional overload, and no per-call base URL, header, timeout, retry or auth override | here, Getting a client | never — it always holds |
+| **Call shape `op(request, options?)`** — one flat request object first, the per-call options second. There is no positional overload. What the second argument carries is a `signal` and a `retry` override; a per-call base URL, header or auth override does not exist | here, Getting a client | never — it always holds |
 | **The request object is flat and channel-blind.** A field named `body` *is* the whole request body; every other field is fanned out to path, query, header or form by the SDK. Nothing in the object is nested by channel | here | never — the **Fields** table `Channel` column always resolves it |
 | **Throw-based, returning `ApiPromise<T, E>`.** `await` it for `T`; call `.asApiResult()` on the returned value for the non-throwing `ApiResult<T, E>`. No operation is result-only | here, Error-handling model | never |
-| **`E` is the base `ResponseError`** and the payload is always the `"undeclared"` arm | Error-handling model | the spec declared error bodies — the **Error** bullet names a subclass and an **Error arms** bullet gives each arm's tag, status and body |
-| **The request body and its media type are stated on every block**, by a **Request body** bullet that is never omitted. `none` means no body **and no `Content-Type` header** | here | never — the bullet is always present |
-| **Resolves once, to one whole value.** No pagination, no streaming, no SSE, no async iterables, no partial results, no multipart and no binary anywhere | here, Not on this SDK | never at this SDK version |
+| **`E` is the base `ApiError`** and the payload is always the `"undeclared"` arm | Error-handling model | the spec declared error bodies — the **Error** bullet names a subclass and an **Error arms** bullet gives each arm's tag, status and body |
+| **The request body and its media type are stated on every block**, by a **Request body** bullet that is never omitted. `none` means no body **and no `Content-Type` header**, and a named media type means the body is **required** — the request type's field is not optional | here | the spec declared the body optional — the bullet adds **Optional**, the field is `field?:`, and omitting it sends no body and no `Content-Type` header at all |
+| **Resolves once, to one whole value** — except a binary body, which resolves to a stream the caller reads. No pagination, no SSE, no async iterables and no partial results | here, Not on this SDK | never at this SDK version |
+| **Six identity headers ride every request** — `User-Agent`, `X-APIMatic-Lang`, `X-APIMatic-Package-Version`, `X-APIMatic-Gen-Version`, `X-APIMatic-OS` and `X-APIMatic-Runtime`. They identify the generated SDK, so **no option configures them** | here | the operation declared a header of the same name — the operation's layer is folded after the client's, so its value wins |
+| **A fresh `Idempotency-Key` rides every non-GET call that does not declare that header itself**, minted per call in the operation's own header layer. It makes a *replayed* request safe, not a repeated one — a value that changes per call deduplicates nothing, so it is no substitute for a key the API documents. **No option sets it**, and once minted it is always sent — a runtime with no `crypto` global mints it from `Math.random` mixed with the clock and a per-process counter | here | the operation is a GET, or declared that header itself — then its own value stands and nothing is minted |
 | **Server group `default`** | here, Servers & auth | the operation is on another group — its block carries a **Server** bullet |
 | **Every operation states its auth requirement**, by an **Auth** bullet that is never omitted — one scheme, a composition over schemes, or `none` for a public operation | here, Servers & auth | never — the bullet is always present |
-| **Every value is schema-encoded before the request is built** — a wrong type or format rejects and nothing is sent. **An omitted field that has a default is still sent, with that default**, filled by the SDK rather than by the server | here, Models | the field has a default — it appears in the **Fields** table `Default` column |
+| **Every value is schema-encoded before the request is built** — a wrong type or format rejects and nothing is sent. **An omitted field that has a default is still sent, with that default**, filled by the SDK rather than by the server | here | the field has a default — it appears in the **Fields** table `Default` column |
 | **Field names are TypeScript camelCase and the wire name is the same** | here | some field differs — the **Fields** table gains a `Wire` column, where an em dash means "same as the field name" |
 | **Arrays repeat their key and objects bracket-expand** | the serialization block below | never — this SDK declares no per-field serialization style, so every array takes this one |
 
 **Wire serialization, once, for every channel** (source: `src/core/param-value.ts`, `src/core/url.ts`, `src/core/headers.ts`, `src/core/params.ts`). This block ships with `src/core/` and is versioned with it:
 
-- **`path`** takes no style. An array is comma-joined with each element percent-encoded **separately**; an object becomes one percent-encoded JSON document inside the segment. A field whose encoded value is `undefined` throws `SdkError` naming the unfilled placeholder; `null` collapses the segment.
+- **`path`** takes no style. An array is comma-joined with each element percent-encoded **separately**; an object becomes one percent-encoded JSON document inside the segment. A field whose encoded value is `undefined` throws `TypeError` naming the unfilled placeholder — a guard no operation reaches, since a path parameter is always required and its schema rejects `undefined` first, as an `EncodeError`; `null` collapses the segment.
 - **`header`** takes no style. An array is comma-joined un-encoded (OpenAPI `simple`). `undefined` says nothing, while `null` and an empty array are tombstones that remove the header. Later layers win by **lowercased** name, in the order body content type, then client defaults, then operation.
 - **`query`** and **`form`** repeat an array's key and bracket-expand an object at any depth (`filter[status]=open`, `ranges[amount][min]=10`). An array of *objects* bracket-expands per element with **no index**, so element boundaries collapse.
 - Nullish **fields** are dropped from every channel except `path`, where `null` collapses the segment. A nullish array **element** is dropped, so an all-nullish array emits no key at all.
@@ -186,273 +261,22 @@ Each page below carries one block per operation, with bullets in the fixed order
 
 ## Models — where they live, how to build them
 
-**Shapes live only in the source.** Every module under `src/models/` declares exactly one model type and the schema value beside it, and both are re-exported from the package root. So there are two facts per type, and the map gives both: the **names you import** and the **file you read**.
+**Shapes live only in the source.** Every module under `src/models/` declares exactly one model type and the schema value beside it, and both are re-exported from the package root. Take the pair from an operation's **Type sources** table, or build the directory from the kind below. **Do not derive the path from the type name** — the transform is not reversible in general, and the table is the authority. Never grep for a type.
+
+| Group | Count | Directory |
+| --- | --- | --- |
+| Objects (plain `type`, no class) | 139 | `src/models/` |
+| Enums (open; const companion plus schema) | 73 | `src/models/` |
+| Unions | 32 | `src/models/unions/` |
+| Typed error classes (`ApiError` subclass, one per typed operation) | 50 | `src/resources/`, in the declaring module's namespace |
+
+Conventions: every model is a plain `type`, not a class — build one with an object literal; there is no constructor and no builder. `f: T` is required, `f?: T` is optional (omit the key), and `f: T | null` is a **required, nullable** field where `null` is a value distinct from an omitted key. Optional properties are declared `f?: T`, not `f?: T | undefined`, so under `exactOptionalPropertyTypes` you must **omit or spread** an absent field rather than assign `undefined` to it. A schema value is directly usable both ways: `Schema<T, W = Encoded<T>>` is `{ decode(v: unknown): T; encode(v: unknown): W }`, and `Encoded<T>` is the wire projection — a `Date` becomes `string | number`, a `Uint8Array` becomes a base64 `string`, recursing through arrays and objects. `EnumSchema<T>` adds `readonly values: readonly T[]`, so an enum's known set is testable at run time. Enums are **not** TypeScript `enum`s and are open: a `const` companion plus a union that includes `(string & {})` or `(number & {})`, so **any** value of the base type is assignable and the schema validates the base type only, never membership — read the member names and the values they send off the companion, and use `.values` to test membership yourself. A discriminated union is narrowed with an exhaustive `switch` on its tag, with no fallback arm and no type guard to import; one without a discriminant is narrowed on the shape of its arms, which its declaration spells out. A property default is filled by the SDK on **encode as well as decode**, so omitting one still sends it — read it off the `defaulted(…)` entry in the schema, or off the property's `@default`. A numeric property is a `number` whatever its format, and its schema follows the type. `type: integer` with no format, `int32` or `int64` rejects a fraction and any value outside the safe-integer range; `type: number` with no format, `float`, `double` or `bigdecimal` rejects a non-finite value. A property's wire name is its `_keysMap` entry in the schema and may differ from the TypeScript name — read it there rather than deriving it. A named spec schema whose resolved form is a bare container, or which is used only as a form-encoded body, gets no model file and no exported name: the first is written inline at each use site, the second is flattened onto the operation's request type, one field per property, so read that field list from the request type.
+
+Every name comes from the package root — there is no default export, and no deep imports:
 
 ```ts
 import { type AgentConfigurationV1, agentConfigurationV1Schema } from "deepgram";
 ```
-
-Take the pair from an operation's **Type sources** table. **Do not derive the path from the type name** — the transform is not reversible in general, and the table is the authority. There is no default export.
-
-| Group | Count | Directory |
-| --- | --- | --- |
-| Objects | 139 | `src/models/` |
-| Enums (open; const companion plus schema) | 73 | `src/models/` |
-| Unions without a discriminant | 32 | `src/models/unions/` |
-
-**Conventions.** Every model is a plain `type`, not a class — build one with an object literal; there is no constructor and no builder. `f: T` is required, `f?: T` is optional (omit the key), and `f: T | null` is a **required, nullable** field where `null` is a value distinct from an omitted key. Optional properties are declared `f?: T`, not `f?: T | undefined`, so under `exactOptionalPropertyTypes` you must **omit or spread** an absent field rather than assign `undefined` to it.
-
-**Schema companions.** `Schema<T, W = Encoded<T>>` is `{ decode(v: unknown): T; encode(v: unknown): W }`, so a schema value is directly usable both ways. `Encoded<T>` is the wire projection — a `Date` becomes `string | number`, a `Uint8Array` becomes a base64 `string`, recursing through arrays and objects. `EnumSchema<T>` adds `readonly values: readonly T[]`, so an enum's known set is testable at run time.
-
-**Enums are open, and are not TypeScript `enum`s.** Each is a `const` companion object plus a union that includes `(string & {})` or `(number & {})`, so **any** value of the right base type is assignable and the schema validates the base type only, never membership. That is deliberate: an unrecognized server value round-trips instead of throwing. Use `.values` to test membership yourself.
-
-| Enum | Members (member to wire value) | Schema value |
-| --- | --- | --- |
-| `AgentThinkModelsV1ResponseModelsItemsOneOf0Id` | `Gpt5` to `"gpt-5"` · `Gpt5Mini` to `"gpt-5-mini"` · `Gpt5Nano` to `"gpt-5-nano"` · `Gpt41` to `"gpt-4.1"` · `Gpt41Mini` to `"gpt-4.1-mini"` · `Gpt41Nano` to `"gpt-4.1-nano"` · `Gpt4O` to `"gpt-4o"` · `Gpt4OMini` to `"gpt-4o-mini"` | `agentThinkModelsV1ResponseModelsItemsOneOf0IdSchema` |
-| `AgentThinkModelsV1ResponseModelsItemsOneOf1Id` | `Claude35HaikuLatest` to `"claude-3-5-haiku-latest"` · `ClaudeSonnet420250514` to `"claude-sonnet-4-20250514"` | `agentThinkModelsV1ResponseModelsItemsOneOf1IdSchema` |
-| `AgentThinkModelsV1ResponseModelsItemsOneOf2Id` | `Gemini25Flash` to `"gemini-2.5-flash"` · `Gemini20Flash` to `"gemini-2.0-flash"` · `Gemini20FlashLite` to `"gemini-2.0-flash-lite"` | `agentThinkModelsV1ResponseModelsItemsOneOf2IdSchema` |
-| `AgentThinkModelsV1ResponseModelsItemsOneOf3Id` | `OpenaiGptOss20B` to `"openai/gpt-oss-20b"` | `agentThinkModelsV1ResponseModelsItemsOneOf3IdSchema` |
-| `ListBillingFieldsV1ResponseDeploymentsItems` | `Hosted` to `"hosted"` · `Beta` to `"beta"` · `SelfHosted` to `"self-hosted"` · `Dedicated` to `"dedicated"` | `listBillingFieldsV1ResponseDeploymentsItemsSchema` |
-| `V1ListenPostParametersCallbackMethod` | `Post` to `"POST"` · `Put` to `"PUT"` | `v1ListenPostParametersCallbackMethodSchema` |
-| `V1ListenPostParametersCustomIntentMode` | `Extended` to `"extended"` · `Strict` to `"strict"` | `v1ListenPostParametersCustomIntentModeSchema` |
-| `V1ListenPostParametersCustomTopicMode` | `Extended` to `"extended"` · `Strict` to `"strict"` | `v1ListenPostParametersCustomTopicModeSchema` |
-| `V1ListenPostParametersDiarizeModel` | `Latest` to `"latest"` · `V1` to `"v1"` · `V2` to `"v2"` | `v1ListenPostParametersDiarizeModelSchema` |
-| `V1ListenPostParametersEncoding` | `Linear16` to `"linear16"` · `Flac` to `"flac"` · `Mulaw` to `"mulaw"` · `AmrNb` to `"amr-nb"` · `AmrWb` to `"amr-wb"` · `Opus` to `"opus"` · `Speex` to `"speex"` · `G729` to `"g729"` | `v1ListenPostParametersEncodingSchema` |
-| `V1ListenPostParametersModel0` | `Nova3` to `"nova-3"` · `Nova3General` to `"nova-3-general"` · `Nova3Medical` to `"nova-3-medical"` · `Nova2` to `"nova-2"` · `Nova2General` to `"nova-2-general"` · `Nova2Meeting` to `"nova-2-meeting"` · `Nova2Finance` to `"nova-2-finance"` · `Nova2Conversationalai` to `"nova-2-conversationalai"` · `Nova2Voicemail` to `"nova-2-voicemail"` · `Nova2Video` to `"nova-2-video"` · `Nova2Medical` to `"nova-2-medical"` · `Nova2Drivethru` to `"nova-2-drivethru"` · `Nova2Automotive` to `"nova-2-automotive"` · `Nova` to `"nova"` · `NovaGeneral` to `"nova-general"` · `NovaPhonecall` to `"nova-phonecall"` · `NovaMedical` to `"nova-medical"` · `Enhanced` to `"enhanced"` · `EnhancedGeneral` to `"enhanced-general"` · `EnhancedMeeting` to `"enhanced-meeting"` · `EnhancedPhonecall` to `"enhanced-phonecall"` · `EnhancedFinance` to `"enhanced-finance"` · `Base` to `"base"` · `Meeting` to `"meeting"` · `Phonecall` to `"phonecall"` · `Finance` to `"finance"` · `Conversationalai` to `"conversationalai"` · `Voicemail` to `"voicemail"` · `Video` to `"video"` | `v1ListenPostParametersModel0Schema` |
-| `V1ListenPostParametersRedactSchemaOneOf1Items` | `Pci` to `"pci"` · `Pii` to `"pii"` · `Numbers` to `"numbers"` | `v1ListenPostParametersRedactSchemaOneOf1ItemsSchema` |
-| `V1ListenPostParametersSummarize0` | `V2` to `"v2"` | `v1ListenPostParametersSummarize0Schema` |
-| `V1ListenPostParametersVersion0` | `Latest` to `"latest"` | `v1ListenPostParametersVersion0Schema` |
-| `V1ProjectsProjectIdBillingBreakdownGetParametersDeployment` | `Hosted` to `"hosted"` · `Beta` to `"beta"` · `SelfHosted` to `"self-hosted"` | `v1ProjectsProjectIdBillingBreakdownGetParametersDeploymentSchema` |
-| `V1ProjectsProjectIdBillingBreakdownGetParametersGroupingSchemaItems` | `Accessor` to `"accessor"` · `Deployment` to `"deployment"` · `LineItem` to `"line_item"` · `Tags` to `"tags"` | `v1ProjectsProjectIdBillingBreakdownGetParametersGroupingSchemaItemsSchema` |
-| `V1ProjectsProjectIdKeysGetParametersStatus` | `Active` to `"active"` · `Expired` to `"expired"` | `v1ProjectsProjectIdKeysGetParametersStatusSchema` |
-| `V1ProjectsProjectIdRequestsGetParametersDeployment` | `Hosted` to `"hosted"` · `Beta` to `"beta"` · `SelfHosted` to `"self-hosted"` | `v1ProjectsProjectIdRequestsGetParametersDeploymentSchema` |
-| `V1ProjectsProjectIdRequestsGetParametersEndpoint` | `Listen` to `"listen"` · `Read` to `"read"` · `Speak` to `"speak"` · `Agent` to `"agent"` | `v1ProjectsProjectIdRequestsGetParametersEndpointSchema` |
-| `V1ProjectsProjectIdRequestsGetParametersMethod` | `Sync` to `"sync"` · `Async` to `"async"` · `Streaming` to `"streaming"` | `v1ProjectsProjectIdRequestsGetParametersMethodSchema` |
-| `V1ProjectsProjectIdRequestsGetParametersStatus` | `Succeeded` to `"succeeded"` · `Failed` to `"failed"` | `v1ProjectsProjectIdRequestsGetParametersStatusSchema` |
-| `V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProvider` | `Quay` to `"quay"` | `v1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersProviderSchema` |
-| `V1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItems` | `SelfHostedProducts` to `"self-hosted:products"` · `SelfHostedProductApi` to `"self-hosted:product:api"` · `SelfHostedProductEngine` to `"self-hosted:product:engine"` · `SelfHostedProductLicenseProxy` to `"self-hosted:product:license-proxy"` · `SelfHostedProductDgtools` to `"self-hosted:product:dgtools"` · `SelfHostedProductBilling` to `"self-hosted:product:billing"` · `SelfHostedProductHotpepper` to `"self-hosted:product:hotpepper"` · `SelfHostedProductMetricsServer` to `"self-hosted:product:metrics-server"` | `v1ProjectsProjectIdSelfHostedDistributionCredentialsPostParametersScopesSchemaItemsSchema` |
-| `V1ProjectsProjectIdUsageBreakdownGetParametersDeployment` | `Hosted` to `"hosted"` · `Beta` to `"beta"` · `SelfHosted` to `"self-hosted"` | `v1ProjectsProjectIdUsageBreakdownGetParametersDeploymentSchema` |
-| `V1ProjectsProjectIdUsageBreakdownGetParametersEndpoint` | `Listen` to `"listen"` · `Read` to `"read"` · `Speak` to `"speak"` · `Agent` to `"agent"` | `v1ProjectsProjectIdUsageBreakdownGetParametersEndpointSchema` |
-| `V1ProjectsProjectIdUsageBreakdownGetParametersGrouping` | `Accessor` to `"accessor"` · `Endpoint` to `"endpoint"` · `FeatureSet` to `"feature_set"` · `Models` to `"models"` · `Method` to `"method"` · `Tags` to `"tags"` · `Deployment` to `"deployment"` | `v1ProjectsProjectIdUsageBreakdownGetParametersGroupingSchema` |
-| `V1ProjectsProjectIdUsageBreakdownGetParametersMethod` | `Sync` to `"sync"` · `Async` to `"async"` · `Streaming` to `"streaming"` | `v1ProjectsProjectIdUsageBreakdownGetParametersMethodSchema` |
-| `V1ProjectsProjectIdUsageGetParametersDeployment` | `Hosted` to `"hosted"` · `Beta` to `"beta"` · `SelfHosted` to `"self-hosted"` | `v1ProjectsProjectIdUsageGetParametersDeploymentSchema` |
-| `V1ProjectsProjectIdUsageGetParametersEndpoint` | `Listen` to `"listen"` · `Read` to `"read"` · `Speak` to `"speak"` · `Agent` to `"agent"` | `v1ProjectsProjectIdUsageGetParametersEndpointSchema` |
-| `V1ProjectsProjectIdUsageGetParametersMethod` | `Sync` to `"sync"` · `Async` to `"async"` · `Streaming` to `"streaming"` | `v1ProjectsProjectIdUsageGetParametersMethodSchema` |
-| `V1ReadPostParametersCallbackMethod` | `Post` to `"POST"` · `Put` to `"PUT"` | `v1ReadPostParametersCallbackMethodSchema` |
-| `V1ReadPostParametersCustomIntentMode` | `Extended` to `"extended"` · `Strict` to `"strict"` | `v1ReadPostParametersCustomIntentModeSchema` |
-| `V1ReadPostParametersCustomTopicMode` | `Extended` to `"extended"` · `Strict` to `"strict"` | `v1ReadPostParametersCustomTopicModeSchema` |
-| `V1ReadPostParametersSummarize0` | `V2` to `"v2"` | `v1ReadPostParametersSummarize0Schema` |
-| `V1SpeakPostParametersBitRate0` | `_32000` to `"32000"` · `_48000` to `"48000"` | `v1SpeakPostParametersBitRate0Schema` |
-| `V1SpeakPostParametersCallbackMethod` | `Post` to `"POST"` · `Put` to `"PUT"` | `v1SpeakPostParametersCallbackMethodSchema` |
-| `V1SpeakPostParametersContainer0` | `None` to `"none"` | `v1SpeakPostParametersContainer0Schema` |
-| `V1SpeakPostParametersContainer1` | `Wav` to `"wav"` | `v1SpeakPostParametersContainer1Schema` |
-| `V1SpeakPostParametersContainer2` | `Wav` to `"wav"` | `v1SpeakPostParametersContainer2Schema` |
-| `V1SpeakPostParametersContainer3` | `Wav` to `"wav"` | `v1SpeakPostParametersContainer3Schema` |
-| `V1SpeakPostParametersContainer4` | `Ogg` to `"ogg"` | `v1SpeakPostParametersContainer4Schema` |
-| `V1SpeakPostParametersEncoding0` | `Linear16` to `"linear16"` | `v1SpeakPostParametersEncoding0Schema` |
-| `V1SpeakPostParametersEncoding1` | `Flac` to `"flac"` | `v1SpeakPostParametersEncoding1Schema` |
-| `V1SpeakPostParametersEncoding2` | `Mulaw` to `"mulaw"` | `v1SpeakPostParametersEncoding2Schema` |
-| `V1SpeakPostParametersEncoding3` | `Alaw` to `"alaw"` | `v1SpeakPostParametersEncoding3Schema` |
-| `V1SpeakPostParametersEncoding4` | `Mp3` to `"mp3"` | `v1SpeakPostParametersEncoding4Schema` |
-| `V1SpeakPostParametersEncoding5` | `Opus` to `"opus"` | `v1SpeakPostParametersEncoding5Schema` |
-| `V1SpeakPostParametersEncoding6` | `Aac` to `"aac"` | `v1SpeakPostParametersEncoding6Schema` |
-| `V1SpeakPostParametersModel` | `AuraAngusEn` to `"aura-angus-en"` · `AuraArcasEn` to `"aura-arcas-en"` · `AuraAsteriaEn` to `"aura-asteria-en"` · `AuraAthenaEn` to `"aura-athena-en"` · `AuraHeliosEn` to `"aura-helios-en"` · `AuraHeraEn` to `"aura-hera-en"` · `AuraLunaEn` to `"aura-luna-en"` · `AuraOrionEn` to `"aura-orion-en"` · `AuraOrpheusEn` to `"aura-orpheus-en"` · `AuraPerseusEn` to `"aura-perseus-en"` · `AuraStellaEn` to `"aura-stella-en"` · `AuraZeusEn` to `"aura-zeus-en"` · `Aura2AmaltheaEn` to `"aura-2-amalthea-en"` · `Aura2AndromedaEn` to `"aura-2-andromeda-en"` · `Aura2ApolloEn` to `"aura-2-apollo-en"` · `Aura2ArcasEn` to `"aura-2-arcas-en"` · `Aura2AriesEn` to `"aura-2-aries-en"` · `Aura2AsteriaEn` to `"aura-2-asteria-en"` · `Aura2AthenaEn` to `"aura-2-athena-en"` · `Aura2AtlasEn` to `"aura-2-atlas-en"` · `Aura2AuroraEn` to `"aura-2-aurora-en"` · `Aura2CallistaEn` to `"aura-2-callista-en"` · `Aura2CoraEn` to `"aura-2-cora-en"` · `Aura2CordeliaEn` to `"aura-2-cordelia-en"` · `Aura2DeliaEn` to `"aura-2-delia-en"` · `Aura2DracoEn` to `"aura-2-draco-en"` · `Aura2ElectraEn` to `"aura-2-electra-en"` · `Aura2HarmoniaEn` to `"aura-2-harmonia-en"` · `Aura2HelenaEn` to `"aura-2-helena-en"` · `Aura2HeraEn` to `"aura-2-hera-en"` · `Aura2HermesEn` to `"aura-2-hermes-en"` · `Aura2HyperionEn` to `"aura-2-hyperion-en"` · `Aura2IrisEn` to `"aura-2-iris-en"` · `Aura2JanusEn` to `"aura-2-janus-en"` · `Aura2JunoEn` to `"aura-2-juno-en"` · `Aura2JupiterEn` to `"aura-2-jupiter-en"` · `Aura2LunaEn` to `"aura-2-luna-en"` · `Aura2MarsEn` to `"aura-2-mars-en"` · `Aura2MinervaEn` to `"aura-2-minerva-en"` · `Aura2NeptuneEn` to `"aura-2-neptune-en"` · `Aura2OdysseusEn` to `"aura-2-odysseus-en"` · `Aura2OpheliaEn` to `"aura-2-ophelia-en"` · `Aura2OrionEn` to `"aura-2-orion-en"` · `Aura2OrpheusEn` to `"aura-2-orpheus-en"` · `Aura2PandoraEn` to `"aura-2-pandora-en"` · `Aura2PhoebeEn` to `"aura-2-phoebe-en"` · `Aura2PlutoEn` to `"aura-2-pluto-en"` · `Aura2SaturnEn` to `"aura-2-saturn-en"` · `Aura2SeleneEn` to `"aura-2-selene-en"` · `Aura2ThaliaEn` to `"aura-2-thalia-en"` · `Aura2TheiaEn` to `"aura-2-theia-en"` · `Aura2VestaEn` to `"aura-2-vesta-en"` · `Aura2ZeusEn` to `"aura-2-zeus-en"` · `Aura2AgustinaEs` to `"aura-2-agustina-es"` · `Aura2AlvaroEs` to `"aura-2-alvaro-es"` · `Aura2AntoniaEs` to `"aura-2-antonia-es"` · `Aura2AquilaEs` to `"aura-2-aquila-es"` · `Aura2CarinaEs` to `"aura-2-carina-es"` · `Aura2CelesteEs` to `"aura-2-celeste-es"` · `Aura2DianaEs` to `"aura-2-diana-es"` · `Aura2EstrellaEs` to `"aura-2-estrella-es"` · `Aura2GloriaEs` to `"aura-2-gloria-es"` · `Aura2JavierEs` to `"aura-2-javier-es"` · `Aura2LucianoEs` to `"aura-2-luciano-es"` · `Aura2NestorEs` to `"aura-2-nestor-es"` · `Aura2OliviaEs` to `"aura-2-olivia-es"` · `Aura2SelenaEs` to `"aura-2-selena-es"` · `Aura2SilviaEs` to `"aura-2-silvia-es"` · `Aura2SirioEs` to `"aura-2-sirio-es"` · `Aura2ValerioEs` to `"aura-2-valerio-es"` · `Aura2AureliaDe` to `"aura-2-aurelia-de"` · `Aura2ElaraDe` to `"aura-2-elara-de"` · `Aura2FabianDe` to `"aura-2-fabian-de"` · `Aura2JuliusDe` to `"aura-2-julius-de"` · `Aura2KaraDe` to `"aura-2-kara-de"` · `Aura2LaraDe` to `"aura-2-lara-de"` · `Aura2ViktoriaDe` to `"aura-2-viktoria-de"` · `Aura2BeatrixNl` to `"aura-2-beatrix-nl"` · `Aura2CorneliaNl` to `"aura-2-cornelia-nl"` · `Aura2DaphneNl` to `"aura-2-daphne-nl"` · `Aura2HestiaNl` to `"aura-2-hestia-nl"` · `Aura2LarsNl` to `"aura-2-lars-nl"` · `Aura2LedaNl` to `"aura-2-leda-nl"` · `Aura2RheaNl` to `"aura-2-rhea-nl"` · `Aura2RomanNl` to `"aura-2-roman-nl"` · `Aura2SanderNl` to `"aura-2-sander-nl"` · `Aura2AgatheFr` to `"aura-2-agathe-fr"` · `Aura2HectorFr` to `"aura-2-hector-fr"` · `Aura2CesareIt` to `"aura-2-cesare-it"` · `Aura2CinziaIt` to `"aura-2-cinzia-it"` · `Aura2DemetraIt` to `"aura-2-demetra-it"` · `Aura2DionisioIt` to `"aura-2-dionisio-it"` · `Aura2ElioIt` to `"aura-2-elio-it"` · `Aura2FlavioIt` to `"aura-2-flavio-it"` · `Aura2LiviaIt` to `"aura-2-livia-it"` · `Aura2MaiaIt` to `"aura-2-maia-it"` · `Aura2MeliaIt` to `"aura-2-melia-it"` · `Aura2PerseoIt` to `"aura-2-perseo-it"` · `Aura2AmaJa` to `"aura-2-ama-ja"` · `Aura2EbisuJa` to `"aura-2-ebisu-ja"` · `Aura2FujinJa` to `"aura-2-fujin-ja"` · `Aura2IzanamiJa` to `"aura-2-izanami-ja"` · `Aura2UzumeJa` to `"aura-2-uzume-ja"` | `v1SpeakPostParametersModelSchema` |
-| `V1SpeakPostParametersSampleRate0` | `_8000` to `"8000"` · `_16000` to `"16000"` · `_24000` to `"24000"` · `_32000` to `"32000"` · `_48000` to `"48000"` | `v1SpeakPostParametersSampleRate0Schema` |
-| `V1SpeakPostParametersSampleRate1` | `_8000` to `"8000"` · `_16000` to `"16000"` | `v1SpeakPostParametersSampleRate1Schema` |
-| `V1SpeakPostParametersSampleRate2` | `_8000` to `"8000"` · `_16000` to `"16000"` | `v1SpeakPostParametersSampleRate2Schema` |
-| `V1SpeakPostParametersSampleRate3` | `_22050` to `"22050"` | `v1SpeakPostParametersSampleRate3Schema` |
-| `V1SpeakPostParametersSampleRate4` | `_48000` to `"48000"` | `v1SpeakPostParametersSampleRate4Schema` |
-| `V2SpeakPostParametersBitRate0` | `_8000` to `"8000"` · `_16000` to `"16000"` · `_24000` to `"24000"` · `_32000` to `"32000"` · `_40000` to `"40000"` · `_48000` to `"48000"` | `v2SpeakPostParametersBitRate0Schema` |
-| `V2SpeakPostParametersCallbackMethod` | `Post` to `"POST"` · `Put` to `"PUT"` | `v2SpeakPostParametersCallbackMethodSchema` |
-| `V2SpeakPostParametersContainer0` | `None` to `"none"` | `v2SpeakPostParametersContainer0Schema` |
-| `V2SpeakPostParametersContainer1` | `Wav` to `"wav"` | `v2SpeakPostParametersContainer1Schema` |
-| `V2SpeakPostParametersContainer2` | `Wav` to `"wav"` | `v2SpeakPostParametersContainer2Schema` |
-| `V2SpeakPostParametersContainer3` | `Wav` to `"wav"` | `v2SpeakPostParametersContainer3Schema` |
-| `V2SpeakPostParametersContainer4` | `Ogg` to `"ogg"` | `v2SpeakPostParametersContainer4Schema` |
-| `V2SpeakPostParametersEncoding0` | `Linear16` to `"linear16"` | `v2SpeakPostParametersEncoding0Schema` |
-| `V2SpeakPostParametersEncoding1` | `Flac` to `"flac"` | `v2SpeakPostParametersEncoding1Schema` |
-| `V2SpeakPostParametersEncoding2` | `Mulaw` to `"mulaw"` | `v2SpeakPostParametersEncoding2Schema` |
-| `V2SpeakPostParametersEncoding3` | `Alaw` to `"alaw"` | `v2SpeakPostParametersEncoding3Schema` |
-| `V2SpeakPostParametersEncoding4` | `Mp3` to `"mp3"` | `v2SpeakPostParametersEncoding4Schema` |
-| `V2SpeakPostParametersEncoding5` | `Opus` to `"opus"` | `v2SpeakPostParametersEncoding5Schema` |
-| `V2SpeakPostParametersEncoding6` | `Aac` to `"aac"` | `v2SpeakPostParametersEncoding6Schema` |
-| `V2SpeakPostParametersPriority` | `Low` to `"low"` | `v2SpeakPostParametersPrioritySchema` |
-| `V2SpeakPostParametersSampleRate0` | `_8000` to `"8000"` · `_16000` to `"16000"` · `_24000` to `"24000"` · `_32000` to `"32000"` · `_44100` to `"44100"` · `_48000` to `"48000"` | `v2SpeakPostParametersSampleRate0Schema` |
-| `V2SpeakPostParametersSampleRate1` | `_8000` to `"8000"` · `_16000` to `"16000"` | `v2SpeakPostParametersSampleRate1Schema` |
-| `V2SpeakPostParametersSampleRate2` | `_8000` to `"8000"` · `_16000` to `"16000"` | `v2SpeakPostParametersSampleRate2Schema` |
-| `V2SpeakPostParametersSampleRate3` | `_8000` to `"8000"` · `_16000` to `"16000"` · `_22050` to `"22050"` · `_32000` to `"32000"` · `_48000` to `"48000"` | `v2SpeakPostParametersSampleRate3Schema` |
-
-**Unions.** A discriminated union is narrowed with an exhaustive `switch` on its tag, with no fallback arm and no type guard to import. One without a discriminant is narrowed on the shape of its arms.
-
-| Union | Variants | Narrow with | Source |
-| --- | --- | --- | --- |
-| `AgentThinkModelsV1ResponseModelsItems` | no discriminant | `typeof`, or an `in` check | `src/models/unions/agent-think-models-v1-response-models-items.ts` |
-| `CreateKeyV1Request` | no discriminant | `typeof`, or an `in` check | `src/models/unions/create-key-v1-request.ts` |
-| `ErrorResponse` | no discriminant | `typeof`, or an `in` check | `src/models/unions/error-response.ts` |
-| `GetModelV1Response` | no discriminant | `typeof`, or an `in` check | `src/models/unions/get-model-v1-response.ts` |
-| `ReadV1Request` | no discriminant | `typeof`, or an `in` check | `src/models/unions/read-v1-request.ts` |
-| `V1ListenPostParametersCustomIntent` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-custom-intent.ts` |
-| `V1ListenPostParametersCustomTopic` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-custom-topic.ts` |
-| `V1ListenPostParametersDetectLanguage` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-detect-language.ts` |
-| `V1ListenPostParametersExtra` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-extra.ts` |
-| `V1ListenPostParametersKeywords` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-keywords.ts` |
-| `V1ListenPostParametersModel` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-model.ts` |
-| `V1ListenPostParametersRedact` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-redact.ts` |
-| `V1ListenPostParametersReplace` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-replace.ts` |
-| `V1ListenPostParametersSearch` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-search.ts` |
-| `V1ListenPostParametersSummarize` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-summarize.ts` |
-| `V1ListenPostParametersTag` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-tag.ts` |
-| `V1ListenPostParametersVersion` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-listen-post-parameters-version.ts` |
-| `V1ReadPostParametersCustomIntent` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-read-post-parameters-custom-intent.ts` |
-| `V1ReadPostParametersCustomTopic` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-read-post-parameters-custom-topic.ts` |
-| `V1ReadPostParametersSummarize` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-read-post-parameters-summarize.ts` |
-| `V1ReadPostParametersTag` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-read-post-parameters-tag.ts` |
-| `V1SpeakPostParametersBitRate` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-speak-post-parameters-bit-rate.ts` |
-| `V1SpeakPostParametersContainer` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-speak-post-parameters-container.ts` |
-| `V1SpeakPostParametersEncoding` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-speak-post-parameters-encoding.ts` |
-| `V1SpeakPostParametersSampleRate` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-speak-post-parameters-sample-rate.ts` |
-| `V1SpeakPostParametersTag` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v1-speak-post-parameters-tag.ts` |
-| `V2SpeakPostParametersBitRate` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v2-speak-post-parameters-bit-rate.ts` |
-| `V2SpeakPostParametersContainer` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v2-speak-post-parameters-container.ts` |
-| `V2SpeakPostParametersEncoding` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v2-speak-post-parameters-encoding.ts` |
-| `V2SpeakPostParametersSampleRate` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v2-speak-post-parameters-sample-rate.ts` |
-| `V2SpeakPostParametersTag` | no discriminant | `typeof`, or an `in` check | `src/models/unions/v2-speak-post-parameters-tag.ts` |
-| `ListenV1MediaTranscribeResponse200` | no discriminant | `typeof`, or an `in` check | `src/models/unions/listen-v1-media-transcribe-response200.ts` |
-
-**Wire-name divergences.** Only these model properties are sent and received under a different name; every other property uses its TypeScript name verbatim.
-
-| Type | Property | Wire key |
-| --- | --- | --- |
-| `AgentConfigurationV1` | `agentId` | `agent_id` |
-| `AgentConfigurationV1` | `createdAt` | `created_at` |
-| `AgentConfigurationV1` | `updatedAt` | `updated_at` |
-| `AgentVariableV1` | `variableId` | `variable_id` |
-| `AgentVariableV1` | `createdAt` | `created_at` |
-| `AgentVariableV1` | `updatedAt` | `updated_at` |
-| `BillingBreakdownV1ResponseResultsItemsGrouping` | `lineItem` | `line_item` |
-| `CreateAgentConfigurationV1Request` | `apiVersion` | `api_version` |
-| `CreateAgentConfigurationV1Response` | `agentId` | `agent_id` |
-| `CreateAgentVariableV1Request` | `apiVersion` | `api_version` |
-| `CreateKeyV1Response` | `apiKeyId` | `api_key_id` |
-| `CreateKeyV1Response` | `expirationDate` | `expiration_date` |
-| `CreateProjectDistributionCredentialsV1Response` | `distributionCredentials` | `distribution_credentials` |
-| `CreateProjectDistributionCredentialsV1ResponseDistributionCredentials` | `distributionCredentialsId` | `distribution_credentials_id` |
-| `CreateProjectDistributionCredentialsV1ResponseMember` | `memberId` | `member_id` |
-| `ErrorResponseLegacyError` | `errCode` | `err_code` |
-| `ErrorResponseLegacyError` | `errMsg` | `err_msg` |
-| `ErrorResponseLegacyError` | `requestId` | `request_id` |
-| `ErrorResponseModernError` | `requestId` | `request_id` |
-| `GetModelV1Response0` | `canonicalName` | `canonical_name` |
-| `GetModelV1Response0` | `formattedOutput` | `formatted_output` |
-| `GetModelV1Response1` | `canonicalName` | `canonical_name` |
-| `GetModelV1ResponseOneOf1Metadata` | `useCases` | `use_cases` |
-| `GetProjectBalanceV1Response` | `balanceId` | `balance_id` |
-| `GetProjectBalanceV1Response` | `purchaseOrderId` | `purchase_order_id` |
-| `GetProjectDistributionCredentialsV1Response` | `distributionCredentials` | `distribution_credentials` |
-| `GetProjectDistributionCredentialsV1ResponseDistributionCredentials` | `distributionCredentialsId` | `distribution_credentials_id` |
-| `GetProjectDistributionCredentialsV1ResponseMember` | `memberId` | `member_id` |
-| `GetProjectKeyV1ResponseItemMember` | `memberId` | `member_id` |
-| `GetProjectKeyV1ResponseItemMember` | `firstName` | `first_name` |
-| `GetProjectKeyV1ResponseItemMember` | `lastName` | `last_name` |
-| `GetProjectKeyV1ResponseItemMember` | `apiKey` | `api_key` |
-| `GetProjectKeyV1ResponseItemMemberApiKey` | `apiKeyId` | `api_key_id` |
-| `GetProjectKeyV1ResponseItemMemberApiKey` | `expirationDate` | `expiration_date` |
-| `GetProjectV1Response` | `projectId` | `project_id` |
-| `GetProjectV1Response` | `mipOptOut` | `mip_opt_out` |
-| `GrantV1Request` | `ttlSeconds` | `ttl_seconds` |
-| `GrantV1Response` | `accessToken` | `access_token` |
-| `GrantV1Response` | `expiresIn` | `expires_in` |
-| `ListBillingFieldsV1Response` | `lineItems` | `line_items` |
-| `ListModelsV1ResponseSttModels` | `canonicalName` | `canonical_name` |
-| `ListModelsV1ResponseSttModels` | `formattedOutput` | `formatted_output` |
-| `ListModelsV1ResponseTtsModels` | `canonicalName` | `canonical_name` |
-| `ListModelsV1ResponseTtsModelsMetadata` | `useCases` | `use_cases` |
-| `ListProjectBalancesV1ResponseBalancesItems` | `balanceId` | `balance_id` |
-| `ListProjectBalancesV1ResponseBalancesItems` | `purchaseOrderId` | `purchase_order_id` |
-| `ListProjectDistributionCredentialsV1Response` | `distributionCredentials` | `distribution_credentials` |
-| `ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItems` | `distributionCredentials` | `distribution_credentials` |
-| `ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsDistributionCredentials` | `distributionCredentialsId` | `distribution_credentials_id` |
-| `ListProjectDistributionCredentialsV1ResponseDistributionCredentialsItemsMember` | `memberId` | `member_id` |
-| `ListProjectKeysV1Response` | `apiKeys` | `api_keys` |
-| `ListProjectKeysV1ResponseApiKeysItems` | `apiKey` | `api_key` |
-| `ListProjectKeysV1ResponseApiKeysItemsApiKey` | `apiKeyId` | `api_key_id` |
-| `ListProjectKeysV1ResponseApiKeysItemsMember` | `memberId` | `member_id` |
-| `ListProjectMembersV1ResponseMembersItems` | `memberId` | `member_id` |
-| `ListProjectMembersV1ResponseMembersItems` | `firstName` | `first_name` |
-| `ListProjectMembersV1ResponseMembersItems` | `lastName` | `last_name` |
-| `ListProjectPurchasesV1ResponseOrdersItems` | `orderId` | `order_id` |
-| `ListProjectPurchasesV1ResponseOrdersItems` | `orderType` | `order_type` |
-| `ListProjectsV1ResponseProjectsItems` | `projectId` | `project_id` |
-| `ListenV1AcceptedResponse` | `requestId` | `request_id` |
-| `ListenV1ResponseMetadata` | `transactionKey` | `transaction_key` |
-| `ListenV1ResponseMetadata` | `requestId` | `request_id` |
-| `ListenV1ResponseMetadata` | `modelInfo` | `model_info` |
-| `ListenV1ResponseMetadata` | `summaryInfo` | `summary_info` |
-| `ListenV1ResponseMetadata` | `sentimentInfo` | `sentiment_info` |
-| `ListenV1ResponseMetadata` | `topicsInfo` | `topics_info` |
-| `ListenV1ResponseMetadata` | `intentsInfo` | `intents_info` |
-| `ListenV1ResponseMetadataIntentsInfo` | `modelUuid` | `model_uuid` |
-| `ListenV1ResponseMetadataIntentsInfo` | `inputTokens` | `input_tokens` |
-| `ListenV1ResponseMetadataIntentsInfo` | `outputTokens` | `output_tokens` |
-| `ListenV1ResponseMetadataSentimentInfo` | `modelUuid` | `model_uuid` |
-| `ListenV1ResponseMetadataSentimentInfo` | `inputTokens` | `input_tokens` |
-| `ListenV1ResponseMetadataSentimentInfo` | `outputTokens` | `output_tokens` |
-| `ListenV1ResponseMetadataSummaryInfo` | `modelUuid` | `model_uuid` |
-| `ListenV1ResponseMetadataSummaryInfo` | `inputTokens` | `input_tokens` |
-| `ListenV1ResponseMetadataSummaryInfo` | `outputTokens` | `output_tokens` |
-| `ListenV1ResponseMetadataTopicsInfo` | `modelUuid` | `model_uuid` |
-| `ListenV1ResponseMetadataTopicsInfo` | `inputTokens` | `input_tokens` |
-| `ListenV1ResponseMetadataTopicsInfo` | `outputTokens` | `output_tokens` |
-| `ListenV1ResponseResultsChannelsItems` | `detectedLanguage` | `detected_language` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsEntitiesItems` | `rawValue` | `raw_value` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsEntitiesItems` | `startWord` | `start_word` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsEntitiesItems` | `endWord` | `end_word` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsParagraphsParagraphsItems` | `numWords` | `num_words` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsSummariesItems` | `startWord` | `start_word` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsSummariesItems` | `endWord` | `end_word` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems` | `startWord` | `start_word` |
-| `ListenV1ResponseResultsChannelsItemsAlternativesItemsTopicsItems` | `endWord` | `end_word` |
-| `ListenV1ResponseResultsUtterancesItemsWordsItems` | `speakerConfidence` | `speaker_confidence` |
-| `ListenV1ResponseResultsUtterancesItemsWordsItems` | `punctuatedWord` | `punctuated_word` |
-| `ProjectRequestResponse` | `requestId` | `request_id` |
-| `ProjectRequestResponse` | `projectUuid` | `project_uuid` |
-| `ProjectRequestResponse` | `apiKeyId` | `api_key_id` |
-| `ReadV1ResponseMetadataMetadata` | `requestId` | `request_id` |
-| `ReadV1ResponseMetadataMetadata` | `summaryInfo` | `summary_info` |
-| `ReadV1ResponseMetadataMetadata` | `sentimentInfo` | `sentiment_info` |
-| `ReadV1ResponseMetadataMetadata` | `topicsInfo` | `topics_info` |
-| `ReadV1ResponseMetadataMetadata` | `intentsInfo` | `intents_info` |
-| `ReadV1ResponseMetadataMetadataIntentsInfo` | `modelUuid` | `model_uuid` |
-| `ReadV1ResponseMetadataMetadataIntentsInfo` | `inputTokens` | `input_tokens` |
-| `ReadV1ResponseMetadataMetadataIntentsInfo` | `outputTokens` | `output_tokens` |
-| `ReadV1ResponseMetadataMetadataSentimentInfo` | `modelUuid` | `model_uuid` |
-| `ReadV1ResponseMetadataMetadataSentimentInfo` | `inputTokens` | `input_tokens` |
-| `ReadV1ResponseMetadataMetadataSentimentInfo` | `outputTokens` | `output_tokens` |
-| `ReadV1ResponseMetadataMetadataSummaryInfo` | `modelUuid` | `model_uuid` |
-| `ReadV1ResponseMetadataMetadataSummaryInfo` | `inputTokens` | `input_tokens` |
-| `ReadV1ResponseMetadataMetadataSummaryInfo` | `outputTokens` | `output_tokens` |
-| `ReadV1ResponseMetadataMetadataTopicsInfo` | `modelUuid` | `model_uuid` |
-| `ReadV1ResponseMetadataMetadataTopicsInfo` | `inputTokens` | `input_tokens` |
-| `ReadV1ResponseMetadataMetadataTopicsInfo` | `outputTokens` | `output_tokens` |
-| `SharedIntentsResultsIntentsSegmentsItems` | `startWord` | `start_word` |
-| `SharedIntentsResultsIntentsSegmentsItems` | `endWord` | `end_word` |
-| `SharedIntentsResultsIntentsSegmentsItemsIntentsItems` | `confidenceScore` | `confidence_score` |
-| `SharedSentimentsAverage` | `sentimentScore` | `sentiment_score` |
-| `SharedSentimentsSegmentsItems` | `startWord` | `start_word` |
-| `SharedSentimentsSegmentsItems` | `endWord` | `end_word` |
-| `SharedSentimentsSegmentsItems` | `sentimentScore` | `sentiment_score` |
-| `SharedTopicsResultsTopicsSegmentsItems` | `startWord` | `start_word` |
-| `SharedTopicsResultsTopicsSegmentsItems` | `endWord` | `end_word` |
-| `SharedTopicsResultsTopicsSegmentsItemsTopicsItems` | `confidenceScore` | `confidence_score` |
-| `SpeakV2AcceptedResponse` | `requestId` | `request_id` |
-| `UsageBreakdownV1ResponseResultsItems` | `totalHours` | `total_hours` |
-| `UsageBreakdownV1ResponseResultsItems` | `agentHours` | `agent_hours` |
-| `UsageBreakdownV1ResponseResultsItems` | `tokensIn` | `tokens_in` |
-| `UsageBreakdownV1ResponseResultsItems` | `tokensOut` | `tokens_out` |
-| `UsageBreakdownV1ResponseResultsItems` | `ttsCharacters` | `tts_characters` |
-| `UsageBreakdownV1ResponseResultsItemsGrouping` | `featureSet` | `feature_set` |
-| `UsageFieldsV1Response` | `processingMethods` | `processing_methods` |
-| `UsageFieldsV1ResponseModelsItems` | `modelId` | `model_id` |
 
 ---
 
@@ -469,11 +293,11 @@ A scheme **contributes** headers, query parameters and cookies rather than mutat
 
 **Composition is emitted, not configured.** Where the spec puts two schemes in one requirement the SDK sends **both**; where it lists alternatives the SDK sends the **first configured** one, in the order the **Auth** bullet prints them. The combinators that express this (`allAuth`, `anyAuth`, `noneAuth`) live in the generated resource modules and are **not exported**.
 
-**A credential may be a function.** Every field typed `TokenProvider` is re-read on **every** request with no caching, so a key can rotate without rebuilding the client. An empty string counts as absent, and a function is treated as present without being invoked.
+**A credential may be a function.** Every field typed `TokenProvider` is re-read on **every** request with no caching, so a key can rotate without rebuilding the client. An empty string counts as absent, and a function is treated as present without being invoked. The function is handed the call's `signal`, or one that never aborts when the call was given none, and the SDK waits for it to settle — so a function that fetches its credential should pass that signal on, or a cancelled call waits for the fetch to finish.
 
 **An unconfigured scheme does not throw.** The request goes out without that credential and the server decides. So a 401 on a call you believed was authenticated is usually an unset credential field rather than an SDK failure — check the operation's **Auth** bullet against what the client was given.
 
-**A 401 invalidates, it does not retry.** On a **401** — 401 only, not 403 — the SDK clears whatever that operation's scheme had cached, so the *next* call re-acquires. The current request still rejects with the operation's `ResponseError`. There is no retry loop on this SDK, and the credential fields are on `ClientOptions`.
+**A 401 invalidates the cached credential.** On a **401** — 401 only, not 403 — the SDK clears whatever that operation's scheme had cached, so the *next* call re-acquires. The current request still rejects with the operation's `ApiError`. The credential fields are on `ClientOptions`.
 
 **Environments.** `ClientOptions.serverEnvironment` selects one for the whole client (source: `src/servers.ts`). `ServerEnvironment` is a `const` object with a derived union type, not a TypeScript `enum` — and unlike the model enums it is **closed**, so only the values below are assignable.
 
@@ -482,20 +306,18 @@ A scheme **contributes** headers, query parameters and cookies rather than mutat
 | `ServerEnvironment.Production` *(default)* | `production` |
 | `ServerEnvironment.Environment2` | `environment2` |
 
-**Server groups.** 1 logical server; each operation is bound to one at generation time, and a block carries a **Server** bullet only when its group is not `default`.
+**serverOptions.** 1 logical server; each operation is bound to one at generation time, and a block carries a **Server** bullet only when its group is not `default`. Override `serverOptions`.
 
-| Group | Options type |
-| --- | --- |
-| `default` | `DefaultServerOptions` |
-
-**Base URLs and overrides.** One row per group-and-environment pair, so the table stays four columns wide however many environments a spec declares. Every cell is overridden at `serverOptions.<group>.<environment>.<name>`, where `<name>` is `baseUrl` for the whole template or the variable name for one substitution. An override merges with the built-in defaults **per pair, key by key**.
+**Base URLs and overrides.** One row per group-and-environment pair, and every cell is overridden at `serverOptions.<name>`, where `<name>` is `baseUrl` for the whole template or the variable name for one substitution. Which environment a cell belongs to is selected by `serverEnvironment`, not written into the path — the options type only admits the keys legal under the environment named there. An override merges with the built-in defaults **per pair, key by key**.
 
 | Group | Environment | Base URL template | Template variables (default) |
 | --- | --- | --- | --- |
 | `default` | `production` | `https://agent.deepgram.com` | — |
 | `default` | `environment2` | `https://api.deepgram.com` | — |
 
-A `baseUrl` override replaces the template verbatim; variable values are percent-encoded into it, and templates are expanded per request rather than once at construction. An environment value the SDK does not know throws `SdkError` when a server is resolved — at the first call, not at construction. It is the one failure on this surface that throws **synchronously** out of the operation method, so a `try`/`await` catches it but `.asApiResult()` and `.catch()` never see it.
+A `baseUrl` override replaces the template verbatim; variable values are percent-encoded into it. Server variables are filled in once, as the client is built; only the path parameters are expanded per request. An environment value the SDK does not know throws `ConfigurationError`, and it is the **constructor** that throws it: every server group is resolved once, by `buildServers`, as the client is built, and an accessor afterwards only attaches the operation's sub-path. No operation method throws synchronously.
+
+Retries are configurable via `ClientOptions.retry` (`RetryOptions`, source `src/core/retry.ts`) — the field table is under Getting a client.
 
 ---
 
@@ -507,18 +329,18 @@ The facts that change what you type, and the floors that decide whether the pack
 | --- | --- |
 | One entry, two dialects | `import` resolves `dist/esm`, `require` resolves `dist/commonjs`, both through the single `.` export. In a TypeScript CommonJS file the typed spelling is `import sdk = require("deepgram")`; a plain `require` destructure works at run time but yields no types. `instanceof` is reliable **within** one dialect — if your app loads both, the two copies declare separate error classes |
 | Consumer compiler settings | Under `exactOptionalPropertyTypes`, **omit or spread** an absent optional rather than assigning `undefined` to it. Under `verbatimModuleSyntax`, names that carry no runtime value (the options types, every model type) must be imported with `import type` |
-| Required globals, and only these | Always: `fetch` (or a replacement passed as the `fetch` option), `AbortController`, `Headers`, `URL`, `setTimeout` and `clearTimeout`, `JSON`, `BigInt`. Nothing else — no credential this SDK sends reaches for a further global. |
+| Required globals, and only these | Always: `fetch` (or a replacement passed as the `fetch` option), `AbortController`, `Headers`, `URL`, `setTimeout` and `clearTimeout`, `JSON`, `BigInt`. `crypto.randomUUID` or `crypto.getRandomValues` mints the `Idempotency-Key` a non-GET call carries — **read and never required**, since a runtime offering neither fills the bytes from `Math.random` mixed with the clock and a per-process counter, so the header is always sent. Three more are **read and never required** — `process`, `navigator` and `EdgeRuntime`, which name the host in `X-APIMatic-OS` and `X-APIMatic-Runtime`. A runtime offering none of them sends neither header and works unchanged. |
 | Values that cross the boundary | `Date` for `date-time`, `string` for `date`, `ArrayBuffer` for an undeclared error body, `Headers` on a result and on a thrown `ResponseError`. The engine also carries a `bigint` int64 path and a base64 `bytes()` codec, reached only where a model uses them |
 | Browser distribution | The package ships `dist/esm` and `dist/commonjs` and nothing else — **no bundle, no UMD file, no CDN artifact**. Use it through a bundler, which resolves `zod/v4-mini`, deduplicates it against your own copy and tree-shakes the rest |
 | Other runtimes | Deno, Bun, Cloudflare Workers and Vercel Edge are all likely to work — the SDK needs only the globals above and imports no Node built-in — but **none of them is tested for this package**, so nothing here claims support for them |
 
-The browser floor comes from the emitted output rather than the sources: `tshy` builds at `target: ES2022`, so native `#private` fields and methods survive into `dist/`.
+The browser floor is set by `AbortSignal.any`, which every call uses to combine `RequestOptions.signal`, or a signal that never aborts when there is none, with the attempt's timer. The emitted output needs less: `tshy` builds at `target: ES2022`, so native `#private` fields and methods survive into `dist/`, and those load from Chrome 85, Firefox 90 and Safari 15.
 
-| Browser | Minimum | Set by |
-| --- | --- | --- |
-| Chrome / Edge | **85** | `String.prototype.replaceAll`, logical assignment (`??=`) |
-| Firefox | **90** | private class fields and methods |
-| Safari / iOS Safari | **15** | private class **methods** |
+| Browser | Minimum |
+| --- | --- |
+| Chrome / Edge | **116** |
+| Firefox | **124** |
+| Safari / iOS Safari | **17.4** |
 
-That table is the **module-load** floor: below it the SDK fails while the module is evaluating, not at the first call. Two things degrade quietly above it. `{ cause }` on the `Error` constructor needs Chrome 93, Firefox 91 or Safari 15, so below that `err.cause` is `undefined`. More consequentially, **cancellation needs `AbortController.abort(reason)` and `AbortSignal.reason`**, which arrived in Chrome 98, Firefox 97 and Safari 15.4 — between the module-load floor and those versions the engine still aborts the request but produces no typed error at all.
+Below that table the module still loads, down to the emitted-output floor, but every call rejects with a `TypeError`.
 

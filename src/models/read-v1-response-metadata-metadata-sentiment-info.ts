@@ -10,8 +10,8 @@ export type ReadV1ResponseMetadataMetadataSentimentInfo = {
 export const readV1ResponseMetadataMetadataSentimentInfoSchema: Schema<ReadV1ResponseMetadataMetadataSentimentInfo> =
   s.object<ReadV1ResponseMetadataMetadataSentimentInfo>({
     modelUuid: s.optional(s.string()),
-    inputTokens: s.optional(s.number()),
-    outputTokens: s.optional(s.number()),
+    inputTokens: s.optional(s.int()),
+    outputTokens: s.optional(s.int()),
     _keysMap: {
       modelUuid: "model_uuid",
       inputTokens: "input_tokens",

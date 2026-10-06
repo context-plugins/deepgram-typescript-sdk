@@ -1,6 +1,10 @@
 import * as s from "../core/validation/index.js";
 import type { EnumSchema } from "../core/validation/schema.js";
 
+/**
+ * Encoding - linear16. Uncompressed, high-quality audio format often used for telephony or audio
+ * processing.
+ */
 export const V2SpeakPostParametersEncoding0 = {
   Linear16: "linear16",
 } as const;
